@@ -1,7 +1,16 @@
 ---
-title: "Paperwater"
+title: ""
+page-layout: custom
+include-in-header:
+  text: |
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+<div class="neon-page">
+<div class="neon-sign">
+<h1 class="neon-water">WATER</h1>
+<h1 class="neon-paper">PAPER</h1>
+</div>
+</div>
