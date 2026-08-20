@@ -1,19 +1,24 @@
 project:
   type: website
+  resources:
+    - "river-schematic.html"
+    - "data/river-data.json"
 
 website:
   title: "Paperwater"
   navbar:
+    background: "#0a0a0a"
+    foreground: "#b8a98a"
     left:
       - href: index.qmd
         text: Home
+      - href: river-schematic.html
+        text: The River
       - about.qmd
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: default
     css: styles.css
     toc: true
 

@@ -1,0 +1,60 @@
+name: Update river data
+
+on:
+  schedule:
+    - cron: "0 13 * * *"  # ~6-7am Mountain Time, before the irrigation-season diversion cascade ramps up
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-river-data
+  cancel-in-progress: false
+
+jobs:
+  update-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch river data
+        run: python scripts/fetch_data.py
+
+      - name: Commit data update
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/river-data.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git add data/river-data.json
+            git commit -m "Update river data $(date -u +'%Y-%m-%d %H:%MZ')"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Quarto
+        if: steps.commit.outputs.changed == 'true'
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render site
+        if: steps.commit.outputs.changed == 'true'
+        run: quarto render
+
+      - name: Publish to gh-pages
+        if: steps.commit.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site

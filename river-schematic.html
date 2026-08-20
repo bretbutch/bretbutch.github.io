@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rio Grande — where the river actually goes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF1EA; --panel:#FAFAF5; --ink:#1B2420; --ink-soft:#5A6459;
+    --river:#1F6F86; --river-soft:#9FCAD6; --sand:#C39A5C; --alert:#B8492E;
+    --line:#D7D9CB;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    padding:2.5rem 1.25rem 4rem;
+  }
+  .wrap{max-width:640px; margin:0 auto;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em;
+    color:var(--ink-soft); text-transform:uppercase;
+  }
+  h1{
+    font-size:26px; font-weight:600; margin:.4rem 0 .6rem; line-height:1.25;
+  }
+  .thesis{ font-size:15px; color:var(--ink-soft); line-height:1.55; margin:0 0 .5rem;}
+  .badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; background:var(--panel); border:0.5px solid var(--line); border-radius:20px;
+    padding:4px 12px; margin:1rem 0 1.75rem; color:var(--ink-soft);
+  }
+  .badge b{color:var(--ink); font-weight:600;}
+
+  .updated{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft);
+    margin:.6rem 0 0;
+  }
+  .updated b{color:var(--ink);}
+
+  .part-label{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em;
+    color:var(--river); text-transform:uppercase; margin:2.4rem 0 .9rem; text-align:center;
+  }
+  .river{position:relative;}
+  .seg{display:flex; justify-content:center; padding:0;}
+  .bar{
+    background:var(--river); border-radius:3px; transition:opacity .2s; height:24px;
+  }
+  .bar.ghost{
+    background:transparent; border:1px dashed var(--alert); width:6px !important;
+  }
+  .bar.low{background:var(--river-soft);}
+
+  .node{
+    background:var(--panel); border:0.5px solid var(--line); border-radius:10px;
+    padding:14px 18px; margin:0 auto; position:relative; z-index:1;
+  }
+  .node.alert{border-color:var(--alert);}
+  .node-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;}
+  .node-name{font-weight:600; font-size:15px;}
+  .node-loc{font-size:12px; color:var(--ink-soft); margin-top:1px;}
+  .node-read{
+    font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:500; white-space:nowrap;
+  }
+  .node-read.zero{color:var(--alert);}
+  .node-read.unavailable{color:var(--ink-soft); font-size:12px;}
+  .node-sub{font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.5;}
+
+  .branch{
+    display:flex; align-items:baseline; gap:8px; margin-top:10px; padding-top:10px;
+    border-top:0.5px solid var(--line); font-size:13px;
+  }
+  .branch .arrow{color:var(--sand); font-family:'IBM Plex Mono',monospace;}
+  .branch .to{color:var(--ink-soft);}
+  .branch .amt{
+    font-family:'IBM Plex Mono',monospace; font-weight:500; color:var(--ink); margin-left:auto;
+    white-space:nowrap;
+  }
+
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:560px; margin:0 auto;}
+  .pair .node{padding:12px 14px;}
+  .pair .node-name{font-size:14px;}
+  @media (max-width:520px){ .pair{grid-template-columns:1fr;} }
+
+  .tank{
+    width:120px; height:70px; margin:0 auto; border:1.5px solid var(--river); border-radius:6px 6px 14px 14px;
+    position:relative; overflow:hidden; background:var(--panel);
+  }
+  .tank-fill{position:absolute; bottom:0; left:0; right:0; background:var(--river-soft);}
+  .tank-label{text-align:center; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:6px;}
+
+  .seam{
+    display:flex; align-items:center; gap:14px; margin:2.6rem 0 1.6rem; color:var(--ink-soft);
+    font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:center;
+  }
+  .seam::before, .seam::after{content:''; flex:1; height:1px; background:var(--line);}
+
+  .callout{
+    max-width:560px; margin:1.2rem auto 0; background:var(--panel); border:0.5px solid var(--line);
+    border-left:3px solid var(--alert); border-radius:0 10px 10px 0; padding:12px 16px; font-size:13px;
+    line-height:1.6; color:var(--ink-soft);
+  }
+  .callout b{color:var(--ink); font-family:'IBM Plex Mono',monospace;}
+
+  .beta-pill{
+    display:inline-block; background:var(--alert); color:#fff; font-family:'IBM Plex Mono',monospace;
+    font-size:10px; letter-spacing:.06em; padding:2px 7px; border-radius:4px; vertical-align:middle; margin-left:6px;
+  }
+  .feedback{font-size:12px; color:var(--ink-soft); margin:.6rem 0 1.75rem;}
+  .feedback a{color:var(--river); text-decoration:none; border-bottom:1px dotted var(--river);}
+
+  footer{
+    margin-top:2.5rem; padding-top:1.25rem; border-top:0.5px solid var(--line);
+    font-size:12px; color:var(--ink-soft); line-height:1.7;
+  }
+  footer b{color:var(--ink); font-weight:500;}
+
+  .load-error{
+    max-width:560px; margin:2rem auto; background:var(--panel); border:1px dashed var(--alert);
+    border-radius:10px; padding:16px 18px; font-size:13px; color:var(--ink-soft); line-height:1.6;
+  }
+
+  @media (max-width:480px){
+    .node{padding:12px 14px;}
+    .node-read{font-size:14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Rio Grande — Del Norte, CO to Elephant Butte, NM <span class="beta-pill">BETA</span></div>
+  <h1>Where the river actually goes</h1>
+  <p class="thesis">Every reading below is pulled live from the diverting agencies' own public gage telemetry, refreshed daily. The channel bar width scales with flow — watch it thin, and sometimes vanish, at each diversion.</p>
+  <p class="updated" id="updated-line">Loading current readings&hellip;</p>
+  <p class="feedback">This is an early beta. Something wrong, missing, or worth adding? <a href="mailto:butch@paperwater.net">butch@paperwater.net</a></p>
+
+  <div id="app"></div>
+
+  <footer>
+    <b>Reading this diagram:</b> bar width is proportional to flow (square-root scale, floor of 6px). Dashed red segments mean the gage read zero — or didn't report — at time of fetch. Angostura, the Isleta Diversion Dam, and the San Acacia intake are each physically capable of taking the entire river during low flow.<br><br>
+    <b>Methodology:</b> these are the diverting agencies' own published numbers, taken at face value. Nobody — including the districts themselves — comprehensively tracks how much of a given diversion's return flow gets picked up and rediverted further downstream. The point of this piece is showing that repeated capture happens, across both Colorado and New Mexico, under two different legal regimes — not producing a precise mass balance of the river.<br><br>
+    <b>Sources:</b> MRGCD OneRain telemetry (mrgcd.onerain.com) · USGS National Water Information System (waterservices.usgs.gov) · USBR HydroData (usbr.gov/uc/water/hydrodata). Data refreshes daily via an automated pipeline; MRGCD and USGS readings are near-real-time, USBR gage and reservoir figures are the most recent day USBR has published (typically one day behind). USBR publishes reservoir releases as a daily acre-foot total rather than a flow rate — the Cochiti and Elephant Butte release figures above are that total converted to an average cfs for the day (&divide; 1.9835), which is why they can read a little differently than a live instantaneous dashboard reading at any given moment.
+  </footer>
+
+</div>
+
+<script>
+const DATA_URL = 'data/river-data.json';
+
+function fmtCfs(v){
+  if (v === null || v === undefined || isNaN(v)) return null;
+  return (Math.round(v * 10) / 10).toLocaleString('en-US') + ' cfs';
+}
+function fmtAF(v){
+  if (v === null || v === undefined || isNaN(v)) return null;
+  return Math.round(v).toLocaleString('en-US') + ' AF';
+}
+function widthFor(v){
+  if (v === null || v === undefined || isNaN(v) || v <= 0) return 6;
+  return Math.max(6, Math.round(4 * Math.sqrt(v)));
+}
+function barClass(v){
+  if (v === null || v === undefined || isNaN(v) || v <= 0) return 'ghost';
+  if (v < 15) return 'low';
+  return '';
+}
+function get(obj, key){
+  const entry = obj && obj[key];
+  if (!entry || entry.error) return null;
+  return entry;
+}
+
+function segHtml(value){
+  return `<div class="seg"><div class="bar ${barClass(value)}" style="width:${widthFor(value)}px"></div></div>`;
+}
+
+function nodeHtml({ name, loc, value, units, sub, branch }){
+  const missing = value === null || value === undefined || isNaN(value);
+  const isZero = !missing && value <= 0;
+  const readText = missing ? 'no reading' : (units === 'AF' ? fmtAF(value) : fmtCfs(value));
+  const readClass = missing ? 'unavailable' : (isZero ? 'zero' : '');
+  const alertClass = (missing || isZero) ? 'alert' : '';
+  const branchHtml = branch ? `
+      <div class="branch">
+        <span class="arrow">&#8618;</span><span class="to">${branch.to}</span>
+        <span class="amt">${branch.value === null ? 'no reading' : fmtCfs(branch.value)}</span>
+      </div>` : '';
+  return `
+    <div class="node ${alertClass}">
+      <div class="node-top">
+        <div><div class="node-name">${name}</div><div class="node-loc">${loc}</div></div>
+        <div class="node-read ${readClass}">${readText}</div>
+      </div>
+      <div class="node-sub">${sub}</div>${branchHtml}
+    </div>`;
+}
+
+function fmtTimestamp(iso){
+  try {
+    const d = new Date(iso);
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+      timeZone: 'America/Denver', timeZoneName: 'short'
+    }).format(d);
+  } catch (e) { return iso; }
+}
+
+async function render(){
+  const app = document.getElementById('app');
+  let data;
+  try {
+    const res = await fetch(DATA_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = await res.json();
+  } catch (err) {
+    document.getElementById('updated-line').textContent = '';
+    app.innerHTML = `<div class="load-error">Couldn't load current river data (${err.message}). The daily fetch pipeline may be temporarily down — try reloading in a bit.</div>`;
+    return;
+  }
+
+  const delNorte = get(data.usbr_gage, 'del_norte');
+  const mogote = get(data.usbr_gage, 'mogote');
+  const lobatos = get(data.usbr_gage, 'lobatos');
+  const mrgcdTotal = get(data.mrgcd, 'mrgcd_total');
+  const cochiti = get(data.mrgcd, 'cochiti');
+  const angostura = get(data.mrgcd, 'angostura');
+  const isleta = get(data.mrgcd, 'isleta');
+  const sanAcacia = get(data.mrgcd, 'san_acacia');
+  const otowi = get(data.usgs, 'otowi');
+  const albuquerque = get(data.usgs, 'albuquerque');
+  const isletaLakes = get(data.usgs, 'isleta_lakes');
+  const sanMarcialFloodway = get(data.usgs, 'san_marcial_floodway');
+  const sanMarcialLfcc = get(data.usgs, 'san_marcial_lfcc');
+  const ebStorage = get(data.usbr_reservoir, 'elephant_butte_storage');
+  const ebRelease = get(data.usbr_reservoir, 'elephant_butte_release');
+  const cochitiStorage = get(data.usbr_reservoir, 'cochiti_storage');
+  const cochitiRelease = get(data.usbr_reservoir, 'cochiti_release');
+
+  const EB_CAPACITY_AF = 2195000; // conservation capacity, fixed physical fact
+
+  document.getElementById('updated-line').innerHTML =
+    `Live data as of <b>${data.generated_at ? fmtTimestamp(data.generated_at) : 'unknown'}</b> &middot; refreshed daily`;
+
+  let html = '';
+
+  // --- Part 1: Colorado ---
+  html += `<div class="part-label">Part 1 &middot; Colorado &mdash; the San Luis Valley</div>`;
+  html += `<div class="pair">
+    ${nodeHtml({ name:'Del Norte', loc:'Rio Grande, mountain front', value: delNorte && delNorte.value, sub:"Compact's own definition: measured above all principal points of diversion to the valley." })}
+    ${nodeHtml({ name:'Mogote', loc:'Conejos River, mountain front', value: mogote && mogote.value, sub:"Colorado's other statutory index gage — the Conejos Index Supply." })}
+  </div>`;
+
+  html += segHtml(mogote && mogote.value);
+  html += `<div class="node">
+    <div class="node-top">
+      <div><div class="node-name">San Luis Valley irrigation</div><div class="node-loc">Thousands of individually decreed headgates, valley-wide</div></div>
+    </div>
+    <div class="node-sub">No single district runs this the way MRGCD runs Angostura or Isleta downstream — capture happens structure by structure, ditch by ditch, across the whole valley floor. There's no single public gage for "total valley diversion," which is part of why this reach isn't shown as a bar-for-bar accounting.</div>
+  </div>`;
+
+  html += segHtml(lobatos && lobatos.value);
+  html += nodeHtml({ name:'Lobatos', loc:"The Compact's actual delivery point — CO/NM state line", value: lobatos && lobatos.value, sub:"This is the number Colorado's obligation is measured against." });
+
+  if (delNorte && mogote && lobatos) {
+    const combined = delNorte.value + mogote.value;
+    const pct = combined > 0 ? Math.round((1 - lobatos.value / combined) * 100) : null;
+    html += `<div class="callout"><b>${fmtCfs(combined)} &#8594; ${fmtCfs(lobatos.value)}.</b> Of the combined Del Norte + Mogote index supply entering the valley, about ${pct}% never reaches the state line.</div>`;
+  }
+
+  html += `<div class="seam">&mdash; meanwhile, downstream in New Mexico &mdash;</div>`;
+
+  // --- Part 2: New Mexico ---
+  html += `<div class="part-label">Part 2 &middot; New Mexico &mdash; Otowi to Elephant Butte</div>`;
+  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS gage 08313000, headwater gage above Cochiti', value: otowi && otowi.value, sub:'The river\'s inflow to the MRGCD system, upstream of Cochiti Dam and every division diversion below it.' });
+
+  html += `<div class="badge" style="display:block; width:fit-content; margin:1rem auto 1.75rem">MRGCD combined diversion total, all divisions <b>${mrgcdTotal ? fmtCfs(mrgcdTotal.value) : 'no reading'}</b></div>`;
+
+  html += `<div class="river">`;
+
+  html += segHtml(otowi && otowi.value);
+  html += nodeHtml({ name:'Cochiti Dam', loc:'USBR reservoir, site 2696 — flood control', value: cochitiRelease && cochitiRelease.value,
+    sub:`Average release for the day, computed from USBR's published acre-feet total. ${cochitiStorage ? `Currently holding ${fmtAF(cochitiStorage.value)} in flood-control storage` : 'Storage reading unavailable'} — a dam like this can release more or less than what flowed in that day, so this number won't line up neatly with Otowi.`,
+    branch: { to: 'Cochiti Division canals, MRGCD', value: cochiti && cochiti.value } });
+
+  if (cochitiRelease && mrgcdTotal && mrgcdTotal.value > cochitiRelease.value) {
+    html += `<div class="callout"><b>${fmtCfs(cochitiRelease.value)} released, ${fmtCfs(mrgcdTotal.value)} diverted downstream.</b> That's not a contradiction — it's two things this diagram can't show. Water takes roughly a day or more to travel the ~150 miles from Cochiti to San Acacia, so today's diversions are partly metering water Cochiti released days ago (its release was measurably higher earlier this week). And MRGCD's own canals return unused water to the channel at multiple points down-valley, where the next dam can divert it again. Nobody publishes an accounting that reconciles the two — these are live readings from different points on the river, not a balanced ledger.</div>`;
+  }
+
+  html += segHtml(cochitiRelease && cochitiRelease.value);
+  html += nodeHtml({ name:'Angostura Diversion Dam', loc:'Serves the Albuquerque Division', value: angostura && angostura.value, sub:'Capable of routing the entire river out at low flow.',
+    branch: { to: 'Albuquerque Division canals', value: angostura && angostura.value } });
+
+  html += segHtml(angostura && angostura.value);
+  html += nodeHtml({ name:'Through Albuquerque', loc:'USGS gage 08330000, downtown reach', value: albuquerque && albuquerque.value, sub:'What\'s left in the channel after the Angostura diversion.' });
+
+  html += segHtml(albuquerque && albuquerque.value);
+  html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Serves the Belen Division', value: isleta && isleta.value, sub:'Same design as Angostura — full-river capture capability during irrigation season.',
+    branch: { to: 'Belen Division canals', value: isleta && isleta.value } });
+
+  html += segHtml(isleta && isleta.value);
+  html += nodeHtml({ name:'Below Isleta', loc:'USGS gage 08330875, Isleta Lakes reach', value: isletaLakes && isletaLakes.value, sub:'Return flow and tailwater that persists past the Isleta diversion.' });
+
+  html += segHtml(isletaLakes && isletaLakes.value);
+  html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Serves the Socorro Division', value: sanAcacia && sanAcacia.value, sub:'There\'s often nothing left in the channel to divert by the time the river reaches here.' });
+
+  html += segHtml(sanAcacia && sanAcacia.value);
+  html += `<div class="pair">
+    ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS gage 08358400, Rio Grande Floodway', value: sanMarcialFloodway && sanMarcialFloodway.value, sub:'The natural riverbed, last reach before Elephant Butte.' })}
+    ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS gage 08358300, Low Flow Conveyance Channel', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'A parallel channel MRGCD built to move water past this seepage-heavy reach without losing it to the riverbed. The water isn\'t gone when the channel gage above reads zero — it\'s often just over here instead.' })}
+  </div>`;
+
+  html += segHtml(Math.max((sanMarcialFloodway && sanMarcialFloodway.value) || 0, (sanMarcialLfcc && sanMarcialLfcc.value) || 0));
+  html += `<div style="text-align:center">
+    <div class="tank"><div class="tank-fill" style="height:${ebStorage ? Math.max(1, Math.min(100, Math.round(100 * ebStorage.value / EB_CAPACITY_AF))) : 0}%"></div></div>
+    <div class="tank-label">Elephant Butte — ${ebStorage ? fmtAF(ebStorage.value) : 'no reading'} stored (~${ebStorage ? (100 * ebStorage.value / EB_CAPACITY_AF).toFixed(1) : '?'}% of ${EB_CAPACITY_AF.toLocaleString('en-US')} AF conservation capacity)<br>release below dam: ${ebRelease ? fmtCfs(ebRelease.value) : 'no reading'} (avg for the day)</div>
+  </div>`;
+
+  html += `</div>`; // .river
+
+  if (angostura && isleta && sanAcacia && ebRelease) {
+    const diverted = angostura.value + isleta.value + sanAcacia.value;
+    html += `<div class="callout"><b>${fmtCfs(diverted)} diverted upstream, ${fmtCfs(ebRelease.value)} released today.</b> Angostura, Isleta, and San Acacia combined are diverting ${fmtCfs(diverted)} out of the channel right now; Elephant Butte's most recent daily release is ${fmtCfs(ebRelease.value)}. As above, these aren't the same water at the same moment — there's real transit time down this stretch too, and whatever isn't diverted or lost to the channel between here and the reservoir still has to arrive before it can be released.</div>`;
+  }
+
+  app.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
