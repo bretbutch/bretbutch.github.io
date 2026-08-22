@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-22T13:25:22.532314+00:00",
+  "generated_at": "2026-08-22T13:34:40.351990+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 292.74,
+      "value": 292.58,
       "units": "cfs",
-      "timestamp": "2026-08-22T13:12:08+00:00",
+      "timestamp": "2026-08-22T13:30:53+00:00",
       "site_id": 195,
       "device_id": 2
     },
@@ -23,9 +23,9 @@
       "device_id": 3
     },
     "isleta": {
-      "value": 53.76,
+      "value": 53.6,
       "units": "cfs",
-      "timestamp": "2026-08-22T13:12:08+00:00",
+      "timestamp": "2026-08-22T13:30:53+00:00",
       "site_id": 197,
       "device_id": 2
     },
@@ -48,7 +48,7 @@
     "albuquerque": {
       "value": 0.0,
       "units": "cfs",
-      "timestamp": "2026-08-22T06:15:00.000-06:00",
+      "timestamp": "2026-08-22T07:15:00.000-06:00",
       "site": "08330000",
       "name": "RIO GRANDE AT ALBUQUERQUE, NM"
     },
