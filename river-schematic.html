@@ -60,6 +60,8 @@
     padding:14px 18px; margin:0 auto; position:relative; z-index:1;
   }
   .node.alert{border-color:var(--alert);}
+  .node.input{border-left:3px solid var(--sand); border-radius:0 10px 10px 0;}
+  .node.input .node-name{color:var(--sand);}
   .node-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;}
   .node-name{font-weight:600; font-size:15px;}
   .node-loc{font-size:12px; color:var(--ink-soft); margin-top:1px;}
@@ -179,22 +181,24 @@ function segHtml(value){
   return `<div class="seg"><div class="bar ${barClass(value)}" style="width:${widthFor(value)}px"></div></div>`;
 }
 
-function nodeHtml({ name, loc, value, units, sub, branch }){
+function nodeHtml({ name, loc, value, units, sub, branch, isInput, hideReading }){
   const missing = value === null || value === undefined || isNaN(value);
   const isZero = !missing && value <= 0;
   const readText = missing ? 'no reading' : (units === 'AF' ? fmtAF(value) : fmtCfs(value));
   const readClass = missing ? 'unavailable' : (isZero ? 'zero' : '');
-  const alertClass = (missing || isZero) ? 'alert' : '';
+  const alertClass = (!hideReading && (missing || isZero)) ? 'alert' : '';
+  const inputClass = isInput ? 'input' : '';
+  const readHtml = hideReading ? '' : `<div class="node-read ${readClass}">${readText}</div>`;
   const branchHtml = branch ? `
       <div class="branch">
         <span class="arrow">&#8618;</span><span class="to">${branch.to}</span>
         <span class="amt">${branch.value === null ? 'no reading' : fmtCfs(branch.value)}</span>
       </div>` : '';
   return `
-    <div class="node ${alertClass}">
+    <div class="node ${alertClass} ${inputClass}">
       <div class="node-top">
         <div><div class="node-name">${name}</div><div class="node-loc">${loc}</div></div>
-        <div class="node-read ${readClass}">${readText}</div>
+        ${readHtml}
       </div>
       <div class="node-sub">${sub}</div>${branchHtml}
     </div>`;
@@ -260,7 +264,7 @@ async function render(){
     <div class="node-top">
       <div><div class="node-name">San Luis Valley irrigation</div><div class="node-loc">Thousands of individually decreed headgates, valley-wide</div></div>
     </div>
-    <div class="node-sub">No single district runs this the way MRGCD runs Angostura or Isleta downstream — capture happens structure by structure, ditch by ditch, across the whole valley floor. There's no single public gage for "total valley diversion," which is part of why this reach isn't shown as a bar-for-bar accounting.</div>
+    <div class="node-sub">No single district runs this the way MRGCD runs Angostura or Isleta downstream — capture happens structure by structure, ditch by ditch, across the whole valley floor. There's no single real-time public gage for "total valley diversion," which is part of why this reach isn't shown as a bar-for-bar accounting.</div>
   </div>`;
 
   html += segHtml(lobatos && lobatos.value);
@@ -288,7 +292,7 @@ async function render(){
     branch: { to: 'Cochiti Division canals, MRGCD', value: cochiti && cochiti.value } });
 
   if (cochitiRelease && mrgcdTotal && mrgcdTotal.value > cochitiRelease.value) {
-    html += `<div class="callout"><b>${fmtCfs(cochitiRelease.value)} released, ${fmtCfs(mrgcdTotal.value)} diverted downstream.</b> That's not a contradiction — it's two things this diagram can't show. Water takes roughly a day or more to travel the ~150 miles from Cochiti to San Acacia, so today's diversions are partly metering water Cochiti released days ago (its release was measurably higher earlier this week). And MRGCD's own canals return unused water to the channel at multiple points down-valley, where the next dam can divert it again. Nobody publishes an accounting that reconciles the two — these are live readings from different points on the river, not a balanced ledger.</div>`;
+    html += `<div class="callout"><b>${fmtCfs(cochitiRelease.value)} released, ${fmtCfs(mrgcdTotal.value)} diverted downstream.</b> That's not a contradiction — it's two things this diagram can't show: the water's transit time between these two points isn't accounted for here, and MRGCD's own canals return unused water to the channel at multiple points down-valley, where the next dam can divert it again. Nobody publishes an accounting that reconciles the two — these are live readings from different points on the river, not a balanced ledger.</div>`;
   }
 
   html += segHtml(cochitiRelease && cochitiRelease.value);
@@ -299,13 +303,21 @@ async function render(){
   html += nodeHtml({ name:'Through Albuquerque', loc:'USGS gage 08330000, downtown reach', value: albuquerque && albuquerque.value, sub:'What\'s left in the channel after the Angostura diversion.' });
 
   html += segHtml(albuquerque && albuquerque.value);
+  html += nodeHtml({ name:'ABCWUA Southside Water Reclamation Plant', loc:'Wastewater outfall — treated effluent, primarily pumped groundwater', isInput:true, hideReading:true,
+    sub: `The jump from ${albuquerque ? fmtCfs(albuquerque.value) : '0 cfs'} to ${isletaLakes ? fmtCfs(isletaLakes.value) : 'the next reading'} isn't the river recovering — it's the plant restarting it.` });
+
+  html += segHtml(isletaLakes && isletaLakes.value);
+  html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'The channel restarted by the Southside outfall, before Isleta Diversion Dam takes its share.' });
+
+  html += segHtml(isletaLakes && isletaLakes.value);
   html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Serves the Belen Division', value: isleta && isleta.value, sub:'Same design as Angostura — full-river capture capability during irrigation season.',
     branch: { to: 'Belen Division canals', value: isleta && isleta.value } });
 
-  html += segHtml(isleta && isleta.value);
-  html += nodeHtml({ name:'Below Isleta', loc:'USGS gage 08330875, Isleta Lakes reach', value: isletaLakes && isletaLakes.value, sub:'Return flow and tailwater that persists past the Isleta diversion.' });
+  if (isleta && isletaLakes && isleta.value > isletaLakes.value) {
+    html += `<div class="callout"><b>Open question:</b> the gage just upstream at Isleta Lakes reads ${fmtCfs(isletaLakes.value)}, but the diversion dam below it shows ${fmtCfs(isleta.value)} captured — more than the upstream gage says arrived. Could be travel-time lag between two live reads, local accretion between the two points, or something else. We're flagging it rather than quietly resolving it.</div>`;
+  }
 
-  html += segHtml(isletaLakes && isletaLakes.value);
+  html += segHtml(isleta && isleta.value);
   html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Serves the Socorro Division', value: sanAcacia && sanAcacia.value, sub:'There\'s often nothing left in the channel to divert by the time the river reaches here.' });
 
   html += segHtml(sanAcacia && sanAcacia.value);
@@ -324,7 +336,7 @@ async function render(){
 
   if (angostura && isleta && sanAcacia && ebRelease) {
     const diverted = angostura.value + isleta.value + sanAcacia.value;
-    html += `<div class="callout"><b>${fmtCfs(diverted)} diverted upstream, ${fmtCfs(ebRelease.value)} released today.</b> Angostura, Isleta, and San Acacia combined are diverting ${fmtCfs(diverted)} out of the channel right now; Elephant Butte's most recent daily release is ${fmtCfs(ebRelease.value)}. As above, these aren't the same water at the same moment — there's real transit time down this stretch too, and whatever isn't diverted or lost to the channel between here and the reservoir still has to arrive before it can be released.</div>`;
+    html += `<div class="callout"><b>${fmtCfs(diverted)} diverted upstream, ${fmtCfs(ebRelease.value)} released today.</b> Angostura, Isleta, and San Acacia combined are diverting ${fmtCfs(diverted)} out of the channel right now; Elephant Butte's most recent daily release is ${fmtCfs(ebRelease.value)}. As above, these aren't the same water at the same moment — the water's transit time between these two points isn't accounted for here, and whatever isn't diverted or lost to the channel between here and the reservoir still has to arrive before it can be released.</div>`;
   }
 
   app.innerHTML = html;
