@@ -1,107 +1,107 @@
 {
-  "generated_at": "2026-08-26T13:47:18.231237+00:00",
+  "generated_at": "2026-08-27T22:42:32.550754+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 277.41,
+      "value": 324.8,
       "units": "cfs",
-      "timestamp": "2026-08-26T13:42:13+00:00",
+      "timestamp": "2026-08-27T22:40:06+00:00",
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 106.22,
+      "value": 103.3,
       "units": "cfs",
-      "timestamp": "2026-08-26T13:36:16+00:00",
+      "timestamp": "2026-08-27T22:36:28+00:00",
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 108.17,
+      "value": 120.09,
       "units": "cfs",
-      "timestamp": "2026-08-26T13:36:09+00:00",
+      "timestamp": "2026-08-27T22:06:21+00:00",
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 62.84,
+      "value": 52.37,
       "units": "cfs",
-      "timestamp": "2026-08-26T13:42:13+00:00",
+      "timestamp": "2026-08-27T22:39:56+00:00",
       "site_id": 197,
       "device_id": 2
     },
     "san_acacia": {
-      "value": 0,
+      "value": 48.86,
       "units": "cfs",
-      "timestamp": "2026-08-26T13:39:39+00:00",
+      "timestamp": "2026-08-27T22:40:06+00:00",
       "site_id": 131,
       "device_id": 3
     }
   },
   "usgs": {
     "otowi": {
-      "value": 256.0,
+      "value": 181.0,
       "units": "cfs",
-      "timestamp": "2026-08-26T07:00:00.000-06:00",
+      "timestamp": "2026-08-27T16:00:00.000-06:00",
       "site": "08313000",
       "name": "RIO GRANDE AT OTOWI BRIDGE, NM"
     },
     "albuquerque": {
       "value": 0.0,
       "units": "cfs",
-      "timestamp": "2026-08-26T07:15:00.000-06:00",
+      "timestamp": "2026-08-27T16:15:00.000-06:00",
       "site": "08330000",
       "name": "RIO GRANDE AT ALBUQUERQUE, NM"
     },
     "isleta_lakes": {
-      "value": 53.2,
+      "value": 14.5,
       "units": "cfs",
-      "timestamp": "2026-08-26T07:00:00.000-06:00",
+      "timestamp": "2026-08-27T16:00:00.000-06:00",
       "site": "08330875",
       "name": "RIO GRANDE AT ISLETA LAKES NR ISLETA, NM"
     },
     "san_marcial_floodway": {
       "value": 0.0,
       "units": "cfs",
-      "timestamp": "2026-08-26T06:45:00.000-06:00",
+      "timestamp": "2026-08-27T15:45:00.000-06:00",
       "site": "08358400",
       "name": "RIO GRANDE FLOODWAY AT SAN MARCIAL, NM"
     },
     "san_marcial_lfcc": {
       "value": 5.84,
       "units": "cfs",
-      "timestamp": "2026-08-26T07:15:00.000-06:00",
+      "timestamp": "2026-08-27T16:15:00.000-06:00",
       "site": "08358300",
       "name": "RIO GRANDE CONVEYANCE CHANNEL AT SAN MARCIAL, NM"
     }
   },
   "usbr_gage": {
     "del_norte": {
-      "value": 192.0,
+      "value": 189.0,
       "units": "cfs",
-      "date": "2026-08-25",
+      "date": "2026-08-26",
       "site_id": 2722,
       "param_id": 19
     },
     "mogote": {
-      "value": 31.5,
+      "value": 30.1,
       "units": "cfs",
-      "date": "2026-08-25",
+      "date": "2026-08-26",
       "site_id": 2741,
       "param_id": 19
     },
     "lobatos": {
-      "value": 3.66,
+      "value": 3.91,
       "units": "cfs",
-      "date": "2026-08-25",
+      "date": "2026-08-26",
       "site_id": 2723,
       "param_id": 19
     }
   },
   "usbr_reservoir": {
     "elephant_butte_storage": {
-      "value": 27438.0,
+      "value": 27506.0,
       "units": "AF",
-      "date": "2026-08-25",
+      "date": "2026-08-26",
       "site_id": 1119,
       "param_id": 17,
       "columns": [
@@ -114,14 +114,14 @@
       "units": "cfs",
       "note": "average cfs for the day, computed from USBR's acre-feet/day release volume",
       "raw_af_per_day": 0.0,
-      "date": "2026-08-26",
+      "date": "2026-08-27",
       "site_id": 1119,
       "param_id": 43
     },
     "cochiti_storage": {
-      "value": 42795.0,
+      "value": 42750.0,
       "units": "AF",
-      "date": "2026-08-25",
+      "date": "2026-08-26",
       "site_id": 2696,
       "param_id": 17,
       "columns": [
@@ -130,11 +130,11 @@
       ]
     },
     "cochiti_release": {
-      "value": 64.6,
+      "value": 159.2,
       "units": "cfs",
       "note": "average cfs for the day, computed from USBR's acre-feet/day release volume",
-      "raw_af_per_day": 128.05289,
-      "date": "2026-08-26",
+      "raw_af_per_day": 315.78425,
+      "date": "2026-08-27",
       "site_id": 2696,
       "param_id": 43
     }
