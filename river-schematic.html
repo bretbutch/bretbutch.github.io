@@ -137,7 +137,7 @@
 
   <div class="eyebrow">Rio Grande — Del Norte, CO to Elephant Butte, NM <span class="beta-pill">BETA</span></div>
   <h1>Where the river actually goes</h1>
-  <p class="thesis">Every reading below is pulled live from the diverting agencies' own public gage telemetry, refreshed daily. The channel bar width scales with flow — watch it thin, and sometimes vanish, at each diversion.</p>
+  <p class="thesis">Every reading below is pulled from real time public gage telemetry, refreshed daily. The channel bar width scales with flow — watch it thin, and sometimes vanish, at each diversion.</p>
   <p class="updated" id="updated-line">Loading current readings&hellip;</p>
   <p class="feedback">This is an early beta. Something wrong, missing, or worth adding? <a href="mailto:butch@paperwater.net">butch@paperwater.net</a></p>
 
@@ -287,7 +287,7 @@ async function render(){
   html += `<div class="river">`;
 
   html += segHtml(otowi && otowi.value);
-  html += nodeHtml({ name:'Cochiti Dam', loc:'USBR reservoir, site 2696 — flood control', value: cochitiRelease && cochitiRelease.value,
+  html += nodeHtml({ name:'Cochiti Dam', loc:'USACE reservoir, site 2696 — flood control', value: cochitiRelease && cochitiRelease.value,
     sub:`Average release for the day, computed from USBR's published acre-feet total. ${cochitiStorage ? `Currently holding ${fmtAF(cochitiStorage.value)} in flood-control storage` : 'Storage reading unavailable'} — a dam like this can release more or less than what flowed in that day, so this number won't line up neatly with Otowi.`,
     branch: { to: 'Cochiti Division canals, MRGCD', value: cochiti && cochiti.value } });
 
