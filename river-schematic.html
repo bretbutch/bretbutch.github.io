@@ -280,7 +280,7 @@ async function render(){
 
   // --- Part 2: New Mexico ---
   html += `<div class="part-label">Part 2 &middot; New Mexico &mdash; Otowi to Elephant Butte</div>`;
-  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS gage 08313000, headwater gage above Cochiti', value: otowi && otowi.value, sub:'The river\'s inflow to the MRGCD system, upstream of Cochiti Dam and every division diversion below it.' });
+  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS gage 08313000, headwater gage above Cochiti', value: otowi && otowi.value, sub:'Otowi gage (USGS 08313000, Rio Grande at Otowi Bridge) is New Mexico\'s key index point for determining Compact delivery obligations into Elephant Butte Reservoir, from which EBID, Texas, and Mexico draw their shares.' });
 
   html += `<div class="badge" style="display:block; width:fit-content; margin:1rem auto 1.75rem">MRGCD combined diversion total, all divisions <b>${mrgcdTotal ? fmtCfs(mrgcdTotal.value) : 'no reading'}</b></div>`;
 
