@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-08-28T13:57:55.488799+00:00",
+  "generated_at": "2026-08-28T22:49:16.880065+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 305.32,
+      "value": 288.34,
       "units": "cfs",
-      "timestamp": "2026-08-28T13:43:27+00:00",
+      "timestamp": "2026-08-28T22:43:27+00:00",
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 104.43,
+      "value": 102.83,
       "units": "cfs",
-      "timestamp": "2026-08-28T13:37:13+00:00",
+      "timestamp": "2026-08-28T22:36:49+00:00",
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 99.56,
+      "value": 105.08,
       "units": "cfs",
-      "timestamp": "2026-08-28T13:37:06+00:00",
+      "timestamp": "2026-08-28T21:36:15+00:00",
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 86.84,
+      "value": 65.31,
       "units": "cfs",
-      "timestamp": "2026-08-28T13:43:27+00:00",
+      "timestamp": "2026-08-28T22:43:27+00:00",
       "site_id": 197,
       "device_id": 2
     },
     "san_acacia": {
-      "value": 14.31,
+      "value": 14.94,
       "units": "cfs",
-      "timestamp": "2026-08-28T13:40:53+00:00",
+      "timestamp": "2026-08-28T22:40:53+00:00",
       "site_id": 131,
       "device_id": 3
     }
@@ -41,35 +41,35 @@
     "otowi": {
       "value": 161.0,
       "units": "cfs",
-      "timestamp": "2026-08-28T07:00:00.000-06:00",
+      "timestamp": "2026-08-28T16:00:00.000-06:00",
       "site": "08313000",
       "name": "RIO GRANDE AT OTOWI BRIDGE, NM"
     },
     "albuquerque": {
       "value": 0.0,
       "units": "cfs",
-      "timestamp": "2026-08-28T07:15:00.000-06:00",
+      "timestamp": "2026-08-28T16:15:00.000-06:00",
       "site": "08330000",
       "name": "RIO GRANDE AT ALBUQUERQUE, NM"
     },
     "isleta_lakes": {
-      "value": 53.2,
+      "value": 18.2,
       "units": "cfs",
-      "timestamp": "2026-08-28T07:00:00.000-06:00",
+      "timestamp": "2026-08-28T16:00:00.000-06:00",
       "site": "08330875",
       "name": "RIO GRANDE AT ISLETA LAKES NR ISLETA, NM"
     },
     "san_marcial_floodway": {
       "value": 0.0,
       "units": "cfs",
-      "timestamp": "2026-08-28T06:45:00.000-06:00",
+      "timestamp": "2026-08-28T15:45:00.000-06:00",
       "site": "08358400",
       "name": "RIO GRANDE FLOODWAY AT SAN MARCIAL, NM"
     },
     "san_marcial_lfcc": {
       "value": 5.84,
       "units": "cfs",
-      "timestamp": "2026-08-28T07:15:00.000-06:00",
+      "timestamp": "2026-08-28T16:15:00.000-06:00",
       "site": "08358300",
       "name": "RIO GRANDE CONVEYANCE CHANNEL AT SAN MARCIAL, NM"
     }
@@ -130,10 +130,10 @@
       ]
     },
     "cochiti_release": {
-      "value": 42.1,
+      "value": 135.0,
       "units": "cfs",
       "note": "average cfs for the day, computed from USBR's acre-feet/day release volume",
-      "raw_af_per_day": 83.44463,
+      "raw_af_per_day": 267.6915,
       "date": "2026-08-28",
       "site_id": 2696,
       "param_id": 43
