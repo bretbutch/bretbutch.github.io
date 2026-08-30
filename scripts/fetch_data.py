@@ -5,9 +5,12 @@ Sources (all public, no auth required):
   - MRGCD OneRain telemetry (mrgcd.onerain.com) — 5 diversion-division gages.
     Requires an anonymous session cookie, obtained by GETing the site root
     and following its redirect chain before calling the JSON export endpoint.
-  - USGS NWIS instantaneous values API — 2 mainstem channel gages.
+  - USGS NWIS instantaneous values API — mainstem channel gages, plus the
+    three gages (channel + two canal intakes) that together account for all
+    outflow from Cochiti Dam.
   - USBR HydroData gage_data API — 3 Colorado/state-line flow gages.
-  - USBR HydroData reservoir_data API — Elephant Butte storage + release.
+  - USBR HydroData reservoir_data API — Elephant Butte storage + release,
+    Cochiti storage.
 
 Each source is fetched independently; a failure on one does not prevent the
 others from being written. Run directly (`python scripts/fetch_data.py`) or
@@ -42,6 +45,9 @@ USGS_SITES = {
     "isleta_lakes": "08330875",
     "san_marcial_floodway": "08358400",
     "san_marcial_lfcc": "08358300",
+    "cochiti_channel": "08317400",
+    "cochiti_east_side_canal": "08313500",
+    "cochiti_sile_canal": "08314000",
 }
 
 USBR_GAGE_SITES = {
@@ -54,7 +60,6 @@ USBR_RESERVOIR_PARAMS = {
     "elephant_butte_storage": (1119, 17),
     "elephant_butte_release": (1119, 43),
     "cochiti_storage": (2696, 17),
-    "cochiti_release": (2696, 43),
 }
 
 # USBR reports reservoir "release volume" as acre-feet for the day, not an
