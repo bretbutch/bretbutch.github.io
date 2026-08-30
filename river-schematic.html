@@ -291,8 +291,8 @@ async function render(){
     sub:`Average release for the day, computed from USBR's published acre-feet total. ${cochitiStorage ? `Currently holding ${fmtAF(cochitiStorage.value)} in flood-control storage` : 'Storage reading unavailable'} — a dam like this can release more or less than what flowed in that day, so this number won't line up neatly with Otowi.`,
     branch: { to: 'Cochiti Division canals, MRGCD', value: cochiti && cochiti.value } });
 
-  if (cochitiRelease && mrgcdTotal && mrgcdTotal.value > cochitiRelease.value) {
-    html += `<div class="callout"><b>${fmtCfs(cochitiRelease.value)} released, ${fmtCfs(mrgcdTotal.value)} diverted downstream.</b> That's not a contradiction — it's two things this diagram can't show: the water's transit time between these two points isn't accounted for here, and MRGCD's own canals return unused water to the channel at multiple points down-valley, where the next dam can divert it again. Nobody publishes an accounting that reconciles the two — these are live readings from different points on the river, not a balanced ledger.</div>`;
+  if (cochitiRelease && cochiti) {
+    html += `<div class="callout"><b>${fmtCfs(cochitiRelease.value)} released, ${fmtCfs(cochiti.value)} diverted into Cochiti Division canals.</b> These measure nearly the same water at nearly the same place, but not the same moment: the release figure is USBR's average for the entire day, while the diversion figure is MRGCD's live reading right now — so the two won't match exactly even when nothing unusual is happening.</div>`;
   }
 
   html += segHtml(cochitiRelease && cochitiRelease.value);
