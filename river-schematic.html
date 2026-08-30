@@ -146,7 +146,7 @@
   <footer>
     <b>Reading this diagram:</b> bar width is proportional to flow (square-root scale, floor of 6px). Dashed red segments mean the gage read zero — or didn't report — at time of fetch. Angostura, the Isleta Diversion Dam, and the San Acacia intake are each physically capable of taking the entire river during low flow.<br><br>
     <b>Methodology:</b> these are the diverting agencies' own published numbers, taken at face value. Nobody — including the districts themselves — comprehensively tracks how much of a given diversion's return flow gets picked up and rediverted further downstream. The point of this piece is showing that repeated capture happens, across both Colorado and New Mexico, under two different legal regimes — not producing a precise mass balance of the river.<br><br>
-    <b>Sources:</b> MRGCD OneRain telemetry (mrgcd.onerain.com) · USGS National Water Information System (waterservices.usgs.gov) · USBR HydroData (usbr.gov/uc/water/hydrodata). Data refreshes daily via an automated pipeline; MRGCD and USGS readings are near-real-time, USBR gage and reservoir figures are the most recent day USBR has published (typically one day behind). USBR publishes reservoir releases as a daily acre-foot total rather than a flow rate — the Cochiti and Elephant Butte release figures above are that total converted to an average cfs for the day (&divide; 1.9835), which is why they can read a little differently than a live instantaneous dashboard reading at any given moment.
+    <b>Sources:</b> MRGCD OneRain telemetry (mrgcd.onerain.com) · USGS National Water Information System (waterservices.usgs.gov) · USBR HydroData (usbr.gov/uc/water/hydrodata). Data refreshes daily via an automated pipeline; MRGCD and USGS readings are near-real-time, USBR gage and reservoir figures are the most recent day USBR has published (typically one day behind). USBR publishes reservoir releases as a daily acre-foot total rather than a flow rate — the Elephant Butte release figure above is that total converted to an average cfs for the day (&divide; 1.9835), which is why it can read a little differently than a live instantaneous dashboard reading at any given moment. Cochiti Dam's total outflow, by contrast, is summed directly from three live USGS instantaneous gages, not derived from USBR's daily storage accounting.
   </footer>
 
 </div>
@@ -181,7 +181,7 @@ function segHtml(value){
   return `<div class="seg"><div class="bar ${barClass(value)}" style="width:${widthFor(value)}px"></div></div>`;
 }
 
-function nodeHtml({ name, loc, value, units, sub, branch, isInput, hideReading }){
+function nodeHtml({ name, loc, value, units, sub, branch, branches, isInput, hideReading }){
   const missing = value === null || value === undefined || isNaN(value);
   const isZero = !missing && value <= 0;
   const readText = missing ? 'no reading' : (units === 'AF' ? fmtAF(value) : fmtCfs(value));
@@ -189,11 +189,12 @@ function nodeHtml({ name, loc, value, units, sub, branch, isInput, hideReading }
   const alertClass = (!hideReading && (missing || isZero)) ? 'alert' : '';
   const inputClass = isInput ? 'input' : '';
   const readHtml = hideReading ? '' : `<div class="node-read ${readClass}">${readText}</div>`;
-  const branchHtml = branch ? `
-      <div class="branch">
-        <span class="arrow">&#8618;</span><span class="to">${branch.to}</span>
-        <span class="amt">${branch.value === null ? 'no reading' : fmtCfs(branch.value)}</span>
-      </div>` : '';
+  const allBranches = branches || (branch ? [branch] : []);
+  const branchHtml = allBranches.map((b, i) => `
+      <div class="branch" ${i > 0 ? 'style="border-top:none; padding-top:2px; margin-top:2px;"' : ''}>
+        <span class="arrow">&#8618;</span><span class="to">${b.to}</span>
+        <span class="amt">${b.value === null || b.value === undefined ? 'no reading' : fmtCfs(b.value)}</span>
+      </div>`).join('');
   return `
     <div class="node ${alertClass} ${inputClass}">
       <div class="node-top">
@@ -214,6 +215,12 @@ function fmtTimestamp(iso){
   } catch (e) { return iso; }
 }
 
+function maxTimestampSpreadMinutes(readings){
+  const times = readings.filter(r => r && r.timestamp).map(r => new Date(r.timestamp).getTime()).filter(t => !isNaN(t));
+  if (times.length < 2) return null;
+  return (Math.max(...times) - Math.min(...times)) / 60000;
+}
+
 async function render(){
   const app = document.getElementById('app');
   let data;
@@ -231,7 +238,6 @@ async function render(){
   const mogote = get(data.usbr_gage, 'mogote');
   const lobatos = get(data.usbr_gage, 'lobatos');
   const mrgcdTotal = get(data.mrgcd, 'mrgcd_total');
-  const cochiti = get(data.mrgcd, 'cochiti');
   const angostura = get(data.mrgcd, 'angostura');
   const isleta = get(data.mrgcd, 'isleta');
   const sanAcacia = get(data.mrgcd, 'san_acacia');
@@ -240,10 +246,22 @@ async function render(){
   const isletaLakes = get(data.usgs, 'isleta_lakes');
   const sanMarcialFloodway = get(data.usgs, 'san_marcial_floodway');
   const sanMarcialLfcc = get(data.usgs, 'san_marcial_lfcc');
+  const cochitiChannel = get(data.usgs, 'cochiti_channel');
+  const cochitiEastSideCanal = get(data.usgs, 'cochiti_east_side_canal');
+  const cochitiSileCanal = get(data.usgs, 'cochiti_sile_canal');
   const ebStorage = get(data.usbr_reservoir, 'elephant_butte_storage');
   const ebRelease = get(data.usbr_reservoir, 'elephant_butte_release');
   const cochitiStorage = get(data.usbr_reservoir, 'cochiti_storage');
-  const cochitiRelease = get(data.usbr_reservoir, 'cochiti_release');
+
+  const cochitiOutflowGages = [cochitiChannel, cochitiEastSideCanal, cochitiSileCanal];
+  const cochitiOutflowComplete = cochitiOutflowGages.every(g => g);
+  const cochitiOutflow = cochitiOutflowComplete
+    ? cochitiChannel.value + cochitiEastSideCanal.value + cochitiSileCanal.value
+    : null;
+  const cochitiTimestampSpreadMin = cochitiOutflowComplete
+    ? maxTimestampSpreadMinutes(cochitiOutflowGages)
+    : null;
+  const cochitiTimestampsAligned = cochitiTimestampSpreadMin !== null && cochitiTimestampSpreadMin <= 5;
 
   const EB_CAPACITY_AF = 2195000; // conservation capacity, fixed physical fact
 
@@ -287,15 +305,23 @@ async function render(){
   html += `<div class="river">`;
 
   html += segHtml(otowi && otowi.value);
-  html += nodeHtml({ name:'Cochiti Dam', loc:'USACE reservoir, site 2696 — flood control', value: cochitiRelease && cochitiRelease.value,
-    sub:`Average release for the day, computed from USBR's published acre-feet total. ${cochitiStorage ? `Currently holding ${fmtAF(cochitiStorage.value)} in flood-control storage` : 'Storage reading unavailable'} — a dam like this can release more or less than what flowed in that day, so this number won't line up neatly with Otowi.`,
-    branch: { to: 'Cochiti Division canals, MRGCD', value: cochiti && cochiti.value } });
+  html += nodeHtml({ name:'Cochiti Dam', loc:'USACE reservoir, site 2696 — flood control', value: cochitiOutflow,
+    sub: !cochitiOutflowComplete
+      ? 'One or more of the three outflow gages (channel + two canal intakes) didn\'t report — total outflow unavailable.'
+      : !cochitiTimestampsAligned
+        ? `Warning: these three gages' timestamps diverge by up to ${Math.round(cochitiTimestampSpreadMin)} minutes right now — the total below combines readings that may not reflect the same moment.`
+        : `${cochitiStorage ? `Currently holding ${fmtAF(cochitiStorage.value)} in flood-control storage. ` : ''}Three USGS gages read at the same instant — the channel and two canal intakes built into the dam's own outlet works.`,
+    branches: [
+      { to: 'Rio Grande channel (USGS 08317400)', value: cochitiChannel && cochitiChannel.value },
+      { to: 'Cochiti East Side Main Canal (USGS 08313500)', value: cochitiEastSideCanal && cochitiEastSideCanal.value },
+      { to: 'Sile Main Canal (USGS 08314000)', value: cochitiSileCanal && cochitiSileCanal.value },
+    ] });
 
-  if (cochitiRelease && cochiti) {
-    html += `<div class="callout"><b>${fmtCfs(cochitiRelease.value)} released, ${fmtCfs(cochiti.value)} diverted into Cochiti Division canals.</b> These measure nearly the same water at nearly the same place, but not the same moment: the release figure is USBR's average for the entire day, while the diversion figure is MRGCD's live reading right now — so the two won't match exactly even when nothing unusual is happening.</div>`;
+  if (cochitiOutflowComplete && cochitiTimestampsAligned) {
+    html += `<div class="callout"><b>${fmtCfs(cochitiOutflow)} leaving the dam, split three ways at once — not released, then diverted.</b> Unlike Angostura and Isleta downstream, Cochiti has no separate diversion dam; MRGCD's canal intakes are built directly into the dam's own outlet works. So this isn't one number that a second number gets subtracted from — it's three independently gaged paths leaving the structure simultaneously: the river channel and two canals. All three are USGS gages read at the same instant, which makes this total more trustworthy than a single reservoir-derived "release" figure.</div>`;
   }
 
-  html += segHtml(cochitiRelease && cochitiRelease.value);
+  html += segHtml(cochitiOutflow);
   html += nodeHtml({ name:'Angostura Diversion Dam', loc:'Serves the Albuquerque Division', value: angostura && angostura.value, sub:'Capable of routing the entire river out at low flow.',
     branch: { to: 'Albuquerque Division canals', value: angostura && angostura.value } });
 
