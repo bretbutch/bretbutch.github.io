@@ -241,6 +241,8 @@ async function render(){
   const angostura = get(data.mrgcd, 'angostura');
   const isleta = get(data.mrgcd, 'isleta');
   const sanAcacia = get(data.mrgcd, 'san_acacia');
+  const abiquiuChannel = get(data.usgs, 'abiquiu_channel');
+  const chamaChamita = get(data.usgs, 'chama_chamita');
   const otowi = get(data.usgs, 'otowi');
   const albuquerque = get(data.usgs, 'albuquerque');
   const isletaLakes = get(data.usgs, 'isleta_lakes');
@@ -252,6 +254,7 @@ async function render(){
   const ebStorage = get(data.usbr_reservoir, 'elephant_butte_storage');
   const ebRelease = get(data.usbr_reservoir, 'elephant_butte_release');
   const cochitiStorage = get(data.usbr_reservoir, 'cochiti_storage');
+  const abiquiuStorage = get(data.usbr_reservoir, 'abiquiu_storage');
 
   const cochitiOutflowGages = [cochitiChannel, cochitiEastSideCanal, cochitiSileCanal];
   const cochitiOutflowComplete = cochitiOutflowGages.every(g => g);
@@ -298,7 +301,16 @@ async function render(){
 
   // --- Part 2: New Mexico ---
   html += `<div class="part-label">Part 2 &middot; New Mexico &mdash; Otowi to Elephant Butte</div>`;
-  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS gage 08313000, headwater gage above Cochiti', value: otowi && otowi.value, sub:'Otowi gage (USGS 08313000, Rio Grande at Otowi Bridge) is New Mexico\'s key index point for determining Compact delivery obligations into Elephant Butte Reservoir, from which EBID, Texas, and Mexico draw their shares.' });
+
+  html += nodeHtml({ name:'Abiquiu Dam', loc:'USGS gage 08287000, Rio Chama below Abiquiu Dam', value: abiquiuChannel && abiquiuChannel.value,
+    sub:`${abiquiuStorage ? `Currently holding ${fmtAF(abiquiuStorage.value)} in storage. ` : ''}Not on the Rio Grande itself — this is USBR's reservoir on the Rio Chama, a tributary that joins the mainstem above Otowi. Track a release here to see when it shows up downstream.` });
+
+  html += segHtml(abiquiuChannel && abiquiuChannel.value);
+  html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS gage 08290000, just above the confluence with the Rio Grande', value: chamaChamita && chamaChamita.value,
+    sub:'The Chama\'s contribution right before it joins the mainstem. Compare against the Abiquiu reading above to see how much of a release survives the trip down the Chama — then watch for the bump at Otowi below.' });
+
+  html += segHtml(chamaChamita && chamaChamita.value);
+  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS gage 08313000, below the Chama confluence, headwater gage above Cochiti', value: otowi && otowi.value, sub:'Otowi gage (USGS 08313000, Rio Grande at Otowi Bridge) is New Mexico\'s key index point for determining Compact delivery obligations into Elephant Butte Reservoir, from which EBID, Texas, and Mexico draw their shares.' });
 
   html += `<div class="badge" style="display:block; width:fit-content; margin:1rem auto 1.75rem">MRGCD combined diversion total, all divisions <b>${mrgcdTotal ? fmtCfs(mrgcdTotal.value) : 'no reading'}</b></div>`;
 
