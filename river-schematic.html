@@ -241,6 +241,7 @@ async function render(){
   const angostura = get(data.mrgcd, 'angostura');
   const isleta = get(data.mrgcd, 'isleta');
   const sanAcacia = get(data.mrgcd, 'san_acacia');
+  const embudo = get(data.usgs, 'embudo');
   const abiquiuChannel = get(data.usgs, 'abiquiu_channel');
   const chamaChamita = get(data.usgs, 'chama_chamita');
   const otowi = get(data.usgs, 'otowi');
@@ -300,8 +301,12 @@ async function render(){
   html += `<div class="seam">&mdash; meanwhile, downstream in New Mexico &mdash;</div>`;
 
   // --- Part 2: New Mexico ---
-  html += `<div class="part-label">Part 2 &middot; New Mexico &mdash; Otowi to Elephant Butte</div>`;
+  html += `<div class="part-label">Part 2 &middot; New Mexico</div>`;
 
+  html += nodeHtml({ name:'Embudo', loc:'USGS gage 08279500, Rio Grande mainstem above the Chama confluence', value: embudo && embudo.value,
+    sub:'The Rio Grande\'s own flow, before it picks up the Chama below. One of the oldest continuously operated stream gages in the country — a clean read on the mainstem alone, for comparison against what Abiquiu and the Chama add downstream.' });
+
+  html += segHtml(embudo && embudo.value);
   html += nodeHtml({ name:'Abiquiu Dam', loc:'USACE reservoir, site 2730 — flood/sediment control', value: abiquiuChannel && abiquiuChannel.value,
     sub:`USGS gage 08287000, below the dam. ${abiquiuStorage ? `Currently holding ${fmtAF(abiquiuStorage.value)} in storage. ` : ''}Not on the Rio Grande itself — this is a reservoir on the Rio Chama, a tributary that joins the mainstem above Otowi. (It also holds San Juan-Chama Project water under a separate Reclamation contract, which is why the storage figure comes via USBR's data portal.) Track a release here to see when it shows up downstream.` });
 

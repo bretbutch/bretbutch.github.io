@@ -41,6 +41,7 @@ MRGCD_SITES = {
 }
 
 USGS_SITES = {
+    "embudo": "08279500",
     "abiquiu_channel": "08287000",
     "chama_chamita": "08290000",
     "otowi": "08313000",
