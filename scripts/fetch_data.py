@@ -5,12 +5,13 @@ Sources (all public, no auth required):
   - MRGCD OneRain telemetry (mrgcd.onerain.com) — 5 diversion-division gages.
     Requires an anonymous session cookie, obtained by GETing the site root
     and following its redirect chain before calling the JSON export endpoint.
-  - USGS NWIS instantaneous values API — mainstem channel gages, plus the
-    three gages (channel + two canal intakes) that together account for all
-    outflow from Cochiti Dam.
+  - USGS NWIS instantaneous values API — mainstem channel gages, the Rio
+    Chama below Abiquiu Dam and near its confluence with the Rio Grande,
+    plus the three gages (channel + two canal intakes) that together
+    account for all outflow from Cochiti Dam.
   - USBR HydroData gage_data API — 3 Colorado/state-line flow gages.
   - USBR HydroData reservoir_data API — Elephant Butte storage + release,
-    Cochiti storage.
+    Cochiti storage, Abiquiu storage.
 
 Each source is fetched independently; a failure on one does not prevent the
 others from being written. Run directly (`python scripts/fetch_data.py`) or
@@ -40,6 +41,8 @@ MRGCD_SITES = {
 }
 
 USGS_SITES = {
+    "abiquiu_channel": "08287000",
+    "chama_chamita": "08290000",
     "otowi": "08313000",
     "albuquerque": "08330000",
     "isleta_lakes": "08330875",
@@ -60,6 +63,7 @@ USBR_RESERVOIR_PARAMS = {
     "elephant_butte_storage": (1119, 17),
     "elephant_butte_release": (1119, 43),
     "cochiti_storage": (2696, 17),
+    "abiquiu_storage": (2730, 17),
 }
 
 # USBR reports reservoir "release volume" as acre-feet for the day, not an
