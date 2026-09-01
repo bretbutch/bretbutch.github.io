@@ -302,8 +302,8 @@ async function render(){
   // --- Part 2: New Mexico ---
   html += `<div class="part-label">Part 2 &middot; New Mexico &mdash; Otowi to Elephant Butte</div>`;
 
-  html += nodeHtml({ name:'Abiquiu Dam', loc:'USGS gage 08287000, Rio Chama below Abiquiu Dam', value: abiquiuChannel && abiquiuChannel.value,
-    sub:`${abiquiuStorage ? `Currently holding ${fmtAF(abiquiuStorage.value)} in storage. ` : ''}Not on the Rio Grande itself — this is USBR's reservoir on the Rio Chama, a tributary that joins the mainstem above Otowi. Track a release here to see when it shows up downstream.` });
+  html += nodeHtml({ name:'Abiquiu Dam', loc:'USACE reservoir, site 2730 — flood/sediment control', value: abiquiuChannel && abiquiuChannel.value,
+    sub:`USGS gage 08287000, below the dam. ${abiquiuStorage ? `Currently holding ${fmtAF(abiquiuStorage.value)} in storage. ` : ''}Not on the Rio Grande itself — this is a reservoir on the Rio Chama, a tributary that joins the mainstem above Otowi. (It also holds San Juan-Chama Project water under a separate Reclamation contract, which is why the storage figure comes via USBR's data portal.) Track a release here to see when it shows up downstream.` });
 
   html += segHtml(abiquiuChannel && abiquiuChannel.value);
   html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS gage 08290000, just above the confluence with the Rio Grande', value: chamaChamita && chamaChamita.value,
