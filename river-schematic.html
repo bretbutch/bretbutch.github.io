@@ -347,11 +347,7 @@ async function render(){
   html += nodeHtml({ name:'Through Albuquerque', loc:'USGS gage 08330000, downtown reach', value: albuquerque && albuquerque.value, sub:'What\'s left in the channel after the Angostura diversion.' });
 
   html += segHtml(albuquerque && albuquerque.value);
-  html += nodeHtml({ name:'ABCWUA Southside Water Reclamation Plant', loc:'Wastewater outfall — treated effluent, primarily pumped groundwater', isInput:true, hideReading:true,
-    sub: `The jump from ${albuquerque ? fmtCfs(albuquerque.value) : '0 cfs'} to ${isletaLakes ? fmtCfs(isletaLakes.value) : 'the next reading'} isn't the river recovering — it's the plant restarting it.` });
-
-  html += segHtml(isletaLakes && isletaLakes.value);
-  html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'The channel restarted by the Southside outfall, before Isleta Diversion Dam takes its share.' });
+  html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'Channel flows may increase here for a couple of likely reasons: ABCWUA\'s treatment plant has an outfall in this stretch, or water from upstream diversions may be returning to the river.' });
 
   html += segHtml(isletaLakes && isletaLakes.value);
   html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Serves the Belen Division', value: isleta && isleta.value, sub:'Same design as Angostura — full-river capture capability during irrigation season.',
