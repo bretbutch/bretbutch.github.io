@@ -115,6 +115,14 @@
   .feedback{font-size:12px; color:var(--ink-soft); margin:.6rem 0 1.75rem;}
   .feedback a{color:var(--river); text-decoration:none; border-bottom:1px dotted var(--river);}
 
+  .season-banner{
+    max-width:560px; margin:.75rem auto 0; background:var(--panel); border:0.5px solid var(--line);
+    border-left:3px solid var(--river); border-radius:0 10px 10px 0; padding:10px 14px; font-size:13px;
+    line-height:1.5; color:var(--ink-soft);
+  }
+
+  .node-tag{font-size:10px; color:var(--ink-soft); text-align:right; margin-top:2px; white-space:nowrap;}
+
   footer{
     margin-top:2.5rem; padding-top:1.25rem; border-top:0.5px solid var(--line);
     font-size:12px; color:var(--ink-soft); line-height:1.7;
@@ -137,9 +145,10 @@
 
   <div class="eyebrow">Rio Grande — Del Norte, CO to Elephant Butte, NM <span class="beta-pill">BETA</span></div>
   <h1>Where the river actually goes</h1>
-  <p class="thesis">Every reading below is pulled from real time public gage telemetry, refreshed daily. The channel bar width scales with flow — watch it thin, and sometimes vanish, at each diversion.</p>
+  <p class="thesis">Daily readings from public gages, San Luis Valley to Elephant Butte. Bar width scales with flow.</p>
   <p class="updated" id="updated-line">Loading current readings&hellip;</p>
-  <p class="feedback">This is an early beta. Something wrong, missing, or worth adding? <a href="mailto:butch@paperwater.net">butch@paperwater.net</a></p>
+  <p class="feedback">Early beta. Corrections welcome: <a href="mailto:butch@paperwater.net">butch@paperwater.net</a></p>
+  <div id="season-banner"></div>
 
   <div id="app"></div>
 
@@ -155,6 +164,31 @@
 <script>
 const DATA_URL = 'data/river-data.json';
 
+// Nov 1 through the last day of Feb, America/Denver time. Override for
+// testing with ?offSeason=1 or ?offSeason=0 in the URL.
+const OFF_SEASON_CONFIG = { startMonth: 11, startDay: 1, endMonth: 2 };
+
+// A downstream reading counts as "includes local runoff" when it exceeds
+// the upstream figure by both a relative and an absolute margin.
+const RUNOFF_TAG_CONFIG = { minRatioAbove: 0.5, minAbsoluteCfs: 100 };
+
+let IS_OFF_SEASON = false;
+
+function computeOffSeason(){
+  const params = new URLSearchParams(location.search);
+  if (params.has('offSeason')) {
+    const v = params.get('offSeason');
+    return v === '1' || v === 'true';
+  }
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Denver', month: 'numeric', day: 'numeric'
+  }).formatToParts(new Date());
+  const m = Number(parts.find(p => p.type === 'month').value);
+  const d = Number(parts.find(p => p.type === 'day').value);
+  if (m === OFF_SEASON_CONFIG.startMonth) return d >= OFF_SEASON_CONFIG.startDay;
+  return m > OFF_SEASON_CONFIG.startMonth || m <= OFF_SEASON_CONFIG.endMonth;
+}
+
 function fmtCfs(v){
   if (v === null || v === undefined || isNaN(v)) return null;
   return (Math.round(v * 10) / 10).toLocaleString('en-US') + ' cfs';
@@ -162,6 +196,10 @@ function fmtCfs(v){
 function fmtAF(v){
   if (v === null || v === undefined || isNaN(v)) return null;
   return Math.round(v).toLocaleString('en-US') + ' AF';
+}
+function roundCfs(v){
+  if (v === null || v === undefined || isNaN(v)) return null;
+  return Math.round(v * 10) / 10;
 }
 function widthFor(v){
   if (v === null || v === undefined || isNaN(v) || v <= 0) return 6;
@@ -178,31 +216,49 @@ function get(obj, key){
   return entry;
 }
 
+// True when downstreamValue clears both the relative and absolute margins
+// over upstreamValue in RUNOFF_TAG_CONFIG.
+function runoffTag(downstreamValue, upstreamValue){
+  if (downstreamValue === null || downstreamValue === undefined || isNaN(downstreamValue)) return false;
+  if (upstreamValue === null || upstreamValue === undefined || isNaN(upstreamValue)) return false;
+  const diff = downstreamValue - upstreamValue;
+  if (diff <= RUNOFF_TAG_CONFIG.minAbsoluteCfs) return false;
+  if (upstreamValue <= 0) return true;
+  return downstreamValue > upstreamValue * (1 + RUNOFF_TAG_CONFIG.minRatioAbove);
+}
+
 function segHtml(value){
   return `<div class="seg"><div class="bar ${barClass(value)}" style="width:${widthFor(value)}px"></div></div>`;
 }
 
-function nodeHtml({ name, loc, value, units, sub, branch, branches, isInput, hideReading }){
+function nodeHtml({ name, loc, value, units, sub, branch, branches, isInput, hideReading, tag }){
   const missing = value === null || value === undefined || isNaN(value);
   const isZero = !missing && value <= 0;
   const readText = missing ? 'no reading' : (units === 'AF' ? fmtAF(value) : fmtCfs(value));
   const readClass = missing ? 'unavailable' : (isZero ? 'zero' : '');
   const alertClass = (!hideReading && (missing || isZero)) ? 'alert' : '';
   const inputClass = isInput ? 'input' : '';
-  const readHtml = hideReading ? '' : `<div class="node-read ${readClass}">${readText}</div>`;
+  const tagHtml = (tag && !hideReading) ? `<div class="node-tag">${tag}</div>` : '';
+  const readHtml = hideReading ? '' : `<div><div class="node-read ${readClass}">${readText}</div>${tagHtml}</div>`;
   const allBranches = branches || (branch ? [branch] : []);
-  const branchHtml = allBranches.map((b, i) => `
+  const branchHtml = allBranches.map((b, i) => {
+    const bMissing = b.value === null || b.value === undefined || isNaN(b.value);
+    const bZero = !bMissing && b.value <= 0;
+    const amtText = (IS_OFF_SEASON && (bMissing || bZero)) ? 'off-season' : (bMissing ? 'no reading' : fmtCfs(b.value));
+    return `
       <div class="branch" ${i > 0 ? 'style="border-top:none; padding-top:2px; margin-top:2px;"' : ''}>
         <span class="arrow">&#8618;</span><span class="to">${b.to}</span>
-        <span class="amt">${b.value === null || b.value === undefined ? 'no reading' : fmtCfs(b.value)}</span>
-      </div>`).join('');
+        <span class="amt">${amtText}</span>
+      </div>`;
+  }).join('');
+  const subHtml = sub ? `<div class="node-sub">${sub}</div>` : '';
   return `
     <div class="node ${alertClass} ${inputClass}">
       <div class="node-top">
         <div><div class="node-name">${name}</div><div class="node-loc">${loc}</div></div>
         ${readHtml}
       </div>
-      <div class="node-sub">${sub}</div>${branchHtml}
+      ${subHtml}${branchHtml}
     </div>`;
 }
 
@@ -216,13 +272,9 @@ function fmtTimestamp(iso){
   } catch (e) { return iso; }
 }
 
-function maxTimestampSpreadMinutes(readings){
-  const times = readings.filter(r => r && r.timestamp).map(r => new Date(r.timestamp).getTime()).filter(t => !isNaN(t));
-  if (times.length < 2) return null;
-  return (Math.max(...times) - Math.min(...times)) / 60000;
-}
-
 async function render(){
+  IS_OFF_SEASON = computeOffSeason();
+
   const app = document.getElementById('app');
   let data;
   try {
@@ -238,7 +290,6 @@ async function render(){
   const delNorte = get(data.usbr_gage, 'del_norte');
   const mogote = get(data.usbr_gage, 'mogote');
   const lobatos = get(data.usbr_gage, 'lobatos');
-  const mrgcdTotal = get(data.mrgcd, 'mrgcd_total');
   const angostura = get(data.mrgcd, 'angostura');
   const isleta = get(data.mrgcd, 'isleta');
   const sanAcacia = get(data.mrgcd, 'san_acacia');
@@ -258,45 +309,50 @@ async function render(){
   const cochitiStorage = get(data.usbr_reservoir, 'cochiti_storage');
   const abiquiuStorage = get(data.usbr_reservoir, 'abiquiu_storage');
 
-  const cochitiOutflowGages = [cochitiChannel, cochitiEastSideCanal, cochitiSileCanal];
-  const cochitiOutflowComplete = cochitiOutflowGages.every(g => g);
+  // --- Consistency: every displayed total is the sum of the same rounded
+  // values shown in the component rows, so a reader can always add up the
+  // parts and match the total. ---
+  const cochitiOutflowComplete = [cochitiChannel, cochitiEastSideCanal, cochitiSileCanal].every(g => g);
   const cochitiOutflow = cochitiOutflowComplete
-    ? cochitiChannel.value + cochitiEastSideCanal.value + cochitiSileCanal.value
+    ? roundCfs(cochitiChannel.value) + roundCfs(cochitiEastSideCanal.value) + roundCfs(cochitiSileCanal.value)
     : null;
-  const cochitiTimestampSpreadMin = cochitiOutflowComplete
-    ? maxTimestampSpreadMinutes(cochitiOutflowGages)
+
+  const mrgcdComponents = [cochitiEastSideCanal, cochitiSileCanal, angostura, isleta, sanAcacia];
+  // Cochiti's MRGCD share is its two canal branches (cochitiChannel is river, not a diversion).
+  const mrgcdComplete = mrgcdComponents.every(g => g);
+  const mrgcdTotal = mrgcdComplete
+    ? mrgcdComponents.reduce((sum, g) => sum + roundCfs(g.value), 0)
     : null;
-  const cochitiTimestampsAligned = cochitiTimestampSpreadMin !== null && cochitiTimestampSpreadMin <= 5;
 
   const EB_CAPACITY_AF = 2195000; // conservation capacity, fixed physical fact
 
   document.getElementById('updated-line').innerHTML =
     `Live data as of <b>${data.generated_at ? fmtTimestamp(data.generated_at) : 'unknown'}</b> &middot; refreshed daily`;
 
+  const bannerEl = document.getElementById('season-banner');
+  bannerEl.innerHTML = IS_OFF_SEASON
+    ? `<div class="season-banner">Irrigation season is over. Headgates are closed in Colorado and MRGCD. What's in the river now is base flow and reservoir operations.</div>`
+    : '';
+
   let html = '';
 
   // --- Part 1: Colorado ---
   html += `<div class="part-label">Part 1 &middot; Colorado &mdash; the San Luis Valley</div>`;
   html += `<div class="pair">
-    ${nodeHtml({ name:'Del Norte', loc:'Rio Grande, mountain front', value: delNorte && delNorte.value, sub:"Compact's own definition: measured above all principal points of diversion to the valley." })}
-    ${nodeHtml({ name:'Mogote', loc:'Conejos River, mountain front', value: mogote && mogote.value, sub:"Colorado's other statutory index gage — the Conejos Index Supply." })}
+    ${nodeHtml({ name:'Del Norte', loc:'Rio Grande index gage', value: delNorte && delNorte.value })}
+    ${nodeHtml({ name:'Mogote', loc:'Conejos River index gage', value: mogote && mogote.value })}
   </div>`;
 
   html += segHtml(mogote && mogote.value);
-  html += `<div class="node">
-    <div class="node-top">
-      <div><div class="node-name">San Luis Valley irrigation</div><div class="node-loc">Thousands of individually decreed headgates, valley-wide</div></div>
-    </div>
-    <div class="node-sub">No single district runs this the way MRGCD runs Angostura or Isleta downstream — capture happens structure by structure, ditch by ditch, across the whole valley floor. There's no single real-time public gage for "total valley diversion," which is part of why this reach isn't shown as a bar-for-bar accounting.</div>
-  </div>`;
+  html += nodeHtml({ name:'San Luis Valley irrigation', loc:'Thousands of individually decreed headgates, valley-wide', hideReading:true,
+    sub: IS_OFF_SEASON ? 'Headgates closed for the season.' : 'Thousands of individual headgates. No single gage measures the total.' });
 
   html += segHtml(lobatos && lobatos.value);
-  html += nodeHtml({ name:'Lobatos', loc:"The Compact's actual delivery point — CO/NM state line", value: lobatos && lobatos.value, sub:"This is the number Colorado's obligation is measured against." });
+  html += nodeHtml({ name:'Lobatos', loc:'CO/NM state line', value: lobatos && lobatos.value, sub:"Colorado's Compact delivery point." });
 
   if (delNorte && mogote && lobatos) {
-    const combined = delNorte.value + mogote.value;
-    const pct = combined > 0 ? Math.round((1 - lobatos.value / combined) * 100) : null;
-    html += `<div class="callout"><b>${fmtCfs(combined)} &#8594; ${fmtCfs(lobatos.value)}.</b> Of the combined Del Norte + Mogote index supply entering the valley, about ${pct}% never reaches the state line.</div>`;
+    const combinedIn = roundCfs(delNorte.value) + roundCfs(mogote.value);
+    html += `<div class="callout"><b>In: ${fmtCfs(combinedIn)} &middot; At the state line: ${fmtCfs(lobatos.value)}</b><br><span style="font-size:11px;">Compact deliveries are settled annually, not day to day.</span></div>`;
   }
 
   html += `<div class="seam">&mdash; meanwhile, downstream in New Mexico &mdash;</div>`;
@@ -304,53 +360,50 @@ async function render(){
   // --- Part 2: New Mexico ---
   html += `<div class="part-label">Part 2 &middot; New Mexico</div>`;
 
-  html += nodeHtml({ name:'Embudo', loc:'USGS gage 08279500, Rio Grande mainstem above the Chama confluence', value: embudo && embudo.value,
-    sub:'The Rio Grande\'s own flow, before it picks up the Chama below. One of the oldest continuously operated stream gages in the country — a clean read on the mainstem alone, for comparison against what Abiquiu and the Chama add downstream.' });
+  html += nodeHtml({ name:'Embudo', loc:'USGS 08279500', value: embudo && embudo.value, sub:'Rio Grande above the Chama.' });
 
   html += segHtml(embudo && embudo.value);
-  html += nodeHtml({ name:'Abiquiu Dam', loc:'USACE reservoir, site 2730 — flood/sediment control', value: abiquiuChannel && abiquiuChannel.value,
-    sub:`USGS gage 08287000, below the dam. ${abiquiuStorage ? `Currently holding ${fmtAF(abiquiuStorage.value)} in storage. ` : ''}Not on the Rio Grande itself — this is a reservoir on the Rio Chama, a tributary that joins the mainstem above Otowi. (It also holds San Juan-Chama Project water under a separate Reclamation contract, which is why the storage figure comes via USBR's data portal.) Track a release here to see when it shows up downstream.` });
+  html += nodeHtml({ name:'Abiquiu Dam', loc:'USGS 08287000 &middot; USACE', value: abiquiuChannel && abiquiuChannel.value,
+    sub:`Rio Chama release. Storage: ${abiquiuStorage ? fmtAF(abiquiuStorage.value) : 'no reading'}.` });
 
   html += segHtml(abiquiuChannel && abiquiuChannel.value);
-  html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS gage 08290000, just above the confluence with the Rio Grande', value: chamaChamita && chamaChamita.value,
-    sub:'The Chama\'s contribution right before it joins the mainstem. Compare against the Abiquiu reading above to see how much of a release survives the trip down the Chama — then watch for the bump at Otowi below.' });
+  html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS 08290000', value: chamaChamita && chamaChamita.value, sub:'The Chama just above the Rio Grande.' });
 
   html += segHtml(chamaChamita && chamaChamita.value);
-  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS gage 08313000', value: otowi && otowi.value, sub:'Otowi gage (USGS 08313000, Rio Grande at Otowi Bridge) is New Mexico\'s key index point for determining Compact delivery obligations into Elephant Butte Reservoir, from which EBID, Texas, and Mexico draw their shares.' });
+  const otowiUpstream = (embudo && chamaChamita) ? embudo.value + chamaChamita.value : null;
+  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS 08313000', value: otowi && otowi.value, sub:'New Mexico\'s Compact index gage.',
+    tag: (otowi && runoffTag(otowi.value, otowiUpstream)) ? 'Includes local runoff' : null });
 
-  html += `<div class="badge" style="display:block; width:fit-content; margin:1rem auto 1.75rem">MRGCD combined diversion total, all divisions <b>${mrgcdTotal ? fmtCfs(mrgcdTotal.value) : 'no reading'}</b></div>`;
+  const mrgcdShowOffSeason = IS_OFF_SEASON && (!mrgcdComplete || mrgcdTotal === 0);
+  html += mrgcdShowOffSeason
+    ? `<div class="badge" style="display:block; width:fit-content; margin:1rem auto 1.75rem">MRGCD diversions: off-season</div>`
+    : `<div class="badge" style="display:block; width:fit-content; margin:1rem auto 1.75rem">MRGCD diversions, all divisions <b>${mrgcdComplete ? fmtCfs(mrgcdTotal) : 'no reading'}</b></div>`;
 
   html += `<div class="river">`;
 
   html += segHtml(otowi && otowi.value);
-  html += nodeHtml({ name:'Cochiti Dam', loc:'USACE reservoir, site 2696 — flood control', value: cochitiOutflow,
-    sub: !cochitiOutflowComplete
-      ? 'One or more of the three outflow gages (channel + two canal intakes) didn\'t report — total outflow unavailable.'
-      : !cochitiTimestampsAligned
-        ? `Warning: these three gages' timestamps diverge by up to ${Math.round(cochitiTimestampSpreadMin)} minutes right now — the total below combines readings that may not reflect the same moment.`
-        : `${cochitiStorage ? `Currently holding ${fmtAF(cochitiStorage.value)} in flood-control storage. ` : ''}Three USGS gages read at the same instant — the channel and two canal intakes built into the dam's own outlet works.`,
+  html += nodeHtml({ name:'Cochiti Dam', loc:'USACE', value: cochitiOutflow,
+    sub: `Storage: ${cochitiStorage ? fmtAF(cochitiStorage.value) : 'no reading'}.<br>River and canals are gaged separately at the outlet works.`,
     branches: [
       { to: 'Rio Grande channel (USGS 08317400)', value: cochitiChannel && cochitiChannel.value },
       { to: 'Cochiti East Side Main Canal (USGS 08313500)', value: cochitiEastSideCanal && cochitiEastSideCanal.value },
       { to: 'Sile Main Canal (USGS 08314000)', value: cochitiSileCanal && cochitiSileCanal.value },
     ] });
 
-  if (cochitiOutflowComplete && cochitiTimestampsAligned) {
-    html += `<div class="callout"><b>${fmtCfs(cochitiOutflow)} leaving the dam, split three ways at once — not released, then diverted.</b> Unlike Angostura and Isleta downstream, Cochiti has no separate diversion dam; MRGCD's canal intakes are built directly into the dam's own outlet works. So this isn't one number that a second number gets subtracted from — it's three independently gaged paths leaving the structure simultaneously: the river channel and two canals. All three are USGS gages read at the same instant, which makes this total more trustworthy than a single reservoir-derived "release" figure.</div>`;
-  }
-
   html += segHtml(cochitiOutflow);
-  html += nodeHtml({ name:'Angostura Diversion Dam', loc:'Serves the Albuquerque Division', value: angostura && angostura.value, sub:'Capable of routing the entire river out at low flow.',
+  html += nodeHtml({ name:'Angostura Diversion Dam', loc:'Albuquerque Division intake', hideReading:true,
     branch: { to: 'Albuquerque Division canals', value: angostura && angostura.value } });
 
+  const angosturaOutflow = (cochitiChannel && angostura) ? cochitiChannel.value - angostura.value : null;
   html += segHtml(angostura && angostura.value);
-  html += nodeHtml({ name:'Through Albuquerque', loc:'USGS gage 08330000, downtown reach', value: albuquerque && albuquerque.value, sub:'What\'s left in the channel after the Angostura diversion.' });
+  html += nodeHtml({ name:'Through Albuquerque', loc:'USGS 08330000', value: albuquerque && albuquerque.value,
+    tag: (albuquerque && runoffTag(albuquerque.value, angosturaOutflow)) ? 'Includes local runoff' : null });
 
   html += segHtml(albuquerque && albuquerque.value);
   html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'Channel flows may increase here for a couple of likely reasons: ABCWUA\'s treatment plant has an outfall in this stretch, or water from upstream diversions may be returning to the river.' });
 
   html += segHtml(isletaLakes && isletaLakes.value);
-  html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Serves the Belen Division', value: isleta && isleta.value, sub:'Same design as Angostura — full-river capture capability during irrigation season.',
+  html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Belen Division intake', hideReading:true,
     branch: { to: 'Belen Division canals', value: isleta && isleta.value } });
 
   if (isleta && isletaLakes && isleta.value > isletaLakes.value) {
@@ -358,24 +411,31 @@ async function render(){
   }
 
   html += segHtml(isleta && isleta.value);
-  html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Serves the Socorro Division', value: sanAcacia && sanAcacia.value, sub:'There\'s often nothing left in the channel to divert by the time the river reaches here.' });
+  html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Socorro Division intake', hideReading:true,
+    branch: { to: 'Socorro Division canals', value: sanAcacia && sanAcacia.value } });
+
+  const sanMarcialUpstream = (albuquerque && isleta && sanAcacia) ? albuquerque.value - isleta.value - sanAcacia.value : null;
+  const sanMarcialCombined = (sanMarcialFloodway || sanMarcialLfcc)
+    ? ((sanMarcialFloodway && sanMarcialFloodway.value) || 0) + ((sanMarcialLfcc && sanMarcialLfcc.value) || 0)
+    : null;
+  const sanMarcialTag = runoffTag(sanMarcialCombined, sanMarcialUpstream) ? 'Includes local runoff' : null;
 
   html += segHtml(sanAcacia && sanAcacia.value);
   html += `<div class="pair">
-    ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS gage 08358400, Rio Grande Floodway', value: sanMarcialFloodway && sanMarcialFloodway.value, sub:'The natural riverbed, last reach before Elephant Butte.' })}
-    ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS gage 08358300, Low Flow Conveyance Channel', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'A parallel channel MRGCD built to move water past this seepage-heavy reach without losing it to the riverbed. The water isn\'t gone when the channel gage above reads zero — it\'s often just over here instead.' })}
+    ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS 08358400', value: sanMarcialFloodway && sanMarcialFloodway.value, tag: sanMarcialTag })}
+    ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS 08358300', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'Parallel channel that carries water past a high-seepage reach.', tag: sanMarcialTag })}
   </div>`;
 
   html += segHtml(Math.max((sanMarcialFloodway && sanMarcialFloodway.value) || 0, (sanMarcialLfcc && sanMarcialLfcc.value) || 0));
   html += `<div style="text-align:center">
     <div class="tank"><div class="tank-fill" style="height:${ebStorage ? Math.max(1, Math.min(100, Math.round(100 * ebStorage.value / EB_CAPACITY_AF))) : 0}%"></div></div>
-    <div class="tank-label">Elephant Butte — ${ebStorage ? fmtAF(ebStorage.value) : 'no reading'} stored (~${ebStorage ? (100 * ebStorage.value / EB_CAPACITY_AF).toFixed(1) : '?'}% of ${EB_CAPACITY_AF.toLocaleString('en-US')} AF conservation capacity)<br>release below dam: ${ebRelease ? fmtCfs(ebRelease.value) : 'no reading'} (avg for the day)</div>
+    <div class="tank-label">Elephant Butte — ${ebStorage ? fmtAF(ebStorage.value) : 'no reading'} stored (${ebStorage ? (100 * ebStorage.value / EB_CAPACITY_AF).toFixed(1) : '?'}% of conservation capacity) &middot; Release: ${ebRelease ? fmtCfs(ebRelease.value) : 'no reading'}</div>
   </div>`;
 
   html += `</div>`; // .river
 
   if (angostura && isleta && sanAcacia && ebRelease) {
-    const diverted = angostura.value + isleta.value + sanAcacia.value;
+    const diverted = roundCfs(angostura.value) + roundCfs(isleta.value) + roundCfs(sanAcacia.value);
     html += `<div class="callout"><b>${fmtCfs(diverted)} diverted upstream, ${fmtCfs(ebRelease.value)} released today.</b> Angostura, Isleta, and San Acacia combined are diverting ${fmtCfs(diverted)} out of the channel right now; Elephant Butte's most recent daily release is ${fmtCfs(ebRelease.value)}. As above, these aren't the same water at the same moment — the water's transit time between these two points isn't accounted for here, and whatever isn't diverted or lost to the channel between here and the reservoir still has to arrive before it can be released.</div>`;
   }
 
