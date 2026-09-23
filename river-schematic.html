@@ -246,7 +246,8 @@ function nodeHtml({ name, loc, value, units, sub, branch, branches, isInput, hid
   const branchHtml = allBranches.map((b, i) => {
     const bMissing = b.value === null || b.value === undefined || isNaN(b.value);
     const bZero = !bMissing && b.value <= 0;
-    const amtText = (IS_OFF_SEASON && (bMissing || bZero)) ? 'off-season' : (bMissing ? 'no reading' : fmtCfs(b.value));
+    const amtText = b.text !== undefined ? b.text
+      : (IS_OFF_SEASON && (bMissing || bZero)) ? 'off-season' : (bMissing ? 'no reading' : fmtCfs(b.value));
     return `
       <div class="branch" ${i > 0 ? 'style="border-top:none; padding-top:2px; margin-top:2px;"' : ''}>
         <span class="arrow">&#8618;</span><span class="to">${b.to}</span>
@@ -290,6 +291,12 @@ function fmtSignedCfs(v){
   if (v === null || v === undefined || isNaN(v)) return null;
   const rounded = Math.round(v * 10) / 10;
   return (rounded >= 0 ? '+' : '') + rounded.toLocaleString('en-US') + ' cfs';
+}
+
+// MRGCD telemetry is normally minutes old; fetch_data.py flags a reading
+// stale rather than let a frozen number keep displaying as if live.
+function mrgcdStaleText(entry){
+  return (entry && entry.stale) ? '—' : undefined;
 }
 
 async function render(){
@@ -357,7 +364,9 @@ async function render(){
 
   const mrgcdComponents = [cochitiEastSideCanal, cochitiSileCanal, angostura, isleta, sanAcacia];
   // Cochiti's MRGCD share is its two canal branches (cochitiChannel is river, not a diversion).
-  const mrgcdComplete = mrgcdComponents.every(g => g);
+  // A stale MRGCD reading (fetch_data.py flags entries >24h old) counts the
+  // same as missing here — a frozen number shouldn't feed into this total.
+  const mrgcdComplete = mrgcdComponents.every(g => g && !g.stale);
   const mrgcdTotal = mrgcdComplete
     ? mrgcdComponents.reduce((sum, g) => sum + roundCfs(g.value), 0)
     : null;
@@ -429,7 +438,7 @@ async function render(){
 
   html += segHtml(cochitiOutflow);
   html += nodeHtml({ name:'Angostura Diversion Dam', loc:'Albuquerque Division intake', hideReading:true,
-    branch: { to: 'Albuquerque Division canals', value: angostura && angostura.value } });
+    branch: { to: 'Angostura Diversion', value: angostura && angostura.value, text: mrgcdStaleText(angostura) } });
 
   const angosturaOutflow = (cochitiChannel && angostura) ? cochitiChannel.value - angostura.value : null;
   html += segHtml(angostura && angostura.value);
@@ -441,16 +450,16 @@ async function render(){
 
   html += segHtml(isletaLakes && isletaLakes.value);
   html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Belen Division intake', hideReading:true,
-    branch: { to: 'Belen Division canals', value: isleta && isleta.value } });
+    branch: { to: 'Belen Division canals', value: isleta && isleta.value, text: mrgcdStaleText(isleta) } });
 
-  if (isleta && isletaLakes && isleta.value > isletaLakes.value) {
+  if (isleta && !isleta.stale && isletaLakes && isleta.value > isletaLakes.value) {
     html += `<div class="callout"><b>Open question:</b> the gage just upstream at Isleta Lakes reads ${fmtCfs(isletaLakes.value)}, but the diversion dam below it shows ${fmtCfs(isleta.value)} captured — more than the upstream gage says arrived. Could be travel-time lag between two live reads, local accretion between the two points, or something else. We're flagging it rather than quietly resolving it.</div>`;
   }
 
   html += segHtml(isleta && isleta.value);
   html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Socorro Division intake', value: sanAcaciaChannel && sanAcaciaChannel.value,
     sub:'USGS 08354900 below the dam.',
-    branch: { to: 'Socorro Division canals', value: sanAcacia && sanAcacia.value } });
+    branch: { to: 'San Acacia Canal Intake Gate', value: sanAcacia && sanAcacia.value, text: mrgcdStaleText(sanAcacia) } });
 
   const sanMarcialUpstream = (albuquerque && isleta && sanAcacia) ? albuquerque.value - isleta.value - sanAcacia.value : null;
   const sanMarcialCombined = (sanMarcialFloodway || sanMarcialLfcc)
@@ -479,7 +488,7 @@ async function render(){
 
   html += `</div>`; // .river
 
-  if (angostura && isleta && sanAcacia && ebRelease) {
+  if (angostura && !angostura.stale && isleta && !isleta.stale && sanAcacia && !sanAcacia.stale && ebRelease) {
     const diverted = roundCfs(angostura.value) + roundCfs(isleta.value) + roundCfs(sanAcacia.value);
     html += `<div class="callout"><b>${fmtCfs(diverted)} diverted upstream, ${fmtCfs(ebRelease.value)} released today.</b> Angostura, Isleta, and San Acacia combined are diverting ${fmtCfs(diverted)} out of the channel right now; Elephant Butte's most recent daily release is ${fmtCfs(ebRelease.value)}. As above, these aren't the same water at the same moment — the water's transit time between these two points isn't accounted for here, and whatever isn't diverted or lost to the channel between here and the reservoir still has to arrive before it can be released.</div>`;
   }
