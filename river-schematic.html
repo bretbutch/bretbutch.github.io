@@ -337,6 +337,7 @@ async function render(){
   const otowi = get(data.usgs, 'otowi');
   const albuquerque = get(data.usgs, 'albuquerque');
   const isletaLakes = get(data.usgs, 'isleta_lakes');
+  const sanAcaciaChannel = get(data.usgs, 'san_acacia_channel');
   const sanMarcialFloodway = get(data.usgs, 'san_marcial_floodway');
   const sanMarcialLfcc = get(data.usgs, 'san_marcial_lfcc');
   const cochitiChannel = get(data.usgs, 'cochiti_channel');
@@ -447,7 +448,8 @@ async function render(){
   }
 
   html += segHtml(isleta && isleta.value);
-  html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Socorro Division intake', hideReading:true,
+  html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Socorro Division intake', value: sanAcaciaChannel && sanAcaciaChannel.value,
+    sub:'USGS 08354900 below the dam.',
     branch: { to: 'Socorro Division canals', value: sanAcacia && sanAcacia.value } });
 
   const sanMarcialUpstream = (albuquerque && isleta && sanAcacia) ? albuquerque.value - isleta.value - sanAcacia.value : null;
@@ -456,7 +458,7 @@ async function render(){
     : null;
   const sanMarcialTag = runoffTag(sanMarcialCombined, sanMarcialUpstream) ? 'Reach includes local runoff' : null;
 
-  html += segHtml(sanAcacia && sanAcacia.value);
+  html += segHtml(sanAcaciaChannel && sanAcaciaChannel.value);
   html += `<div class="pair">
     ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS 08358400', value: sanMarcialFloodway && sanMarcialFloodway.value, tag: sanMarcialTag })}
     ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS 08358300', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'Parallel channel that carries water past a high-seepage reach.' })}

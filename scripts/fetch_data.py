@@ -51,6 +51,7 @@ USGS_SITES = {
     "otowi": "08313000",
     "albuquerque": "08330000",
     "isleta_lakes": "08330875",
+    "san_acacia_channel": "08354900",
     "san_marcial_floodway": "08358400",
     "san_marcial_lfcc": "08358300",
     "cochiti_channel": "08317400",
