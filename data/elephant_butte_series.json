@@ -1,0 +1,182 @@
+{
+  "2026-08-08": {
+    "delta_storage_af": 22.0,
+    "evaporation_af": 3.98
+  },
+  "2026-08-09": {
+    "delta_storage_af": 114.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-10": {
+    "delta_storage_af": 114.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-11": {
+    "delta_storage_af": -137.0,
+    "evaporation_af": 2.66
+  },
+  "2026-08-12": {
+    "delta_storage_af": 46.0,
+    "evaporation_af": 29.24
+  },
+  "2026-08-13": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 2.66
+  },
+  "2026-08-14": {
+    "delta_storage_af": 23.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-15": {
+    "delta_storage_af": 68.0,
+    "evaporation_af": 2.66
+  },
+  "2026-08-16": {
+    "delta_storage_af": -23.0,
+    "evaporation_af": 3.99
+  },
+  "2026-08-17": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 2.66
+  },
+  "2026-08-18": {
+    "delta_storage_af": 114.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-19": {
+    "delta_storage_af": -45.0,
+    "evaporation_af": 5.32
+  },
+  "2026-08-20": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 2.66
+  },
+  "2026-08-21": {
+    "delta_storage_af": 45.0,
+    "evaporation_af": 4.0
+  },
+  "2026-08-22": {
+    "delta_storage_af": 92.0,
+    "evaporation_af": 2.67
+  },
+  "2026-08-23": {
+    "delta_storage_af": 23.0,
+    "evaporation_af": 2.67
+  },
+  "2026-08-24": {
+    "delta_storage_af": 45.0,
+    "evaporation_af": 2.67
+  },
+  "2026-08-25": {
+    "delta_storage_af": -45.0,
+    "evaporation_af": 2.67
+  },
+  "2026-08-26": {
+    "delta_storage_af": 68.0,
+    "evaporation_af": 2.67
+  },
+  "2026-08-27": {
+    "delta_storage_af": -68.0,
+    "evaporation_af": 4.0
+  },
+  "2026-08-28": {
+    "delta_storage_af": 22.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-29": {
+    "delta_storage_af": 23.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-30": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 1.33
+  },
+  "2026-08-31": {
+    "delta_storage_af": 23.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-01": {
+    "delta_storage_af": 92.0,
+    "evaporation_af": 2.67
+  },
+  "2026-09-02": {
+    "delta_storage_af": 46.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-03": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-04": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-05": {
+    "delta_storage_af": 68.0,
+    "evaporation_af": 2.68
+  },
+  "2026-09-06": {
+    "delta_storage_af": -22.0,
+    "evaporation_af": 8.03
+  },
+  "2026-09-07": {
+    "delta_storage_af": -92.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-08": {
+    "delta_storage_af": 206.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-09": {
+    "delta_storage_af": -46.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-10": {
+    "delta_storage_af": 92.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-11": {
+    "delta_storage_af": 23.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-12": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-13": {
+    "delta_storage_af": 69.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-14": {
+    "delta_storage_af": -92.0,
+    "evaporation_af": 8.05
+  },
+  "2026-09-15": {
+    "delta_storage_af": 161.0,
+    "evaporation_af": 1.34
+  },
+  "2026-09-16": {
+    "delta_storage_af": 0.0,
+    "evaporation_af": 12.14
+  },
+  "2026-09-17": {
+    "delta_storage_af": 950.0,
+    "evaporation_af": 53.65
+  },
+  "2026-09-18": {
+    "delta_storage_af": 491.0,
+    "evaporation_af": 9.39
+  },
+  "2026-09-19": {
+    "delta_storage_af": 94.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-20": {
+    "delta_storage_af": 46.0,
+    "evaporation_af": 0.0
+  },
+  "2026-09-21": {
+    "delta_storage_af": 447.0,
+    "evaporation_af": 0.0
+  }
+}

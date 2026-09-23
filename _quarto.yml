@@ -3,6 +3,7 @@ project:
   resources:
     - "river-schematic.html"
     - "data/river-data.json"
+    - "data/elephant_butte_series.json"
 
 website:
   title: "Paperwater"
