@@ -105,6 +105,13 @@ EB_REVISION_LOG_THRESHOLD_AF = 50
 # (172.36 * 43560 / 86400 = 86.9 cfs).
 AF_PER_DAY_TO_CFS = 43560.0 / 86400.0
 
+# MRGCD's OneRain telemetry is normally only minutes old. If a reading is
+# older than this at fetch time (sensor/telemetry outage), don't publish a
+# frozen number that looks live but isn't — the JSON carries the actual
+# value and age for anyone inspecting it directly, but river-schematic.html
+# is expected to show "—" instead wherever this reading is displayed.
+MRGCD_STALENESS_THRESHOLD_HOURS = 24
+
 USER_AGENT = "paperwater-river-pipeline/1.0 (+https://paperwater.net; contact butch@paperwater.net)"
 TIMEOUT = 20
 
@@ -147,10 +154,16 @@ def fetch_mrgcd(session: requests.Session) -> dict:
             r.raise_for_status()
             series = r.json()[0]
             ts_ms, value = series["data"][-1]
+            reading_time = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc)
+            age_hours = (datetime.now(timezone.utc) - reading_time).total_seconds() / 3600
+            stale = age_hours > MRGCD_STALENESS_THRESHOLD_HOURS
+            print(f"MRGCD {key} ({site_id}/{device_id}): {age_hours:.2f}h old{' — STALE' if stale else ''}", file=sys.stderr)
             out[key] = {
                 "value": value,
                 "units": series.get("units", "cfs"),
-                "timestamp": datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc).isoformat(),
+                "timestamp": reading_time.isoformat(),
+                "age_hours": round(age_hours, 2),
+                "stale": stale,
                 "site_id": site_id,
                 "device_id": device_id,
             }
