@@ -345,7 +345,6 @@ async function render(){
   const ebStorage = get(data.usbr_reservoir, 'elephant_butte_storage');
   const ebRelease = get(data.usbr_reservoir, 'elephant_butte_release');
   const cochitiStorage = get(data.usbr_reservoir, 'cochiti_storage');
-  const abiquiuStorage = get(data.usbr_reservoir, 'abiquiu_storage');
 
   // --- Consistency: every displayed total is the sum of the same rounded
   // values shown in the component rows, so a reader can always add up the
@@ -401,8 +400,7 @@ async function render(){
   html += nodeHtml({ name:'Embudo', loc:'USGS 08279500', value: embudo && embudo.value, sub:'Rio Grande above the Chama.' });
 
   html += segHtml(embudo && embudo.value);
-  html += nodeHtml({ name:'Abiquiu Dam', loc:'USGS 08287000 &middot; USACE', value: abiquiuChannel && abiquiuChannel.value,
-    sub:`Rio Chama release. Storage: ${abiquiuStorage ? fmtAF(abiquiuStorage.value) : 'no reading'}.` });
+  html += nodeHtml({ name:'Abiquiu Dam', loc:'USGS 08287000 &middot; USACE', value: abiquiuChannel && abiquiuChannel.value });
 
   html += segHtml(abiquiuChannel && abiquiuChannel.value);
   html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS 08290000', value: chamaChamita && chamaChamita.value, sub:'The Chama just above the Rio Grande.' });
@@ -456,12 +454,12 @@ async function render(){
   const sanMarcialCombined = (sanMarcialFloodway || sanMarcialLfcc)
     ? ((sanMarcialFloodway && sanMarcialFloodway.value) || 0) + ((sanMarcialLfcc && sanMarcialLfcc.value) || 0)
     : null;
-  const sanMarcialTag = runoffTag(sanMarcialCombined, sanMarcialUpstream) ? 'Includes local runoff' : null;
+  const sanMarcialTag = runoffTag(sanMarcialCombined, sanMarcialUpstream) ? 'Reach includes local runoff' : null;
 
   html += segHtml(sanAcacia && sanAcacia.value);
   html += `<div class="pair">
     ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS 08358400', value: sanMarcialFloodway && sanMarcialFloodway.value, tag: sanMarcialTag })}
-    ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS 08358300', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'Parallel channel that carries water past a high-seepage reach.', tag: sanMarcialTag })}
+    ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS 08358300', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'Parallel channel that carries water past a high-seepage reach.' })}
   </div>`;
 
   const ebChangeLine = ebLatestDate
