@@ -382,7 +382,7 @@ async function render(){
   </div>`;
 
   html += segHtml(mogote && mogote.value);
-  html += nodeHtml({ name:'San Luis Valley irrigation', loc:'Thousands of individually decreed headgates, valley-wide', hideReading:true,
+  html += nodeHtml({ name:'San Luis Valley irrigation', loc:'', hideReading:true,
     sub: IS_OFF_SEASON ? 'Headgates closed for the season.' : 'Many ungaged individual headgates. No real time summation for valley wide diversions.' });
 
   html += segHtml(lobatos && lobatos.value);
@@ -390,7 +390,7 @@ async function render(){
 
   if (delNorte && mogote && lobatos) {
     const combinedIn = roundCfs(delNorte.value) + roundCfs(mogote.value);
-    html += `<div class="callout"><b>In: ${fmtCfs(combinedIn)} &middot; At the state line: ${fmtCfs(lobatos.value)}</b><br><span style="font-size:11px;">Compact deliveries are settled annually, not day to day.</span></div>`;
+    html += `<div class="callout"><b>In: ${fmtCfs(combinedIn)} &middot; At the state line: ${fmtCfs(lobatos.value)}</b></div>`;
   }
 
   html += `<div class="seam">&mdash; meanwhile, downstream in New Mexico &mdash;</div>`;
