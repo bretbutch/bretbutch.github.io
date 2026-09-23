@@ -163,6 +163,8 @@
 
 <script>
 const DATA_URL = 'data/river-data.json';
+const EB_SERIES_URL = 'data/elephant_butte_series.json';
+const AF_TO_CFS = 1 / 1.98347;
 
 // Nov 1 through the last day of Feb, America/Denver time. Override for
 // testing with ?offSeason=1 or ?offSeason=0 in the URL.
@@ -272,6 +274,24 @@ function fmtTimestamp(iso){
   } catch (e) { return iso; }
 }
 
+// dateStr is a plain "YYYY-MM-DD" calendar date with no time/zone info —
+// format in UTC so it can't shift a day depending on the viewer's offset.
+function fmtDateShort(dateStr){
+  try {
+    return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(dateStr + 'T00:00:00Z'));
+  } catch (e) { return dateStr; }
+}
+function fmtSignedAF(v){
+  if (v === null || v === undefined || isNaN(v)) return null;
+  const rounded = Math.round(v);
+  return (rounded >= 0 ? '+' : '') + rounded.toLocaleString('en-US') + ' AF';
+}
+function fmtSignedCfs(v){
+  if (v === null || v === undefined || isNaN(v)) return null;
+  const rounded = Math.round(v * 10) / 10;
+  return (rounded >= 0 ? '+' : '') + rounded.toLocaleString('en-US') + ' cfs';
+}
+
 async function render(){
   IS_OFF_SEASON = computeOffSeason();
 
@@ -285,6 +305,24 @@ async function render(){
     document.getElementById('updated-line').textContent = '';
     app.innerHTML = `<div class="load-error">Couldn't load current river data (${err.message}). The daily fetch pipeline may be temporarily down — try reloading in a bit.</div>`;
     return;
+  }
+
+  // Elephant Butte's storage-change series is a separate, non-critical
+  // fetch — its absence shouldn't take down the rest of the page.
+  let ebSeries = null;
+  try {
+    const ebRes = await fetch(EB_SERIES_URL, { cache: 'no-store' });
+    if (ebRes.ok) ebSeries = await ebRes.json();
+  } catch (err) { /* leave ebSeries null; card falls back to "—" */ }
+
+  let ebLatestDate = null, ebLatestDelta = null, ebSevenDaySum = null;
+  if (ebSeries && Object.keys(ebSeries).length) {
+    const dates = Object.keys(ebSeries).sort();
+    ebLatestDate = dates[dates.length - 1];
+    ebLatestDelta = ebSeries[ebLatestDate].delta_storage_af;
+    const last7 = dates.slice(-7);
+    const availableDeltas = last7.map(d => ebSeries[d].delta_storage_af).filter(v => v !== null && v !== undefined);
+    ebSevenDaySum = availableDeltas.length ? availableDeltas.reduce((a, b) => a + b, 0) : null;
   }
 
   const delNorte = get(data.usbr_gage, 'del_norte');
@@ -426,10 +464,17 @@ async function render(){
     ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS 08358300', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'Parallel channel that carries water past a high-seepage reach.', tag: sanMarcialTag })}
   </div>`;
 
+  const ebChangeLine = ebLatestDate
+    ? `Storage change, ${fmtDateShort(ebLatestDate)}: ${ebLatestDelta !== null && ebLatestDelta !== undefined ? `${fmtSignedAF(ebLatestDelta)} (${fmtSignedCfs(ebLatestDelta * AF_TO_CFS)} equivalent)` : '&mdash;'}`
+    : 'Storage change: &mdash;';
+  const ebSevenDayLine = `7-day storage change: ${ebSevenDaySum !== null ? fmtSignedAF(ebSevenDaySum) : '&mdash;'}`;
+
   html += segHtml(Math.max((sanMarcialFloodway && sanMarcialFloodway.value) || 0, (sanMarcialLfcc && sanMarcialLfcc.value) || 0));
   html += `<div style="text-align:center">
     <div class="tank"><div class="tank-fill" style="height:${ebStorage ? Math.max(1, Math.min(100, Math.round(100 * ebStorage.value / EB_CAPACITY_AF))) : 0}%"></div></div>
     <div class="tank-label">Elephant Butte — ${ebStorage ? fmtAF(ebStorage.value) : 'no reading'} stored (${ebStorage ? (100 * ebStorage.value / EB_CAPACITY_AF).toFixed(1) : '?'}% of conservation capacity) &middot; Release: ${ebRelease ? fmtCfs(ebRelease.value) : 'no reading'}</div>
+    <div class="tank-label" style="margin-top:6px">${ebChangeLine}</div>
+    <div class="tank-label" style="opacity:.7; margin-top:2px;">${ebSevenDayLine}</div>
   </div>`;
 
   html += `</div>`; // .river
