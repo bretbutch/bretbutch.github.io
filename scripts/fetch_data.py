@@ -19,7 +19,7 @@ Sources (all public, no auth required):
 
 Each source is fetched independently; a failure on one does not prevent the
 others from being written. Run directly (`python scripts/fetch_data.py`) or
-via the daily GitHub Actions workflow.
+via the twice-daily GitHub Actions workflow.
 """
 from __future__ import annotations
 

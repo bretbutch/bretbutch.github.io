@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-09-23T00:54:07.982073+00:00",
+  "generated_at": "2026-09-23T01:13:21.517640+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 187.13,
+      "value": 181.09,
       "units": "cfs",
-      "timestamp": "2026-09-23T00:43:50+00:00",
+      "timestamp": "2026-09-23T01:12:20+00:00",
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 0.77,
+      "value": 0.71,
       "units": "cfs",
-      "timestamp": "2026-09-23T00:37:08+00:00",
+      "timestamp": "2026-09-23T01:06:25+00:00",
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 67.04,
+      "value": 67.87,
       "units": "cfs",
-      "timestamp": "2026-09-23T00:37:01+00:00",
+      "timestamp": "2026-09-23T01:06:18+00:00",
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 101.67,
+      "value": 95.2,
       "units": "cfs",
-      "timestamp": "2026-09-23T00:43:50+00:00",
+      "timestamp": "2026-09-23T01:12:20+00:00",
       "site_id": 197,
       "device_id": 2
     },
     "san_acacia": {
       "value": 0,
       "units": "cfs",
-      "timestamp": "2026-09-23T00:40:59+00:00",
+      "timestamp": "2026-09-23T01:10:02+00:00",
       "site_id": 131,
       "device_id": 3
     }
@@ -81,16 +81,16 @@
       "name": "RIO GRANDE AT ISLETA LAKES NR ISLETA, NM"
     },
     "san_acacia_channel": {
-      "value": 1270.0,
+      "value": 1010.0,
       "units": "cfs",
-      "timestamp": "2026-09-22T17:45:00.000-06:00",
+      "timestamp": "2026-09-22T18:45:00.000-06:00",
       "site": "08354900",
       "name": "RIO GRANDE FLOODWAY AT SAN ACACIA, NM"
     },
     "san_marcial_floodway": {
-      "value": 432.0,
+      "value": 477.0,
       "units": "cfs",
-      "timestamp": "2026-09-22T17:45:00.000-06:00",
+      "timestamp": "2026-09-22T18:45:00.000-06:00",
       "site": "08358400",
       "name": "RIO GRANDE FLOODWAY AT SAN MARCIAL, NM"
     },
