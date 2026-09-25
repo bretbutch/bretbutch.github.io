@@ -446,7 +446,7 @@ async function render(){
     tag: (albuquerque && runoffTag(albuquerque.value, angosturaOutflow)) ? 'Includes local runoff' : null });
 
   html += segHtml(albuquerque && albuquerque.value);
-  html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'Channel flows may increase here for a couple of likely reasons: ABCWUA\'s treatment plant has an outfall in this stretch, or water from upstream diversions may be returning to the river.' });
+  html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'ABCWUA\'s treatment plant has an outfall in this stretch.' });
 
   html += segHtml(isletaLakes && isletaLakes.value);
   html += nodeHtml({ name:'Isleta Diversion Dam', loc:'Belen Division intake', hideReading:true,
