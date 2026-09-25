@@ -4,9 +4,21 @@ on:
   schedule:
     # GitHub Actions cron is UTC-only with no timezone/DST awareness, so
     # 9am/9pm America/Denver is covered by scheduling both possible UTC
-    # offsets (MDT = UTC-6, MST = UTC-7) and having the job itself check
-    # the real Denver-local hour before doing any work — see the "Check
-    # local time" step below. Two of these four ticks are always no-ops.
+    # offsets (MDT = UTC-6, MST = UTC-7); whichever pair is off-regime for
+    # the current time of year just re-fetches unchanged data and no-ops
+    # at the "Commit data update" step below, same as any redundant run.
+    #
+    # An earlier version of this file added a strict "is it exactly 9am or
+    # 9pm Denver time right now" gate step to skip the off-regime pair
+    # instead of letting them no-op naturally. That gate caused a total
+    # outage from 2026-09-22 to 2026-09-25: this repo's scheduled runs are
+    # dispatched by GitHub many hours late (a real, documented GH Actions
+    # behavior, not something we can control), so by the time a run
+    # actually executed, the exact-hour check failed for every single
+    # tick — including the ones that were "correctly" scheduled — and the
+    # entire pipeline silently stopped updating. Removed; see the
+    # "Commit data update" step's existing diff-check for why this is
+    # safe without it.
     - cron: "0 15 * * *"  # 9:00 AM MDT
     - cron: "0 16 * * *"  # 9:00 AM MST
     - cron: "0 3 * * *"   # 9:00 PM MDT
@@ -24,62 +36,44 @@ jobs:
   update-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Check local time (DST-safe double-cron guard)
-        id: gate
-        run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            hour=$(TZ="America/Denver" date +%H)
-            if [ "$hour" != "09" ] && [ "$hour" != "21" ]; then
-              echo "proceed=false" >> "$GITHUB_OUTPUT"
-              echo "Denver-local hour is $hour, not 09 or 21 — this is the off-DST-regime duplicate tick, skipping."
-              exit 0
-            fi
-          fi
-          echo "proceed=true" >> "$GITHUB_OUTPUT"
-
       - name: Checkout
-        if: steps.gate.outputs.proceed == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
-        if: steps.gate.outputs.proceed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        if: steps.gate.outputs.proceed == 'true'
         run: pip install -r requirements.txt
 
       - name: Fetch river data
-        if: steps.gate.outputs.proceed == 'true'
         run: python scripts/fetch_data.py
 
       - name: Commit data update
         id: commit
-        if: steps.gate.outputs.proceed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- data/river-data.json; then
+          if git diff --quiet -- data/river-data.json data/elephant_butte_series.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git add data/river-data.json
+            git add data/river-data.json data/elephant_butte_series.json
             git commit -m "Update river data $(date -u +'%Y-%m-%d %H:%MZ')"
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Quarto
-        if: steps.gate.outputs.proceed == 'true' && steps.commit.outputs.changed == 'true'
+        if: steps.commit.outputs.changed == 'true'
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render site
-        if: steps.gate.outputs.proceed == 'true' && steps.commit.outputs.changed == 'true'
+        if: steps.commit.outputs.changed == 'true'
         run: quarto render
 
       - name: Publish to gh-pages
-        if: steps.gate.outputs.proceed == 'true' && steps.commit.outputs.changed == 'true'
+        if: steps.commit.outputs.changed == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
