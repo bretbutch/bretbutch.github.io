@@ -1,12 +1,4 @@
 {
-  "2026-08-09": {
-    "delta_storage_af": 114.0,
-    "evaporation_af": 1.33
-  },
-  "2026-08-10": {
-    "delta_storage_af": 114.0,
-    "evaporation_af": 1.33
-  },
   "2026-08-11": {
     "delta_storage_af": -137.0,
     "evaporation_af": 2.66
@@ -145,7 +137,7 @@
   },
   "2026-09-14": {
     "delta_storage_af": -92.0,
-    "evaporation_af": 8.05
+    "evaporation_af": 8.04
   },
   "2026-09-15": {
     "delta_storage_af": 161.0,
@@ -153,15 +145,15 @@
   },
   "2026-09-16": {
     "delta_storage_af": 0.0,
-    "evaporation_af": 12.14
+    "evaporation_af": 12.09
   },
   "2026-09-17": {
     "delta_storage_af": 950.0,
-    "evaporation_af": 53.65
+    "evaporation_af": 54.36
   },
   "2026-09-18": {
     "delta_storage_af": 491.0,
-    "evaporation_af": 9.39
+    "evaporation_af": 9.57
   },
   "2026-09-19": {
     "delta_storage_af": 94.0,
@@ -177,6 +169,14 @@
   },
   "2026-09-22": {
     "delta_storage_af": 663.0,
+    "evaporation_af": 8.32
+  },
+  "2026-09-23": {
+    "delta_storage_af": 1124.0,
+    "evaporation_af": 36.49
+  },
+  "2026-09-24": {
+    "delta_storage_af": 1089.0,
     "evaporation_af": null
   }
 }
