@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-03T18:34:50.563513+00:00",
+  "generated_at": "2026-10-03T18:59:01.399260+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 119.95,
+      "value": 130.14,
       "units": "cfs",
-      "timestamp": "2026-10-03T18:30:57+00:00",
-      "age_hours": 0.07,
+      "timestamp": "2026-10-03T18:41:38+00:00",
+      "age_hours": 0.29,
       "stale": false,
       "site_id": 195,
       "device_id": 2
@@ -13,26 +13,26 @@
     "cochiti": {
       "value": 0.03,
       "units": "cfs",
-      "timestamp": "2026-10-03T18:06:10+00:00",
-      "age_hours": 0.48,
+      "timestamp": "2026-10-03T18:35:56+00:00",
+      "age_hours": 0.39,
       "stale": false,
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 57.48,
+      "value": 64.27,
       "units": "cfs",
-      "timestamp": "2026-10-03T18:06:02+00:00",
-      "age_hours": 0.48,
+      "timestamp": "2026-10-03T18:35:49+00:00",
+      "age_hours": 0.39,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 62.27,
+      "value": 65.67,
       "units": "cfs",
-      "timestamp": "2026-10-03T18:30:57+00:00",
-      "age_hours": 0.07,
+      "timestamp": "2026-10-03T18:41:38+00:00",
+      "age_hours": 0.29,
       "stale": false,
       "site_id": 197,
       "device_id": 2
@@ -40,8 +40,8 @@
     "san_acacia": {
       "value": 0,
       "units": "cfs",
-      "timestamp": "2026-10-03T18:09:24+00:00",
-      "age_hours": 0.42,
+      "timestamp": "2026-10-03T18:39:11+00:00",
+      "age_hours": 0.33,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -93,7 +93,7 @@
     "san_acacia_channel": {
       "value": 3850.0,
       "units": "cfs",
-      "timestamp": "2026-10-03T11:45:00.000-06:00",
+      "timestamp": "2026-10-03T12:45:00.000-06:00",
       "site": "08354900",
       "name": "RIO GRANDE FLOODWAY AT SAN ACACIA, NM"
     },
