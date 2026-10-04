@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-04T18:33:39.081114+00:00",
+  "generated_at": "2026-10-04T19:00:34.879644+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 123.29,
+      "value": 122.42,
       "units": "cfs",
-      "timestamp": "2026-10-04T18:31:19+00:00",
-      "age_hours": 0.04,
+      "timestamp": "2026-10-04T19:00:29+00:00",
+      "age_hours": 0.0,
       "stale": false,
       "site_id": 195,
       "device_id": 2
@@ -13,26 +13,26 @@
     "cochiti": {
       "value": 0.03,
       "units": "cfs",
-      "timestamp": "2026-10-04T18:07:08+00:00",
-      "age_hours": 0.44,
+      "timestamp": "2026-10-04T18:36:04+00:00",
+      "age_hours": 0.41,
       "stale": false,
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 63.82,
+      "value": 64.18,
       "units": "cfs",
-      "timestamp": "2026-10-04T18:07:01+00:00",
-      "age_hours": 0.44,
+      "timestamp": "2026-10-04T18:35:57+00:00",
+      "age_hours": 0.41,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 59.26,
+      "value": 58.03,
       "units": "cfs",
-      "timestamp": "2026-10-04T18:31:19+00:00",
-      "age_hours": 0.04,
+      "timestamp": "2026-10-04T19:00:29+00:00",
+      "age_hours": 0.0,
       "stale": false,
       "site_id": 197,
       "device_id": 2
@@ -40,8 +40,8 @@
     "san_acacia": {
       "value": 0,
       "units": "cfs",
-      "timestamp": "2026-10-04T18:10:23+00:00",
-      "age_hours": 0.39,
+      "timestamp": "2026-10-04T18:39:19+00:00",
+      "age_hours": 0.36,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -91,9 +91,9 @@
       "name": "RIO GRANDE AT ISLETA LAKES NR ISLETA, NM"
     },
     "san_acacia_channel": {
-      "value": 3760.0,
+      "value": 3870.0,
       "units": "cfs",
-      "timestamp": "2026-10-04T11:45:00.000-06:00",
+      "timestamp": "2026-10-04T12:45:00.000-06:00",
       "site": "08354900",
       "name": "RIO GRANDE FLOODWAY AT SAN ACACIA, NM"
     },
