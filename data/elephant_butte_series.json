@@ -153,30 +153,30 @@
   },
   "2026-09-29": {
     "delta_storage_af": 4760.0,
-    "evaporation_af": 2441.83
+    "evaporation_af": 0.0
   },
   "2026-09-30": {
     "delta_storage_af": 3624.0,
-    "evaporation_af": 3.39
+    "evaporation_af": 5.09
   },
   "2026-10-01": {
     "delta_storage_af": 7309.0,
-    "evaporation_af": 36.31
+    "evaporation_af": 26.75
   },
   "2026-10-02": {
     "delta_storage_af": 6051.0,
-    "evaporation_af": 152.38
+    "evaporation_af": 22.65
   },
   "2026-10-03": {
     "delta_storage_af": 3573.0,
-    "evaporation_af": 716.2
+    "evaporation_af": 17.21
   },
   "2026-10-04": {
     "delta_storage_af": 5164.0,
-    "evaporation_af": 1147.26
+    "evaporation_af": 27.37
   },
   "2026-10-05": {
     "delta_storage_af": 5929.0,
-    "evaporation_af": null
+    "evaporation_af": 16.97
   }
 }
