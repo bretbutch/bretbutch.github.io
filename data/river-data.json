@@ -1,47 +1,47 @@
 {
-  "generated_at": "2026-10-16T18:40:35.563195+00:00",
+  "generated_at": "2026-10-16T19:16:31.197580+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 408.47,
+      "value": 403.49,
       "units": "cfs",
-      "timestamp": "2026-10-16T18:40:04+00:00",
-      "age_hours": 0.01,
+      "timestamp": "2026-10-16T19:13:53+00:00",
+      "age_hours": 0.04,
       "stale": false,
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 70.07,
+      "value": 67.67,
       "units": "cfs",
-      "timestamp": "2026-10-16T18:40:04+00:00",
-      "age_hours": 0.01,
+      "timestamp": "2026-10-16T19:07:51+00:00",
+      "age_hours": 0.15,
       "stale": false,
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 53.51,
+      "value": 53.88,
       "units": "cfs",
-      "timestamp": "2026-10-16T18:39:57+00:00",
-      "age_hours": 0.01,
+      "timestamp": "2026-10-16T19:07:44+00:00",
+      "age_hours": 0.15,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 183.22,
+      "value": 178.66,
       "units": "cfs",
-      "timestamp": "2026-10-16T18:31:19+00:00",
-      "age_hours": 0.16,
+      "timestamp": "2026-10-16T19:13:32+00:00",
+      "age_hours": 0.05,
       "stale": false,
       "site_id": 197,
       "device_id": 2
     },
     "san_acacia": {
-      "value": 74.6,
+      "value": 76.54,
       "units": "cfs",
-      "timestamp": "2026-10-16T18:09:18+00:00",
-      "age_hours": 0.52,
+      "timestamp": "2026-10-16T19:13:53+00:00",
+      "age_hours": 0.04,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -63,16 +63,16 @@
       "name": "RIO CHAMA BELOW ABIQUIU DAM, NM"
     },
     "chama_chamita": {
-      "value": 228.0,
+      "value": 225.0,
       "units": "cfs",
-      "timestamp": "2026-10-16T12:00:00.000-06:00",
+      "timestamp": "2026-10-16T13:00:00.000-06:00",
       "site": "08290000",
       "name": "RIO CHAMA NEAR CHAMITA, NM"
     },
     "otowi": {
       "value": 441.0,
       "units": "cfs",
-      "timestamp": "2026-10-16T12:00:00.000-06:00",
+      "timestamp": "2026-10-16T13:00:00.000-06:00",
       "site": "08313000",
       "name": "RIO GRANDE AT OTOWI BRIDGE, NM"
     },
@@ -84,23 +84,23 @@
       "name": "RIO GRANDE AT ALBUQUERQUE, NM"
     },
     "isleta_lakes": {
-      "value": 107.0,
+      "value": 112.0,
       "units": "cfs",
-      "timestamp": "2026-10-16T12:00:00.000-06:00",
+      "timestamp": "2026-10-16T13:00:00.000-06:00",
       "site": "08330875",
       "name": "RIO GRANDE AT ISLETA LAKES NR ISLETA, NM"
     },
     "san_acacia_channel": {
-      "value": 227.0,
+      "value": 216.0,
       "units": "cfs",
-      "timestamp": "2026-10-16T11:45:00.000-06:00",
+      "timestamp": "2026-10-16T12:45:00.000-06:00",
       "site": "08354900",
       "name": "RIO GRANDE FLOODWAY AT SAN ACACIA, NM"
     },
     "san_marcial_floodway": {
       "value": 21.8,
       "units": "cfs",
-      "timestamp": "2026-10-16T11:45:00.000-06:00",
+      "timestamp": "2026-10-16T12:45:00.000-06:00",
       "site": "08358400",
       "name": "RIO GRANDE FLOODWAY AT SAN MARCIAL, NM"
     },
@@ -135,39 +135,39 @@
   },
   "usbr_gage": {
     "del_norte": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/gage_data/2722/json/19.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff035ade0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/gage_data/2722/json/19.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfaf2960>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 2722,
       "param_id": 19
     },
     "mogote": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/gage_data/2741/json/19.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff035bbc0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/gage_data/2741/json/19.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfaf2b70>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 2741,
       "param_id": 19
     },
     "lobatos": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/gage_data/2723/json/19.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff0190440>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/gage_data/2723/json/19.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfb20080>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 2723,
       "param_id": 19
     }
   },
   "usbr_reservoir": {
     "elephant_butte_storage": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/1119/json/17.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff035bfe0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/1119/json/17.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfaf39b0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 1119,
       "param_id": 17
     },
     "elephant_butte_release": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/1119/json/43.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff035aae0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/1119/json/43.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfaf30e0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 1119,
       "param_id": 43
     },
     "cochiti_storage": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/2696/json/17.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff035b0e0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/2696/json/17.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfaf3470>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 2696,
       "param_id": 17
     },
     "abiquiu_storage": {
-      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/2730/json/17.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f6ff0190e60>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
+      "error": "HTTPSConnectionPool(host='www.usbr.gov', port=443): Max retries exceeded with url: /uc/water/hydrodata/reservoir_data/2730/json/17.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.usbr.gov', port=443) at 0x7f04dfb20aa0>, 'Connection to www.usbr.gov timed out. (connect timeout=20)'))",
       "site_id": 2730,
       "param_id": 17
     }
