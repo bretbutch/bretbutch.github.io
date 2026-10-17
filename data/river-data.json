@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-10-17T17:47:54.590687+00:00",
+  "generated_at": "2026-10-17T18:08:17.342544+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 367.92,
+      "value": 372.22,
       "units": "cfs",
-      "timestamp": "2026-10-17T17:44:26+00:00",
-      "age_hours": 0.06,
+      "timestamp": "2026-10-17T18:07:38+00:00",
+      "age_hours": 0.01,
       "stale": false,
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 66.71,
+      "value": 68.81,
       "units": "cfs",
-      "timestamp": "2026-10-17T17:38:44+00:00",
-      "age_hours": 0.15,
+      "timestamp": "2026-10-17T18:07:38+00:00",
+      "age_hours": 0.01,
       "stale": false,
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 55.57,
+      "value": 55.67,
       "units": "cfs",
-      "timestamp": "2026-10-17T17:38:37+00:00",
-      "age_hours": 0.16,
+      "timestamp": "2026-10-17T18:07:31+00:00",
+      "age_hours": 0.01,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 166.64,
+      "value": 168.74,
       "units": "cfs",
-      "timestamp": "2026-10-17T17:44:26+00:00",
-      "age_hours": 0.06,
+      "timestamp": "2026-10-17T18:01:31+00:00",
+      "age_hours": 0.11,
       "stale": false,
       "site_id": 197,
       "device_id": 2
@@ -41,7 +41,7 @@
       "value": 55.34,
       "units": "cfs",
       "timestamp": "2026-10-17T17:41:59+00:00",
-      "age_hours": 0.1,
+      "age_hours": 0.44,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -93,14 +93,14 @@
     "san_acacia_channel": {
       "value": 70.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T10:45:00.000-06:00",
+      "timestamp": "2026-10-17T11:45:00.000-06:00",
       "site": "08354900",
       "name": "RIO GRANDE FLOODWAY AT SAN ACACIA, NM"
     },
     "san_marcial_floodway": {
       "value": 21.8,
       "units": "cfs",
-      "timestamp": "2026-10-17T10:45:00.000-06:00",
+      "timestamp": "2026-10-17T11:45:00.000-06:00",
       "site": "08358400",
       "name": "RIO GRANDE FLOODWAY AT SAN MARCIAL, NM"
     },
