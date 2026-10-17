@@ -1,47 +1,47 @@
 {
-  "generated_at": "2026-10-17T08:14:48.231779+00:00",
+  "generated_at": "2026-10-17T17:47:54.590687+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 408.69,
+      "value": 367.92,
       "units": "cfs",
-      "timestamp": "2026-10-17T08:14:19+00:00",
-      "age_hours": 0.01,
+      "timestamp": "2026-10-17T17:44:26+00:00",
+      "age_hours": 0.06,
       "stale": false,
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 67.27,
+      "value": 66.71,
       "units": "cfs",
-      "timestamp": "2026-10-17T08:08:23+00:00",
-      "age_hours": 0.11,
+      "timestamp": "2026-10-17T17:38:44+00:00",
+      "age_hours": 0.15,
       "stale": false,
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 55.46,
+      "value": 55.57,
       "units": "cfs",
-      "timestamp": "2026-10-17T07:37:26+00:00",
-      "age_hours": 0.62,
+      "timestamp": "2026-10-17T17:38:37+00:00",
+      "age_hours": 0.16,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 183.81,
+      "value": 166.64,
       "units": "cfs",
-      "timestamp": "2026-10-17T08:14:04+00:00",
-      "age_hours": 0.01,
+      "timestamp": "2026-10-17T17:44:26+00:00",
+      "age_hours": 0.06,
       "stale": false,
       "site_id": 197,
       "device_id": 2
     },
     "san_acacia": {
-      "value": 77.59,
+      "value": 55.34,
       "units": "cfs",
-      "timestamp": "2026-10-17T08:14:19+00:00",
-      "age_hours": 0.01,
+      "timestamp": "2026-10-17T17:41:59+00:00",
+      "age_hours": 0.1,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -51,116 +51,116 @@
     "embudo": {
       "value": 244.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:00:00.000-06:00",
+      "timestamp": "2026-10-17T11:00:00.000-06:00",
       "site": "08279500",
       "name": "RIO GRANDE AT EMBUDO, NM"
     },
     "abiquiu_channel": {
-      "value": 220.0,
+      "value": 182.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:15:00.000-06:00",
+      "timestamp": "2026-10-17T11:15:00.000-06:00",
       "site": "08287000",
       "name": "RIO CHAMA BELOW ABIQUIU DAM, NM"
     },
     "chama_chamita": {
       "value": 228.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T02:00:00.000-06:00",
+      "timestamp": "2026-10-17T11:00:00.000-06:00",
       "site": "08290000",
       "name": "RIO CHAMA NEAR CHAMITA, NM"
     },
     "otowi": {
-      "value": 428.0,
+      "value": 424.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T02:00:00.000-06:00",
+      "timestamp": "2026-10-17T11:00:00.000-06:00",
       "site": "08313000",
       "name": "RIO GRANDE AT OTOWI BRIDGE, NM"
     },
     "albuquerque": {
       "value": 161.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:15:00.000-06:00",
+      "timestamp": "2026-10-17T11:15:00.000-06:00",
       "site": "08330000",
       "name": "RIO GRANDE AT ALBUQUERQUE, NM"
     },
     "isleta_lakes": {
-      "value": 138.0,
+      "value": 97.4,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:00:00.000-06:00",
+      "timestamp": "2026-10-17T11:00:00.000-06:00",
       "site": "08330875",
       "name": "RIO GRANDE AT ISLETA LAKES NR ISLETA, NM"
     },
     "san_acacia_channel": {
-      "value": 73.8,
+      "value": 70.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:45:00.000-06:00",
+      "timestamp": "2026-10-17T10:45:00.000-06:00",
       "site": "08354900",
       "name": "RIO GRANDE FLOODWAY AT SAN ACACIA, NM"
     },
     "san_marcial_floodway": {
       "value": 21.8,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:45:00.000-06:00",
+      "timestamp": "2026-10-17T10:45:00.000-06:00",
       "site": "08358400",
       "name": "RIO GRANDE FLOODWAY AT SAN MARCIAL, NM"
     },
     "san_marcial_lfcc": {
-      "value": 183.0,
+      "value": 175.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:15:00.000-06:00",
+      "timestamp": "2026-10-17T11:15:00.000-06:00",
       "site": "08358300",
       "name": "RIO GRANDE CONVEYANCE CHANNEL AT SAN MARCIAL, NM"
     },
     "cochiti_channel": {
       "value": 393.0,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:15:00.000-06:00",
+      "timestamp": "2026-10-17T11:15:00.000-06:00",
       "site": "08317400",
       "name": "RIO GRANDE BELOW COCHITI DAM, NM"
     },
     "cochiti_east_side_canal": {
-      "value": 45.2,
+      "value": 46.1,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:15:00.000-06:00",
+      "timestamp": "2026-10-17T11:15:00.000-06:00",
       "site": "08313500",
       "name": "COCHITI EAST SIDE MAIN CANAL AT COCHITI, NM"
     },
     "cochiti_sile_canal": {
       "value": 20.9,
       "units": "cfs",
-      "timestamp": "2026-10-17T01:15:00.000-06:00",
+      "timestamp": "2026-10-17T11:15:00.000-06:00",
       "site": "08314000",
       "name": "SILE MAIN CANAL (AT HEAD) AT COCHITI, NM"
     }
   },
   "usbr_gage": {
     "del_norte": {
-      "value": 2600.0,
+      "value": 2040.0,
       "units": "cfs",
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "site_id": 2722,
       "param_id": 19
     },
     "mogote": {
-      "value": 763.0,
+      "value": 686.0,
       "units": "cfs",
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "site_id": 2741,
       "param_id": 19
     },
     "lobatos": {
-      "value": 21.2,
+      "value": 27.7,
       "units": "cfs",
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "site_id": 2723,
       "param_id": 19
     }
   },
   "usbr_reservoir": {
     "elephant_butte_storage": {
-      "value": 94701.0,
+      "value": 94891.0,
       "units": "AF",
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "site_id": 1119,
       "param_id": 17,
       "columns": [
@@ -172,15 +172,15 @@
       "value": 0.3,
       "units": "cfs",
       "note": "average cfs for the day, computed from USBR's acre-feet/day release volume",
-      "raw_af_per_day": 0.66322,
-      "date": "2026-10-16",
+      "raw_af_per_day": 0.63347,
+      "date": "2026-10-17",
       "site_id": 1119,
       "param_id": 43
     },
     "cochiti_storage": {
-      "value": 42348.0,
+      "value": 42413.0,
       "units": "AF",
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "site_id": 2696,
       "param_id": 17,
       "columns": [
@@ -189,9 +189,9 @@
       ]
     },
     "abiquiu_storage": {
-      "value": 34413.0,
+      "value": 34433.0,
       "units": "AF",
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "site_id": 2730,
       "param_id": 17,
       "columns": [
