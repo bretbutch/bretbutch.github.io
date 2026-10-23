@@ -5,7 +5,7 @@ Sources (all public, no auth required):
   - MRGCD OneRain telemetry (mrgcd.onerain.com) — 5 diversion-division gages.
     Requires an anonymous session cookie, obtained by GETing the site root
     and following its redirect chain before calling the JSON export endpoint.
-  - USGS NWIS instantaneous values API — mainstem channel gages, the Rio
+  - USGS Water Data API (latest-continuous) — mainstem channel gages, the Rio
     Chama below Abiquiu Dam and near its confluence with the Rio Grande,
     plus the three gages (channel + two canal intakes) that together
     account for all outflow from Cochiti Dam.
@@ -46,6 +46,7 @@ MRGCD_SITES = {
     "san_acacia": (131, 3),
 }
 
+USGS_LATEST_URL = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-continuous/items"
 USGS_SITES = {
     "embudo": "08279500",
     "abiquiu_channel": "08287000",
@@ -203,28 +204,53 @@ def fetch_mrgcd(session: requests.Session) -> dict:
 
 
 def fetch_usgs(session: requests.Session) -> dict:
+    """Latest instantaneous discharge for every USGS_SITES gage, in one request.
+
+    Uses USGS's Water Data OGC API; the legacy waterservices.usgs.gov NWIS
+    service this used to call is permanently shut down 2027-02-22. Like the
+    legacy service, "latest" here means the newest reading on record however
+    old — so a reading older than STALENESS_THRESHOLD_HOURS is reported as an
+    error (shown as "no reading") rather than as a current value.
+    """
+    loc_ids = {f"USGS-{site}": key for key, site in USGS_SITES.items()}
+    try:
+        r = session.get(
+            USGS_LATEST_URL,
+            params={
+                "f": "json",
+                "monitoring_location_id": ",".join(loc_ids),
+                "parameter_code": "00060",
+                "statistic_id": "00011",  # instantaneous
+                "limit": len(loc_ids) * 2,
+            },
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+        latest = {f["properties"]["monitoring_location_id"]: f["properties"] for f in r.json()["features"]}
+    except (requests.RequestException, KeyError, ValueError) as exc:
+        print(f"USGS request failed: {exc}", file=sys.stderr)
+        return {key: {"error": str(exc), "site": site} for key, site in USGS_SITES.items()}
+
     out = {}
-    for key, site in USGS_SITES.items():
+    for loc_id, key in loc_ids.items():
+        site = loc_id.removeprefix("USGS-")
+        props = latest.get(loc_id)
         try:
-            r = session.get(
-                "https://waterservices.usgs.gov/nwis/iv/",
-                params={"sites": site, "parameterCd": "00060", "format": "json"},
-                timeout=TIMEOUT,
-            )
-            r.raise_for_status()
-            time_series = r.json()["value"]["timeSeries"]
-            if not time_series:
-                raise ValueError("no timeSeries returned (site may be offline)")
-            series = time_series[0]
-            latest = series["values"][0]["value"][-1]
+            if props is None or props.get("value") is None:
+                raise ValueError("no latest reading returned (site may be offline)")
+            reading_time = datetime.fromisoformat(props["time"])
+            age_hours = _age_hours(reading_time)
+            if age_hours > STALENESS_THRESHOLD_HOURS:
+                raise ValueError(f"stale reading ({age_hours:.0f}h old, {props['time']})")
             out[key] = {
-                "value": float(latest["value"]),
+                "value": float(props["value"]),
                 "units": "cfs",
-                "timestamp": latest["dateTime"],
+                "timestamp": reading_time.isoformat(),
+                "age_hours": round(age_hours, 2),
+                "approval_status": props.get("approval_status"),
                 "site": site,
-                "name": series["sourceInfo"]["siteName"],
             }
-        except (requests.RequestException, KeyError, IndexError, ValueError) as exc:
+        except (KeyError, ValueError) as exc:
             print(f"USGS {key} ({site}) failed: {exc}", file=sys.stderr)
             out[key] = {"error": str(exc), "site": site}
     return out
