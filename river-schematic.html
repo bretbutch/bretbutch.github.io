@@ -170,9 +170,9 @@ const AF_TO_CFS = 1 / 1.98347;
 // testing with ?offSeason=1 or ?offSeason=0 in the URL.
 const OFF_SEASON_CONFIG = { startMonth: 11, startDay: 1, endMonth: 2 };
 
-// A downstream reading counts as "includes local runoff" when it exceeds
-// the upstream figure by both a relative and an absolute margin.
-const RUNOFF_TAG_CONFIG = { minRatioAbove: 0.5, minAbsoluteCfs: 100 };
+// Tributary cards (Galisteo, Jemez, Rio Puerco) only appear when the creek
+// is actually contributing — they're near zero most of the year.
+const TRIBUTARY_SHOW_THRESHOLD_CFS = 100;
 
 let IS_OFF_SEASON = false;
 
@@ -218,15 +218,10 @@ function get(obj, key){
   return entry;
 }
 
-// True when downstreamValue clears both the relative and absolute margins
-// over upstreamValue in RUNOFF_TAG_CONFIG.
-function runoffTag(downstreamValue, upstreamValue){
-  if (downstreamValue === null || downstreamValue === undefined || isNaN(downstreamValue)) return false;
-  if (upstreamValue === null || upstreamValue === undefined || isNaN(upstreamValue)) return false;
-  const diff = downstreamValue - upstreamValue;
-  if (diff <= RUNOFF_TAG_CONFIG.minAbsoluteCfs) return false;
-  if (upstreamValue <= 0) return true;
-  return downstreamValue > upstreamValue * (1 + RUNOFF_TAG_CONFIG.minRatioAbove);
+// Tributary inflow card, shown only at or above TRIBUTARY_SHOW_THRESHOLD_CFS.
+function tributaryHtml(entry, name, loc){
+  if (!entry || entry.value === null || entry.value === undefined || entry.value < TRIBUTARY_SHOW_THRESHOLD_CFS) return '';
+  return segHtml(entry.value) + nodeHtml({ name: `+ ${name}`, loc, value: entry.value, isInput: true });
 }
 
 function segHtml(value){
@@ -371,6 +366,9 @@ async function render(){
   const albuquerque = get(data.usgs, 'albuquerque');
   const isletaLakes = get(data.usgs, 'isleta_lakes');
   const sanAcaciaChannel = get(data.usgs, 'san_acacia_channel');
+  const galisteo = get(data.usgs, 'galisteo');
+  const jemez = get(data.usgs, 'jemez');
+  const rioPuerco = get(data.usgs, 'rio_puerco');
   const sanMarcialFloodway = get(data.usgs, 'san_marcial_floodway');
   const sanMarcialLfcc = get(data.usgs, 'san_marcial_lfcc');
   const cochitiChannel = get(data.usgs, 'cochiti_channel');
@@ -456,9 +454,7 @@ async function render(){
   html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS 08290000', value: chamaChamita && chamaChamita.value, sub:'The Chama just above the Rio Grande.' });
 
   html += segHtml(chamaChamita && chamaChamita.value);
-  const otowiUpstream = (embudo && chamaChamita) ? embudo.value + chamaChamita.value : null;
-  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS 08313000', value: otowi && otowi.value, sub:'New Mexico\'s Compact index gage.',
-    tag: (otowi && runoffTag(otowi.value, otowiUpstream)) ? 'Includes local runoff' : null });
+  html += nodeHtml({ name:'Otowi Bridge', loc:'USGS 08313000', value: otowi && otowi.value, sub:'New Mexico\'s Compact index gage.' });
 
   const mrgcdShowOffSeason = IS_OFF_SEASON && (!mrgcdComplete || mrgcdTotal === 0);
   html += mrgcdShowOffSeason
@@ -476,14 +472,16 @@ async function render(){
       { to: 'Sile Main Canal (USGS 08314000)', value: cochitiSileCanal && cochitiSileCanal.value },
     ] });
 
+  html += tributaryHtml(galisteo, 'Galisteo Creek', 'USGS 08317950 &middot; enters below Cochiti');
+
   html += segHtml(cochitiOutflow);
   html += nodeHtml({ name:'Angostura Diversion Dam', loc:'Albuquerque Division intake', hideReading:true,
     branch: { to: 'Angostura Diversion', value: angostura && angostura.value, text: mrgcdStaleText(angostura) } });
 
-  const angosturaOutflow = (cochitiChannel && angostura) ? cochitiChannel.value - angostura.value : null;
+  html += tributaryHtml(jemez, 'Jemez River', 'USGS 08328950 &middot; enters below Angostura');
+
   html += segHtml(angostura && angostura.value);
-  html += nodeHtml({ name:'Through Albuquerque', loc:'USGS 08330000', value: albuquerque && albuquerque.value,
-    tag: (albuquerque && runoffTag(albuquerque.value, angosturaOutflow)) ? 'Includes local runoff' : null });
+  html += nodeHtml({ name:'Through Albuquerque', loc:'USGS 08330000', value: albuquerque && albuquerque.value });
 
   html += segHtml(albuquerque && albuquerque.value);
   html += nodeHtml({ name:'Isleta Lakes reach', loc:'USGS gage 08330875, Isleta Pueblo\'s northern border', value: isletaLakes && isletaLakes.value, sub:'ABCWUA\'s treatment plant has an outfall in this stretch.' });
@@ -496,20 +494,16 @@ async function render(){
     html += `<div class="callout"><b>Open question:</b> the gage just upstream at Isleta Lakes reads ${fmtCfs(isletaLakes.value)}, but the diversion dam below it shows ${fmtCfs(isleta.value)} captured — more than the upstream gage says arrived. Could be travel-time lag between two live reads, local accretion between the two points, or something else. We're flagging it rather than quietly resolving it.</div>`;
   }
 
+  html += tributaryHtml(rioPuerco, 'Rio Puerco', 'USGS 08353000 &middot; enters above San Acacia');
+
   html += segHtml(isleta && isleta.value);
   html += nodeHtml({ name:'San Acacia Diversion Dam', loc:'Socorro Division intake', value: sanAcaciaChannel && sanAcaciaChannel.value,
     sub:'USGS 08354900 below the dam.',
     branch: { to: 'San Acacia Canal Intake Gate', value: sanAcacia && sanAcacia.value, text: mrgcdStaleText(sanAcacia) } });
 
-  const sanMarcialUpstream = (albuquerque && isleta && sanAcacia) ? albuquerque.value - isleta.value - sanAcacia.value : null;
-  const sanMarcialCombined = (sanMarcialFloodway || sanMarcialLfcc)
-    ? ((sanMarcialFloodway && sanMarcialFloodway.value) || 0) + ((sanMarcialLfcc && sanMarcialLfcc.value) || 0)
-    : null;
-  const sanMarcialTag = runoffTag(sanMarcialCombined, sanMarcialUpstream) ? 'Reach includes local runoff' : null;
-
   html += segHtml(sanAcaciaChannel && sanAcaciaChannel.value);
   html += `<div class="pair">
-    ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS 08358400', value: sanMarcialFloodway && sanMarcialFloodway.value, tag: sanMarcialTag })}
+    ${nodeHtml({ name:'San Marcial — river channel', loc:'USGS 08358400', value: sanMarcialFloodway && sanMarcialFloodway.value })}
     ${nodeHtml({ name:'San Marcial — LFCC', loc:'USGS 08358300', value: sanMarcialLfcc && sanMarcialLfcc.value, sub:'Parallel channel that carries water past a high-seepage reach.' })}
   </div>`;
 

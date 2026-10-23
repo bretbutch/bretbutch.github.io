@@ -59,6 +59,10 @@ USGS_SITES = {
     "cochiti_channel": "08317400",
     "cochiti_east_side_canal": "08313500",
     "cochiti_sile_canal": "08314000",
+    # Tributaries, each the active real-time gage nearest its confluence.
+    "galisteo": "08317950",    # enters between Cochiti and Angostura
+    "jemez": "08328950",       # below Jemez Canyon Dam; enters below Angostura
+    "rio_puerco": "08353000",  # near Bernardo; enters between Isleta and San Acacia
 }
 
 # Colorado Division of Water Resources telemetry (15-minute readings). The
