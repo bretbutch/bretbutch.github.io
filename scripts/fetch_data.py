@@ -9,7 +9,9 @@ Sources (all public, no auth required):
     Chama below Abiquiu Dam and near its confluence with the Rio Grande,
     plus the three gages (channel + two canal intakes) that together
     account for all outflow from Cochiti Dam.
-  - USBR HydroData gage_data API — 3 Colorado/state-line flow gages.
+  - Colorado Division of Water Resources telemetry API — the Del Norte,
+    Mogote, and Lobatos gages, plus every telemetered San Luis Valley
+    diversion between the index gages and the state line.
   - USBR HydroData reservoir_data API — Elephant Butte storage + release,
     Cochiti storage, Abiquiu storage, plus Elephant Butte's Delta Storage
     and Evaporation series, which are upserted by date into a separate
@@ -59,11 +61,34 @@ USGS_SITES = {
     "cochiti_sile_canal": "08314000",
 }
 
-USBR_GAGE_SITES = {
-    "del_norte": (2722, 19),
-    "mogote": (2741, 19),
-    "lobatos": (2723, 19),
+# Colorado Division of Water Resources telemetry (15-minute readings). The
+# three Compact index/delivery gages used to come from USBR's gage_data
+# daily series, which runs a day behind — during the Oct 2026 Del Norte
+# flood it showed 1,250 cfs while CDWR's own gage read 10,200 and rising.
+# USGS also lists these stations (08220000, 08246500, 08251500) but stopped
+# real-time reporting in 2003; CDWR operates them now.
+CDWR_BASE = "https://dwr.state.co.us/Rest/GET/api/v2/telemetrystations"
+CDWR_INDEX_GAGES = {
+    "del_norte": "RIODELCO",
+    "mogote": "CONMOGCO",
+    "lobatos": "RIOLOBCO",
 }
+CDWR_DIVISION = 3  # Rio Grande basin in Colorado
+
+# San Luis Valley diversions counted on the page: every telemetered
+# diversion structure on the Rio Grande below the Del Norte gage, or on the
+# Conejos below the Mogote gage, and above Lobatos. Chosen by rule rather
+# than a hardcoded list so headgates CDWR adds or brings back online are
+# picked up automatically. Tributaries (Alamosa, La Jara, Culebra, etc.)
+# are excluded because Del Norte/Mogote never measure that water; so are
+# transbasin imports, the Closed Basin Project (groundwater pumped *into*
+# the river), and drains — none of those are diversions off the mainstem.
+# "Below a gage" = east of it (larger longitude); the valley drains east.
+SLV_DIVERSION_REACHES = {
+    20: ("RIO GRANDE", "RIODELCO"),
+    22: ("CONEJOS RIVER", "CONMOGCO"),
+}
+SLV_DIVERSION_DOWNSTREAM_LIMIT = "RIOLOBCO"
 
 USBR_RESERVOIR_PARAMS = {
     "elephant_butte_storage": (1119, 17),
@@ -105,12 +130,12 @@ EB_REVISION_LOG_THRESHOLD_AF = 50
 # (172.36 * 43560 / 86400 = 86.9 cfs).
 AF_PER_DAY_TO_CFS = 43560.0 / 86400.0
 
-# MRGCD's OneRain telemetry is normally only minutes old. If a reading is
+# MRGCD and CDWR telemetry is normally only minutes old. If a reading is
 # older than this at fetch time (sensor/telemetry outage), don't publish a
 # frozen number that looks live but isn't — the JSON carries the actual
 # value and age for anyone inspecting it directly, but river-schematic.html
-# is expected to show "—" instead wherever this reading is displayed.
-MRGCD_STALENESS_THRESHOLD_HOURS = 24
+# is expected to show "—" / leave it out of totals instead.
+STALENESS_THRESHOLD_HOURS = 24
 
 USER_AGENT = "paperwater-river-pipeline/1.0 (+https://paperwater.net; contact butch@paperwater.net)"
 TIMEOUT = 20
@@ -156,7 +181,7 @@ def fetch_mrgcd(session: requests.Session) -> dict:
             ts_ms, value = series["data"][-1]
             reading_time = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc)
             age_hours = (datetime.now(timezone.utc) - reading_time).total_seconds() / 3600
-            stale = age_hours > MRGCD_STALENESS_THRESHOLD_HOURS
+            stale = age_hours > STALENESS_THRESHOLD_HOURS
             print(f"MRGCD {key} ({site_id}/{device_id}): {age_hours:.2f}h old{' — STALE' if stale else ''}", file=sys.stderr)
             out[key] = {
                 "value": value,
@@ -201,27 +226,131 @@ def fetch_usgs(session: requests.Session) -> dict:
     return out
 
 
-def fetch_usbr_gage(session: requests.Session) -> dict:
+def _age_hours(reading_time: datetime) -> float:
+    return (datetime.now(timezone.utc) - reading_time).total_seconds() / 3600
+
+
+def fetch_cdwr_index_gages(session: requests.Session) -> dict:
+    """Latest non-blank discharge for the Colorado index/delivery gages.
+
+    CDWR leaves discharge blank when it can't compute flow from stage —
+    e.g. Del Norte on 2026-10-23, when stage kept rising past the point
+    discharge stopped reporting, most likely above the top of the rating
+    table. In that case the last real value is reported along with
+    `later_readings_blank` and the time of the newest (blank) reading, so
+    the page can say so instead of silently showing an older number.
+    """
+    mountain = ZoneInfo("America/Denver")
+    start = (datetime.now(mountain) - timedelta(days=2)).strftime("%m/%d/%Y")
     out = {}
-    for key, (site_id, param_id) in USBR_GAGE_SITES.items():
+    for key, abbrev in CDWR_INDEX_GAGES.items():
         try:
             r = session.get(
-                f"https://www.usbr.gov/uc/water/hydrodata/gage_data/{site_id}/json/{param_id}.json",
+                f"{CDWR_BASE}/telemetrytimeseriesraw/",
+                params={"format": "json", "abbrev": abbrev, "parameter": "DISCHRG", "startDate": start},
                 timeout=TIMEOUT,
             )
             r.raise_for_status()
-            date, value = r.json()["data"][-1]
+            rows = r.json()["ResultList"]
+            valid = [row for row in rows if row.get("measValue") is not None]
+            if not valid:
+                raise ValueError("no non-blank discharge readings in the last 2 days")
+
+            # This endpoint's timestamps are naive Denver-local time.
+            def local(ts: str) -> datetime:
+                dt = datetime.fromisoformat(ts)
+                return dt if dt.tzinfo else dt.replace(tzinfo=mountain)
+
+            last = valid[-1]
+            reading_time = local(last["measDateTime"])
+            age_hours = _age_hours(reading_time)
+            stale = age_hours > STALENESS_THRESHOLD_HOURS
+            blank_after = rows[-1].get("measValue") is None
+            print(
+                f"CDWR {key} ({abbrev}): {last['measValue']} cfs, {age_hours:.2f}h old"
+                f"{' — later readings blank' if blank_after else ''}{' — STALE' if stale else ''}",
+                file=sys.stderr,
+            )
             out[key] = {
-                "value": value,
+                "value": last["measValue"],
                 "units": "cfs",
-                "date": date,
-                "site_id": site_id,
-                "param_id": param_id,
+                "timestamp": reading_time.isoformat(),
+                "age_hours": round(age_hours, 2),
+                "stale": stale,
+                "later_readings_blank": blank_after,
+                "latest_reading_timestamp": local(rows[-1]["measDateTime"]).isoformat(),
+                "latest_reading_flag": rows[-1].get("flagB"),
+                "abbrev": abbrev,
             }
         except (requests.RequestException, KeyError, IndexError, ValueError) as exc:
-            print(f"USBR gage {key} ({site_id}/{param_id}) failed: {exc}", file=sys.stderr)
-            out[key] = {"error": str(exc), "site_id": site_id, "param_id": param_id}
+            print(f"CDWR {key} ({abbrev}) failed: {exc}", file=sys.stderr)
+            out[key] = {"error": str(exc), "abbrev": abbrev}
     return out
+
+
+def fetch_slv_diversions(session: requests.Session) -> dict:
+    """Latest reading for every telemetered San Luis Valley diversion that
+    takes water between the Del Norte/Mogote index gages and Lobatos — see
+    SLV_DIVERSION_REACHES for the selection rule."""
+    try:
+        r = session.get(
+            f"{CDWR_BASE}/telemetrystation/",
+            params={"format": "json", "division": CDWR_DIVISION, "pageSize": 5000},
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+        rows = r.json()["ResultList"]
+
+        ref_abbrevs = {abbrev for _, abbrev in SLV_DIVERSION_REACHES.values()} | {SLV_DIVERSION_DOWNSTREAM_LIMIT}
+        lon = {row["abbrev"]: row["longitude"] for row in rows if row.get("abbrev") in ref_abbrevs}
+        missing = ref_abbrevs - lon.keys()
+        if missing:
+            raise ValueError(f"reference gage(s) missing from station list: {sorted(missing)}")
+        limit_lon = lon[SLV_DIVERSION_DOWNSTREAM_LIMIT]
+
+        picked: dict = {}
+        for row in rows:
+            param = str(row.get("parameter") or "")
+            reach = SLV_DIVERSION_REACHES.get(row.get("waterDistrict"))
+            if row.get("stationType") != "Diversion Structure" or not param.startswith("DISCHRG") or not reach:
+                continue
+            source, ref_abbrev = reach
+            if row.get("waterSource") != source or row.get("longitude") is None:
+                continue
+            if not (lon[ref_abbrev] < row["longitude"] < limit_lon):
+                continue
+            # Some stations report under DISCHRG2 instead of DISCHRG; prefer DISCHRG if both exist.
+            if row["abbrev"] in picked and picked[row["abbrev"]]["parameter"] == "DISCHRG":
+                continue
+            picked[row["abbrev"]] = row
+
+        stations = []
+        for row in picked.values():
+            ts = row.get("measDateTime")
+            reading_time = datetime.fromisoformat(ts) if ts else None  # this endpoint includes the UTC offset
+            age_hours = _age_hours(reading_time) if reading_time else None
+            stations.append({
+                "abbrev": row["abbrev"],
+                "name": row["stationName"],
+                "water_district": row["waterDistrict"],
+                "value": row.get("measValue"),
+                "units": "cfs",
+                "parameter": row["parameter"],
+                "timestamp": reading_time.isoformat() if reading_time else None,
+                "age_hours": round(age_hours, 2) if age_hours is not None else None,
+                "stale": age_hours is None or age_hours > STALENESS_THRESHOLD_HOURS,
+            })
+        stations.sort(key=lambda s: -(s["value"] or 0))
+        reporting = [s for s in stations if s["value"] is not None and not s["stale"]]
+        print(
+            f"CDWR SLV diversions: {len(stations)} stations matched, {len(reporting)} reporting, "
+            f"{sum(s['value'] for s in reporting):.1f} cfs",
+            file=sys.stderr,
+        )
+        return {"stations": stations}
+    except (requests.RequestException, KeyError, IndexError, ValueError) as exc:
+        print(f"CDWR SLV diversions failed: {exc}", file=sys.stderr)
+        return {"error": str(exc)}
 
 
 def fetch_usbr_reservoir(session: requests.Session) -> dict:
@@ -339,7 +468,8 @@ def main() -> None:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "mrgcd": fetch_mrgcd(session),
         "usgs": fetch_usgs(session),
-        "usbr_gage": fetch_usbr_gage(session),
+        "cdwr": fetch_cdwr_index_gages(session),
+        "slv_diversions": fetch_slv_diversions(session),
         "usbr_reservoir": fetch_usbr_reservoir(session),
     }
 
