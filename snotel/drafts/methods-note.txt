@@ -1,0 +1,277 @@
+SNOWPACK VS. RIVER FLOW — DRAFT FIGURES FOR PAPERWATER.NET
+Draft for review. Data retrieved October 5, 2026. Nothing here is on the site yet.
+
+FILES
+  1_snow_vs_flow_change.png         Snow change vs. flow change by basin, first 20 vs. last 20 years
+  2_flow_vs_snow_by_year.png        Water-year flow vs. peak snow, one dot per year, three basins
+  3_la_puente_wy_flow.png           Rio Chama near La Puente, water-year flow WY1956–2026
+  snow_to_flow_water_years.csv      Every water year behind charts 1 and 2 (3 basins x WY1987–2026)
+  snow_to_flow_summary.csv          The medians and % changes shown in chart 1
+  la_puente_wy_flow_1956_2026.csv   The annual totals behind chart 3
+  4_cascade_expected_vs_delivered.png  Expected vs. delivered flow, headwaters to Elephant Butte, WY2007–2026
+  6_eb_evaporation_and_lake_area.png     Elephant Butte annual evaporation and lake surface area, WY1951–2025
+  7_eb_same_storage_more_evaporation.png Evaporation, lake area and rate per acre vs. storage, early vs. recent
+  8_eb_rate_and_temperature.png          Evaporation per acre and April–September temperature, WY1951–2025
+  9_snowpack_through_the_season.png      Typical snowpack by date at the four snow sites, WY1987–2006 vs. WY2007–2026
+  10_snotel_temperature_raw_vs_corrected.png  Annual temperature at the four sites, raw vs. sensor jump removed, 1991–2025
+  snotel_melt_timing_wy.csv              Peak SWE, peak date, half-gone date and melt-out date, each site and water year
+  snotel_temperature_annual.csv          Annual temperature: raw SNOTEL, corrected, NOAA division (chart 10)
+  cascade_expected_vs_delivered.csv The numbers behind chart 4, with the 90% ranges
+  elephant_butte_evaporation_wy.csv Evaporation, storage, lake area, rate and temperature by water year (charts 6–8)
+
+
+SUGGESTED CAPTIONS (one line under each chart)
+  1. Comparing the first and last 20 years of the shared record, median peak snowpack fell 18% on
+     the Rio Chama, 13% on the Conejos and 15% on the upper Rio Grande; median water-year flow fell
+     27%, 6% and 1%. Each river delivered about what its smaller snowpack predicts.
+  2. Each dot is one water year. In all three basins, recent years mostly fall among earlier years
+     with similar snowpacks; more of them sit at the low-snow end.
+  3. Water-year flow at La Puente since 1956. WY2026 (provisional) was 80 thousand acre-feet, about
+     35% of the 1991–2020 median of 228.
+  4. For the snow that fell in 2007–2026, the Colorado headwaters delivered what the 1987–2006
+     relationship predicts. Downstream the gap grows to 15% at Otowi, 26% at Albuquerque and 33% at
+     San Marcial. Elephant Butte then evaporated about 74 thousand acre-feet a year, roughly 15% of
+     what reached it.
+  6. Elephant Butte's yearly evaporation tracks the size of the lake (r = 0.98): most in the
+     full-lake years, least in the drought years of the 1950s.
+  7. At the same storage, the lake now evaporates about a third more than in 1951–1979: the same
+     water covers about 14% more surface as sediment fills the lake, and each acre loses about
+     16% more.
+  8. Each acre now loses about 15% more water a year than in 1951–1979, as April–September warmed
+     2.3°F. Warmer years evaporate more in both eras, enough to account for roughly a third to
+     two-thirds of the rise.
+  9. At all four snow sites the recent snowpack peaks lower and is half gone 6–14 days earlier.
+     Part of that is simply less snow; for the same snowpack, only Wolf Creek Summit melts
+     clearly earlier.
+  10. SNOTEL temperatures jumped warmer at Wolf Creek Summit (+2.4°F), Hopewell (+1.7°F) and
+      Cumbres Trestle (+0.4°F) when their sensors were replaced; Beartown shows no clear jump.
+      With the jumps removed, the four sites warmed about 0.6–0.7°F per decade since 1991, close
+      to NOAA's regional record.
+  These data show the change, not its cause.
+
+
+DATA
+  Snow: NRCS SNOTEL daily snow water equivalent (AWDB REST API).
+        Cumbres Trestle 431:CO:SNTL, Hopewell 532:NM:SNTL, Wolf Creek Summit 874:CO:SNTL,
+        Beartown 327:CO:SNTL.
+  Flow: USGS daily mean discharge. Rio Chama near La Puente 08284100 (all years).
+        Conejos River near Mogote 08246500 and Rio Grande near Del Norte 08220000 through Dec 2024;
+        Colorado DWR (CONMOGCO, RIODELCO) from Jan 2025 on, where USGS daily values end.
+
+  Snow index for each gage (daily average of the sites, then the peak of that daily series):
+    Rio Chama near La Puente     1/2 Cumbres Trestle + 1/2 Hopewell
+    Conejos River near Mogote    1/2 Cumbres Trestle + 1/2 Wolf Creek Summit
+    Rio Grande near Del Norte    1/2 Wolf Creek Summit + 1/2 Beartown
+  A blended day counts only when both sites reported. Each blend explains flow at least as well as
+  either of its sites alone (r-squared of water-year flow on peak SWE: La Puente 0.73 Cumbres, 0.83
+  Hopewell, 0.80 blend, WY1987–2026; Mogote 0.65 Cumbres, 0.80 Wolf Creek, 0.81 blend; Del Norte
+  0.53 Wolf Creek, 0.59 Beartown, 0.59 blend, WY1986–2026).
+
+DEFINITIONS
+  Water year       October 1 – September 30, named for the year it ends.
+  Peak SWE         Highest daily SWE of the water year. Needs 250+ days of data before July 1.
+  Water-year flow  Sum of daily mean discharge x 1.983471 acre-feet per cfs-day. Needs 360+ days
+                   (365 for the La Puente long record).
+  Periods          WY1987–2006 vs. WY2007–2026: equal 20-year halves of the record all three
+                   basins share. WY1986 is excluded because Wolf Creek's first season is incomplete.
+  Chart 3 lines    LOESS: locally linear, frac=0.2, 3 robustness iterations, evaluated at observed
+                   years only. EWMA: span=10, adjust=False (trailing only). 1991–2020 median.
+
+
+SNOW VS. FLOW: WHAT THE CHARTS SAY
+  Expected flow. Each river's water-year flow fit against its snow index for WY1987–2006 (straight
+  line), applied to the WY2007–2026 snowpacks; 90% range for the 20-year average:
+    Rio Chama   −5% vs. expected, inside the range; trend in the gap p = 0.18
+    Conejos     +0%, inside; p = 0.74
+    Rio Grande  +6%, inside; p = 0.96
+  How flow has responded to each index (WY1987–2006 fit, at the means): Rio Chama 1% less snow ≈
+  1.5% less flow (intercept −123 kaf; soils, plants and evaporation take their share first);
+  Conejos ≈ 0.9%; Rio Grande ≈ 1.0%. In 2007–2026 the Chama behaved as expected (snow −18%, flow
+  −27%). The Conejos (snow −13%, flow −6%) and upper Rio Grande (−15%, −1%) held up better than
+  their one-for-one history suggests, within normal variation. Possible reasons, not separable
+  here: the wider basins kept more snow than the high sites near the Continental Divide show;
+  rain, groundwater or reservoir releases (Platoro; Rio Grande Reservoir) made up part of it
+  (October 2025 alone pushed Del Norte to about 5,950 cfs); or chance.
+
+  Why no "flow per inch of snow" headline. Where flow swings harder than snow (the Chama), that
+  ratio falls in any drier period even when the snow–flow relationship hasn't changed. The page
+  compares against each river's fitted relationship instead (the Chama's median per-inch ratio is
+  20% lower, 10.7 -> 8.6 thousand acre-feet per inch, even though its flow is within what its
+  snow predicts).
+
+  Snow sites are an index. SNOTEL values show how snowy a year was, not how much water a basin's
+  snowpack holds: the sites sit where snow is deep and lasts, and much of each basin sits lower
+  with less snow per acre.
+
+  Flow alone, any split year. Moving the split anywhere from 1997 to 2016 (data WY1987–2026),
+  Rio Chama median flow falls 27–46%; Conejos 4–21%; Rio Grande +2 to −23%. The Chama's decline
+  exceeds the larger of the other two by 14–31 points at every split.
+
+THE RIO CHAMA SNOW INDEX
+  Why Cumbres + Hopewell. Cumbres stands for the upper Chama; Hopewell, just outside the drainage in
+  the Tusas Mountains, stands for the Rio Brazos side. The author has used this pairing for about
+  five years from time in these mountains, before this analysis. The gage data agree:
+    - Seasonal gages since 2014 (Rio Chama above Chama 08281400, 95 sq mi; Rio Brazos at Fishtail
+      Rd 08282300, 129 sq mi): May–Sep, the upper Chama supplied 33–52% of La Puente's flow and the
+      Brazos 28–56% (2018 drought: the two together exceeded La Puente by about 7 kaf).
+    - In years when Hopewell is snowier relative to Cumbres, the Brazos carries a larger share of
+      the flow (rank correlation 0.77, p = 0.01, 10 summers; Bateman 0.66, Chamita 0.54).
+    - WY1987–2026, share of La Puente's year-to-year flow explained: Hopewell 0.83, blend 0.80,
+      Cumbres 0.73.
+  What depends on it. La Puente vs. the snow-based expectation, WY2007–2026, by weighting:
+      Cumbres/Hopewell   0/100  +14%   30/70  +1%   50/50  −5%   70/30  −9% (p 0.07)
+                         80/20  −10% (p 0.04)   100/0  −13% (p 0.01)
+    Only indices that give Cumbres 80% or more show a significant shortfall.
+  Other Chama-basin SNOTEL sites (median peak SWE change, 1987–2006 vs. 2007–2026): Cumbres −14%,
+    Chamita (8,360 ft, in the drainage) −8%, Bateman −15%, Hopewell −22%.
+  With Cumbres alone, the earlier draft's result: flow per inch −25% (9.4 -> 7.1), significant
+    downward trend in the gap (p = 0.003–0.027 across 12 variants), robust to split year, the
+    driest years and fit form; Cumbres's snow decline matched Wolf Creek's, so not sensor drift.
+    These data can't say whether that shortfall is real or an artifact of one site standing for the
+    whole basin; the two-site index is the better-supported representation, so the page uses it and
+    reports the Cumbres-only result alongside.
+
+  Gage location. La Puente (drainage 480 sq mi) is upstream of Heron and El Vado reservoirs and of
+  the Willow Creek confluence, where San Juan–Chama Project water enters (USGS coordinates: La
+  Puente −106.633, Willow Creek below Heron Dam −106.706). Its flows include no imported water.
+
+
+CHART 4: EXPECTED VS. DELIVERED, HEADWATERS TO ELEPHANT BUTTE
+  Snow index   Daily mean SWE of Cumbres Trestle, Wolf Creek Summit and Beartown (all three must
+               report), peak per water year.
+  Expected     For each gage, water-year flow fit linearly against the snow index over WY1987–2006,
+               then applied to each WY2007–2026 snowpack and averaged.
+  Whiskers     Where the 20-year average would land 90% of the time if the 1987–2006 relationship
+               still held (fit uncertainty plus year-to-year scatter; assumes independent years).
+  Gages        Colorado headwaters = Del Norte + Conejos near Mogote; Lobatos; Embudo; Otowi;
+               Albuquerque; San Marcial = Rio Grande floodway + Low Flow Conveyance Channel.
+               USGS daily values (newer USGS Water Data API); Colorado DWR from 2025 at the
+               Colorado gages; USBR's provisional winter values there look ice-affected.
+  Results      Gap vs. expected: headwaters +3%, Lobatos −8%, Embudo −11%, Otowi −15%, Albuquerque
+               −26%, San Marcial −33%. Only Albuquerque and San Marcial are outside their 90% range;
+               Otowi is just inside it.
+  Robustness   Same pattern with log, quadratic and reversed fits (San Marcial −28 to −33%, Otowi
+               −13 to −15%). Every 2007–2026 snowpack fell inside the 1987–2006 range. Using all 40
+               years, the shortfall's trend is significant from Otowi down (p ≤ 0.008) and not at
+               the headwaters. The snow index explains about half of each year's flow from Otowi
+               down, so the chart shows 20-year averages, not single years.
+  Imports      San Juan–Chama water (Azotea Tunnel, USBR) is in Otowi and everything below. Median
+               imports were 83 vs. 81 thousand acre-feet in the two periods; subtracting each year's
+               import from Otowi still gives about the same gap.
+  Evaporation  Elephant Butte, Reclamation's daily estimates, WY2007–2026 average 74 thousand
+               acre-feet a year (15% of the San Marcial average).
+
+CHARTS 6–8: ELEPHANT BUTTE EVAPORATION (chain/eb_evaporation_charts.py)
+  Data         Reclamation HydroData site 1119, all published series: daily evaporation (datatype 25),
+               storage (17) and reservoir surface area (89, acres, daily since 1915). Nothing derived.
+               Water years 1951–2025 (WY1950 incomplete; WY2026 provisional values incomplete).
+               Three odd daily values left as published: two December 1992 entries that follow runs
+               of zeros (several days logged at once) and −15 AF on 2024-09-08; none moves a year's
+               total by more than 0.4%.
+  Rate         Daily evaporation ÷ daily surface area, summed per water year (feet per year).
+  Temperature  NOAA nClimDiv April–September mean, NM divisions 5 (Central Valley) and 8 (Southern
+               Desert).
+  Eras         WY1951–1979 and WY2003–2025: the two low-lake periods, with overlapping storage. The
+               full-lake years 1980–2002 have no early counterparts at the same storage.
+  Results      Evaporation vs. lake area r = 0.98 (WY1951–2025).
+               Matched pairs (average storage within 15%): 104 pairs, recent year higher in all 104;
+               medians: evaporation +33%, lake area +14%, rate per acre +16%.
+               Rate per acre: 6.74 -> 7.72 ft/yr (+15%); April–September temperature +2.3°F.
+               Rate vs. temperature: WY1951–1979 +2.3% per °F (r = 0.53, p = 0.003);
+               WY2003–2025 +4.3% per °F (r = 0.61, p = 0.002). Warming × those sensitivities
+               covers about 36–68% of the 15% rise.
+               Decade means (ft/yr): 1950s 6.95, 1960s 6.78, 1970s 6.51, 1980s 6.24, 1990s 6.70,
+               2000s 7.53, 2010s 7.63, 2020s 8.11. The low 1980s are the full-lake years.
+  Correction   The earlier draft (chart 5) and a separate pass both estimated lake area from the slope
+               of the storage–elevation curve. Against Reclamation's own area series those estimates
+               ran 15–20% high in the 1950s–60s (within about 2% since 2000), which made early per-acre
+               rates look too low. That produced a spurious "+28–29% per acre", an apparent abrupt
+               step, and early rates that seemed not to track temperature (r = −0.01), all pointing
+               to a method change. With Reclamation's area, early rates do track temperature and the
+               per-acre rise is about 15%. Chart 5 is retired.
+
+CHARTS 9–10: THE FOUR SNOW SITES (chain/snow_sites_charts.py)
+  Melt timing (chart 9). NRCS SNOTEL daily SWE, 3-day median to remove one-day sensor spikes; water
+  years with 90%+ of days Oct 1–Aug 31. Peak = the year's highest SWE. Half gone = first day after
+  the peak when SWE falls to half of it. Melt-out = first day after the peak at or below 0.1 in.
+  Curves = median SWE on each date across each period's years; dates = medians of yearly dates.
+
+    Medians, WY1987–2006 -> WY2007–2026 (page-ready grid)
+    Site               Peak SWE (in)    Peak date          Half gone          Melt-out
+    Beartown           23.9 -> 21.8     Apr 18 -> Apr 7    May 17 -> May 9    Jun 2 -> May 20
+    Wolf Creek Summit  36.2 -> 30.9     Apr 27 -> Apr 5    Jun 6 -> May 23    Jun 22 -> Jun 12
+    Cumbres Trestle    27.6 -> 23.9     Apr 5 -> Mar 29    May 11 -> May 5    May 23 -> May 19
+    Hopewell           19.5 -> 15.1     Apr 8 -> Mar 31    May 3 -> Apr 27    May 13 -> May 11
+
+  Trends WY1987–2026 (Sen slope, Kendall p < 0.05): half gone earlier at Wolf Creek (−6.5 d/decade),
+  Beartown (−4.6) and Hopewell (−3.3), not Cumbres (−2.6, p = 0.17); melt-out earlier at Wolf Creek
+  and Beartown. Each extra inch of peak SWE delays the half-gone date about 1.2 days, so part of the
+  shift is less snow. Holding peak SWE fixed, only Wolf Creek is still clearly earlier (half gone
+  −5.1 d/decade, melt-out −5.6, peak −7.9; all p < 0.001). Dates vary ±11–16 days year to year.
+  Why half gone: it is relative to each year's peak (comparable across sites), and unlike melt-out
+  it isn't set by the last inch of snow, where sensor noise and small late storms move the date.
+
+  Temperature (chart 10). NRCS SNOTEL daily average temperature, monthly means (25+ days), against
+  NOAA nClimDiv monthly temperature for the climate division (CO 5 Rio Grande basin; NM 2 Northern
+  Mountains for Hopewell). The largest shift in each site's monthly difference from NOAA (Pettitt
+  test on the deseasonalized difference) is removed month by month after that date if it is
+  statistically clear (p <= 0.001), whatever its size. (An earlier 0.5°F size cut-off hid Cumbres's
+  small jump; it was dropped.) Window 1991–2025: Hopewell (May 1991, +3.7°F) and Beartown
+  (Apr 1990, +1.7°F) shift sharply early in their records, before the sensor replacement; within
+  1991–2025, one correction per site is enough (a second pass changes nothing).
+
+    1991–2025, °F per decade    jump found             raw     corrected   NOAA division
+    Beartown                    none (+0.2°F, p 0.1)   +0.58   +0.58       +0.51
+    Wolf Creek Summit           +2.4°F from Jun 2011   +1.63   +0.69       +0.66
+    Cumbres Trestle             +0.4°F from Jul 2007   +0.84   +0.69       +0.70
+    Hopewell                    +1.7°F from Nov 2006   +1.34   +0.64       +0.60
+
+  The fix uses NOAA's record as the yardstick, which pulls corrected trends toward NOAA's, so it
+  can't show whether the summits warmed faster than the region. Beartown needed no correction, so
+  its trend is its own record. Small shifts are hard to date: Cumbres's falls in Jul 2007 in this
+  window but May 2012 in its full record. A temperature-free check: Wolf Creek melts
+  earlier even for the same snowpack (chart 9 notes).
+
+ELEPHANT BUTTE BALANCE CHECK (why San Marcial stays the endpoint)
+  Storage change + releases + evaporation should equal what reached the lake. For WY1988–2026 it
+  exceeds what passed San Marcial by 45 thousand acre-feet a year on average (in 33 of 39 years),
+  the opposite of losses across the delta, and the gap doesn't change with lake level. Rain on the
+  lake, ungaged arroyos, or errors in the evaporation and storage numbers must explain it, so this
+  balance can't measure losses below San Marcial.
+
+TEMPERATURE TEST (chain/temperature_test.py)
+  Hot years deliver less water for the same snowpack at every gage, but hot seasons are also dry
+  ones (r = −0.75 with water-year precipitation). With precipitation held fixed, the heat effect
+  disappears at the headwaters and holds from Otowi down only across the whole record, not in
+  hot-vs.-cool year comparisons. These data can't apportion the cascade between the atmosphere,
+  the riverbed and aquifers, and people. WY2026 can be added once NOAA posts September.
+
+
+LIMITS AND OPEN ITEMS
+  1. La Puente gage history around 2000–2002 (relocation, rating change, new diversions) is not
+     verified. The USGS station-description pages are retired; ask the USGS New Mexico Water
+     Science Center before publishing.
+  2. No independent long-record gage exists to cross-check the Chama. Rio Chama above Chama
+     (08281400) and Rio Brazos at Fishtail Road (08282300) both start in 2014.
+  3. Flows are gaged, not naturalized. Platoro Reservoir is above Mogote; Rio Grande Reservoir and
+     small transbasin imports are above Del Norte; irrigation diversions are above all three gages.
+  4. WY2025–2026 flows are provisional. Re-run when they are approved.
+  5. Del Norte WY2026: this analysis has 399 thousand acre-feet; the existing Del Norte chart shows
+     409. Probably different provisional DWR series. Reconcile before publishing both.
+  6. Confirm the EWMA settings (span=10, adjust=False) match the existing Del Norte chart.
+  7. Ask Reclamation how Elephant Butte evaporation is computed (pan, coefficient, area table).
+     With its own area series no method change needs to be invoked, but label the totals as
+     Reclamation's estimates.
+  8. MRGCD's own diversion telemetry starts in December 2023 (2024: 283, 2025: 234 thousand
+     acre-feet). Earlier years exist only for the Cochiti canals (USGS, since 1955).
+
+
+TO REGENERATE (from the snotel folder)
+  .venv/bin/python fetch.py
+  .venv/bin/python analyze.py
+  .venv/bin/python site_charts.py
+  .venv/bin/python chain/cascade_charts.py
+  .venv/bin/python chain/eb_evaporation_charts.py
+  .venv/bin/python chain/snow_sites_charts.py
+  .venv/bin/python chain/temperature_test.py
+  .venv/bin/python chain/mrgcd_annual.py

@@ -1,0 +1,4 @@
+# Local review only: `quarto preview --profile draft` shows pages marked `draft: true`.
+# The deploy workflow runs plain `quarto render`, which never loads this profile, so drafts stay unpublished.
+website:
+  draft-mode: visible

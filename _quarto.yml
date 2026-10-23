@@ -13,8 +13,12 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: river-schematic.html
-        text: The River
+      - text: Rio Grande
+        menu:
+          - href: river-schematic.html
+            text: Live Flows
+          - href: headwaters.qmd
+            text: Headwaters Snow to Flow
       - about.qmd
 
 format:
