@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
     "objectID": "headwaters.html",
     "href": "headwaters.html",
     "title": "Headwaters: Snow to Flow",
@@ -33,12 +40,5 @@
     "title": "Headwaters: Snow to Flow",
     "section": "What this shows, and what it doesn’t",
     "text": "What this shows, and what it doesn’t\nAll three headwater rivers carried less water after 2006, about as much less as their smaller snowpacks predict, and the Rio Chama lost the most of both. None of the three is delivering clearly less than its snowpack predicts.\nThings to keep in mind:\n\nThe Chama’s snow index matters. With Cumbres Trestle alone, the Chama looks like it now makes less water per inch of snow: 13% less than Cumbres predicts, with a statistically significant downward trend. With both halves of the basin represented, it doesn’t. Any blend that gives the Hopewell side at least 30% of the weight shows no significant shortfall.\nOn the Conejos and the upper Rio Grande, flow fell less than snow (6% vs. 13%, and 1% vs. 15%), even though both rivers have historically tracked their snow about one for one. That’s within normal variation. It could mean these basins kept more of their snow than the high sites near the Continental Divide show, or that rain, groundwater and reservoir releases made up part of the difference. These data can’t tell which.\nSnow sites are points near 10,000 feet. They can’t see snow at middle elevations, and in dry summers the middle of the Chama basin adds little or nothing to the river at La Puente.\nThe flow numbers don’t depend on any of these choices. Wherever the record is split, from 1997 to 2016, the Chama’s median flow fell 27–46%, while the other two rivers’ fell at most 23%.\n\n\n\n\n\n\n\nNoteMethods and data\n\n\n\n\n\nSnow. NRCS SNOTEL daily snow water equivalent at Cumbres Trestle (431:CO:SNTL), Hopewell (532:NM:SNTL), Wolf Creek Summit (874:CO:SNTL) and Beartown (327:CO:SNTL). Each basin’s index averages two sites’ daily values (both must report), then takes the year’s peak. A year needs at least 250 days of snow data before July 1.\nThe Chama’s snow index. Hopewell sits just outside the Chama drainage and stands in for the Rio Brazos side of the basin. Seasonal gages on the upper Chama (above Chama) and the Rio Brazos (at Fishtail Road), running since 2014, show each supplying roughly a third to a half of La Puente’s May–September flow. In years when Hopewell is snowier relative to Cumbres, the Brazos carries a larger share (rank correlation 0.77 over 10 summers). Over 1987–2026, the Cumbres–Hopewell average explains 80% of the year-to-year variation in La Puente’s flow; Cumbres alone explains 73%. Giving Cumbres anywhere from 0% to 70% of the weight shows no significant shortfall; 80% or more does.\nFlow. USGS daily mean discharge at Rio Chama near La Puente (08284100), Conejos River near Mogote (08246500) and Rio Grande near Del Norte (08220000). USGS daily values for the two Colorado gages end in December 2024; from January 2025 this page uses the Colorado Division of Water Resources’ reviewed record (CONMOGCO, RIODELCO). Water-year flow is the sum of daily mean flow times 1.983471 acre-feet per cfs-day, for years with at least 360 days of record. Flows are as measured at the gage, not adjusted for upstream reservoirs or diversions.\nExpected flow. Each river’s water-year flow is fit against its snow index for 1987–2006 (a straight-line fit) and applied to each 2007–2026 snowpack. “Within normal year-to-year variation” means inside the range where the 20-year average would fall 90% of the time if the 1987–2006 relationship still held.\nPeriods. Water years 1987–2006 and 2007–2026: equal 20-year halves of the record all three basins share. Wolf Creek Summit’s first full season is 1987.\nLa Puente chart. LOESS: locally linear, frac = 0.2, robust. Moving average: 10-year exponentially weighted, trailing only. Median: 1991–2020.\nLimits. Water years 2025 and 2026 are provisional. Flows at Mogote and Del Norte are affected by upstream reservoirs (Platoro; Rio Grande Reservoir) and small transbasin imports. Two snow sites stand in for each basin, and Hopewell lies outside the drainage it represents.\nData. Every water year (CSV) · Medians and changes (CSV) · La Puente annual flow, 1956–2026 (CSV)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
   }
 ]
