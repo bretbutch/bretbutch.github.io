@@ -99,7 +99,7 @@ USBR_RESERVOIR_PARAMS = {
     "elephant_butte_storage": (1119, 17),
     "elephant_butte_release": (1119, 43),
     "cochiti_storage": (2696, 17),
-    "abiquiu_storage": (2730, 17),
+    "abiquiu_storage": (2729, 17),
 }
 
 # Elephant Butte storage-change series: fetched and upserted separately from
