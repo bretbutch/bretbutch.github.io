@@ -174,6 +174,12 @@ const OFF_SEASON_CONFIG = { startMonth: 11, startDay: 1, endMonth: 2 };
 // is actually contributing — they're near zero most of the year.
 const TRIBUTARY_SHOW_THRESHOLD_CFS = 100;
 
+// Chamita reading withheld since the Oct 23, 2026 flood: the channel shifted
+// and the gage has been reading several times what Abiquiu + Ojo Caliente
+// upstream and Otowi downstream allow. Set to '' to show the reading again
+// once USGS corrects it.
+const CHAMITA_WITHHELD_NOTE = 'Reading withheld: the channel changed in the Oct 23 flood and this gage is reading several times too high until USGS re-measures it.';
+
 let IS_OFF_SEASON = false;
 
 function computeOffSeason(){
@@ -451,9 +457,13 @@ async function render(){
   html += nodeHtml({ name:'Abiquiu Dam', loc:'USGS 08287000 &middot; USACE', value: abiquiuChannel && abiquiuChannel.value });
 
   html += segHtml(abiquiuChannel && abiquiuChannel.value);
-  html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS 08290000', value: chamaChamita && chamaChamita.value, sub:'The Chama just above the Rio Grande.' });
-
-  html += segHtml(chamaChamita && chamaChamita.value);
+  if (CHAMITA_WITHHELD_NOTE) {
+    html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS 08290000', hideReading: true, sub:`The Chama just above the Rio Grande.<br>${CHAMITA_WITHHELD_NOTE}` });
+    html += segHtml(otowi && otowi.value);
+  } else {
+    html += nodeHtml({ name:'Rio Chama near Chamita', loc:'USGS 08290000', value: chamaChamita && chamaChamita.value, sub:'The Chama just above the Rio Grande.' });
+    html += segHtml(chamaChamita && chamaChamita.value);
+  }
   html += nodeHtml({ name:'Otowi Bridge', loc:'USGS 08313000', value: otowi && otowi.value, sub:'New Mexico\'s Compact index gage.' });
 
   const mrgcdShowOffSeason = IS_OFF_SEASON && (!mrgcdComplete || mrgcdTotal === 0);
