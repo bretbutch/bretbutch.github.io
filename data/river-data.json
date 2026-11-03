@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-11-03T10:24:26.058649+00:00",
+  "generated_at": "2026-11-03T11:36:28.319798+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 131.52,
+      "value": 142.03,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:16:10+00:00",
-      "age_hours": 0.14,
+      "timestamp": "2026-11-03T11:31:05+00:00",
+      "age_hours": 0.09,
       "stale": false,
       "site_id": 195,
       "device_id": 2
     },
     "cochiti": {
-      "value": 45.51,
+      "value": 44.52,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:07:25+00:00",
-      "age_hours": 0.28,
+      "timestamp": "2026-11-03T11:09:00+00:00",
+      "age_hours": 0.46,
       "stale": false,
       "site_id": 198,
       "device_id": 2
     },
     "angostura": {
-      "value": 29.36,
+      "value": 30.58,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:07:18+00:00",
-      "age_hours": 0.29,
+      "timestamp": "2026-11-03T11:08:53+00:00",
+      "age_hours": 0.46,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 56.48,
+      "value": 66.75,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:16:10+00:00",
-      "age_hours": 0.14,
+      "timestamp": "2026-11-03T11:31:05+00:00",
+      "age_hours": 0.09,
       "stale": false,
       "site_id": 197,
       "device_id": 2
@@ -40,8 +40,8 @@
     "san_acacia": {
       "value": 0,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:11:59+00:00",
-      "age_hours": 0.21,
+      "timestamp": "2026-11-03T11:13:51+00:00",
+      "age_hours": 0.38,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -49,157 +49,157 @@
   },
   "usgs": {
     "embudo": {
-      "value": 1650.0,
+      "value": 1640.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:00:00+00:00",
-      "age_hours": 0.41,
+      "timestamp": "2026-11-03T11:00:00+00:00",
+      "age_hours": 0.61,
       "approval_status": "Provisional",
       "site": "08279500"
     },
     "abiquiu_channel": {
-      "value": 511.0,
+      "value": 506.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:15:00+00:00",
-      "age_hours": 1.16,
+      "timestamp": "2026-11-03T11:15:00+00:00",
+      "age_hours": 0.36,
       "approval_status": "Provisional",
       "site": "08287000"
     },
     "chama_chamita": {
-      "value": 1920.0,
+      "value": 1930.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:00:00+00:00",
-      "age_hours": 0.41,
+      "timestamp": "2026-11-03T11:00:00+00:00",
+      "age_hours": 0.61,
       "approval_status": "Provisional",
       "site": "08290000"
     },
     "otowi": {
-      "value": 3350.0,
+      "value": 3340.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:00:00+00:00",
-      "age_hours": 0.41,
+      "timestamp": "2026-11-03T11:00:00+00:00",
+      "age_hours": 0.61,
       "approval_status": "Provisional",
       "site": "08313000"
     },
     "albuquerque": {
-      "value": 2730.0,
+      "value": 2720.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:15:00+00:00",
-      "age_hours": 1.16,
+      "timestamp": "2026-11-03T11:15:00+00:00",
+      "age_hours": 0.36,
       "approval_status": "Provisional",
       "site": "08330000"
     },
     "isleta_lakes": {
-      "value": 3380.0,
+      "value": 3340.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:00:00+00:00",
-      "age_hours": 0.41,
+      "timestamp": "2026-11-03T11:00:00+00:00",
+      "age_hours": 0.61,
       "approval_status": "Provisional",
       "site": "08330875"
     },
     "san_acacia_channel": {
-      "value": 3070.0,
+      "value": 3050.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:45:00+00:00",
-      "age_hours": 0.66,
+      "timestamp": "2026-11-03T10:45:00+00:00",
+      "age_hours": 0.86,
       "approval_status": "Provisional",
       "site": "08354900"
     },
     "san_marcial_floodway": {
-      "value": 1750.0,
+      "value": 1720.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:45:00+00:00",
-      "age_hours": 0.66,
+      "timestamp": "2026-11-03T10:45:00+00:00",
+      "age_hours": 0.86,
       "approval_status": "Provisional",
       "site": "08358400"
     },
     "san_marcial_lfcc": {
-      "value": 340.0,
+      "value": 338.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:15:00+00:00",
-      "age_hours": 1.16,
+      "timestamp": "2026-11-03T11:15:00+00:00",
+      "age_hours": 0.36,
       "approval_status": "Provisional",
       "site": "08358300"
     },
     "cochiti_channel": {
-      "value": 2980.0,
+      "value": 3000.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:15:00+00:00",
-      "age_hours": 1.16,
+      "timestamp": "2026-11-03T11:15:00+00:00",
+      "age_hours": 0.36,
       "approval_status": "Provisional",
       "site": "08317400"
     },
     "cochiti_east_side_canal": {
-      "value": 33.9,
+      "value": 33.2,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:15:00+00:00",
-      "age_hours": 1.16,
+      "timestamp": "2026-11-03T11:15:00+00:00",
+      "age_hours": 0.36,
       "approval_status": "Provisional",
       "site": "08313500"
     },
     "cochiti_sile_canal": {
       "value": 10.1,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:15:00+00:00",
-      "age_hours": 1.16,
+      "timestamp": "2026-11-03T11:15:00+00:00",
+      "age_hours": 0.36,
       "approval_status": "Provisional",
       "site": "08314000"
     },
     "galisteo": {
-      "value": 22.5,
+      "value": 25.1,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:45:00+00:00",
-      "age_hours": 0.66,
+      "timestamp": "2026-11-03T10:45:00+00:00",
+      "age_hours": 0.86,
       "approval_status": "Provisional",
       "site": "08317950"
     },
     "jemez": {
-      "value": 867.0,
+      "value": 861.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T09:45:00+00:00",
-      "age_hours": 0.66,
+      "timestamp": "2026-11-03T10:45:00+00:00",
+      "age_hours": 0.86,
       "approval_status": "Provisional",
       "site": "08328950"
     },
     "rio_puerco": {
       "value": 240.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T10:00:00+00:00",
-      "age_hours": 0.41,
+      "timestamp": "2026-11-03T11:00:00+00:00",
+      "age_hours": 0.61,
       "approval_status": "Provisional",
       "site": "08353000"
     }
   },
   "cdwr": {
     "del_norte": {
-      "value": 7180.0,
+      "value": 7040.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T02:45:00-07:00",
-      "age_hours": 0.66,
+      "timestamp": "2026-11-03T03:45:00-07:00",
+      "age_hours": 0.86,
       "stale": false,
       "later_readings_blank": false,
-      "latest_reading_timestamp": "2026-11-03T02:45:00-07:00",
+      "latest_reading_timestamp": "2026-11-03T03:45:00-07:00",
       "latest_reading_flag": null,
       "abbrev": "RIODELCO"
     },
     "mogote": {
-      "value": 2790.0,
+      "value": 2740.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T03:15:00-07:00",
-      "age_hours": 0.16,
+      "timestamp": "2026-11-03T04:15:00-07:00",
+      "age_hours": 0.36,
       "stale": false,
       "later_readings_blank": false,
-      "latest_reading_timestamp": "2026-11-03T03:15:00-07:00",
+      "latest_reading_timestamp": "2026-11-03T04:15:00-07:00",
       "latest_reading_flag": null,
       "abbrev": "CONMOGCO"
     },
     "lobatos": {
-      "value": 979.0,
+      "value": 1000.0,
       "units": "cfs",
-      "timestamp": "2026-11-03T02:30:00-07:00",
-      "age_hours": 0.91,
+      "timestamp": "2026-11-03T03:30:00-07:00",
+      "age_hours": 1.11,
       "stale": false,
       "later_readings_blank": false,
-      "latest_reading_timestamp": "2026-11-03T02:30:00-07:00",
+      "latest_reading_timestamp": "2026-11-03T03:30:00-07:00",
       "latest_reading_flag": null,
       "abbrev": "RIOLOBCO"
     }
@@ -210,44 +210,44 @@
         "abbrev": "RIOCANCO",
         "name": "RIO GRANDE CANAL NEAR DEL NORTE",
         "water_district": 20,
-        "value": 1510.0,
+        "value": 1490.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:45:00-07:00",
-        "age_hours": 0.66,
+        "timestamp": "2026-11-03T03:45:00-07:00",
+        "age_hours": 0.86,
         "stale": false
       },
       {
         "abbrev": "FARCANCO",
         "name": "FARMERS UNION CANAL NEAR DEL NORTE",
         "water_district": 20,
-        "value": 618.0,
+        "value": 607.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
         "stale": false
       },
       {
         "abbrev": "MONCANCO",
         "name": "MONTE VISTA CANAL NEAR MONTE VISTA",
         "water_district": 20,
-        "value": 382.0,
+        "value": 372.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
         "stale": false
       },
       {
         "abbrev": "PRADITCO",
         "name": "PRAIRIE DITCH NEAR SEVEN-MILE PLAZA",
         "water_district": 20,
-        "value": 311.0,
+        "value": 302.0,
         "units": "cfs",
         "parameter": "DISCHRG2",
-        "timestamp": "2026-11-03T02:15:00-07:00",
-        "age_hours": 1.16,
+        "timestamp": "2026-11-03T04:15:00-07:00",
+        "age_hours": 0.36,
         "stale": false
       },
       {
@@ -257,19 +257,19 @@
         "value": 279.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:15:00-07:00",
-        "age_hours": 0.16,
+        "timestamp": "2026-11-03T04:15:00-07:00",
+        "age_hours": 0.36,
         "stale": false
       },
       {
         "abbrev": "COSDITCO",
         "name": "COSTILLA DITCH NEAR ALAMOSA",
         "water_district": 20,
-        "value": 103.0,
+        "value": 104.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:45:00-07:00",
-        "age_hours": 0.66,
+        "timestamp": "2026-11-03T03:45:00-07:00",
+        "age_hours": 0.86,
         "stale": false
       },
       {
@@ -279,19 +279,19 @@
         "value": 68.5,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
         "abbrev": "ROMDITCO",
         "name": "ROMERO DITCH NEAR CONEJOS",
         "water_district": 22,
-        "value": 65.2,
+        "value": 62.6,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
         "stale": false
       },
       {
@@ -301,8 +301,8 @@
         "value": 49.4,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
@@ -313,19 +313,8 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-01T01:00:00-07:00",
-        "age_hours": 50.41,
+        "age_hours": 51.61,
         "stale": true
-      },
-      {
-        "abbrev": "2000699A",
-        "name": "KANE CALLAN D",
-        "water_district": 20,
-        "value": 34.1,
-        "units": "cfs",
-        "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
-        "stale": false
       },
       {
         "abbrev": "2000817A",
@@ -334,41 +323,52 @@
         "value": 33.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
         "abbrev": "2000903A",
         "name": "WESTSIDE D",
         "water_district": 20,
-        "value": 22.4,
+        "value": 32.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
-        "abbrev": "2000810A",
-        "name": "RIO GRANDE D 1",
+        "abbrev": "2000699A",
+        "name": "KANE CALLAN D",
         "water_district": 20,
-        "value": 20.6,
+        "value": 31.1,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
         "abbrev": "2000846A",
         "name": "SILVA D",
         "water_district": 20,
-        "value": 19.7,
+        "value": 19.4,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
+        "stale": false
+      },
+      {
+        "abbrev": "2000810A",
+        "name": "RIO GRANDE D 1",
+        "water_district": 20,
+        "value": 19.1,
+        "units": "cfs",
+        "parameter": "DISCHRG",
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
@@ -378,52 +378,41 @@
         "value": 18.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
-        "stale": false
-      },
-      {
-        "abbrev": "2000736A",
-        "name": "MCDONALD D",
-        "water_district": 20,
-        "value": 11.3,
-        "units": "cfs",
-        "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
-        "stale": false
-      },
-      {
-        "abbrev": "2000575A",
-        "name": "CHICAGO D",
-        "water_district": 20,
-        "value": 10.6,
-        "units": "cfs",
-        "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
-        "stale": false
-      },
-      {
-        "abbrev": "CENCANCO",
-        "name": "CENTENNIAL CANAL NEAR MONTE VISTA",
-        "water_district": 20,
-        "value": 9.97,
-        "units": "cfs",
-        "parameter": "DISCHRG2",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
         "stale": false
       },
       {
         "abbrev": "2000773A",
         "name": "NEW DITCH",
         "water_district": 20,
-        "value": 9.19,
+        "value": 11.6,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
+        "stale": false
+      },
+      {
+        "abbrev": "2000575A",
+        "name": "CHICAGO D",
+        "water_district": 20,
+        "value": 10.9,
+        "units": "cfs",
+        "parameter": "DISCHRG",
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
+        "stale": false
+      },
+      {
+        "abbrev": "2000736A",
+        "name": "MCDONALD D",
+        "water_district": 20,
+        "value": 10.5,
+        "units": "cfs",
+        "parameter": "DISCHRG",
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
@@ -433,30 +422,41 @@
         "value": 8.72,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
+        "stale": false
+      },
+      {
+        "abbrev": "CENCANCO",
+        "name": "CENTENNIAL CANAL NEAR MONTE VISTA",
+        "water_district": 20,
+        "value": 7.81,
+        "units": "cfs",
+        "parameter": "DISCHRG2",
+        "timestamp": "2026-11-03T03:30:00-07:00",
+        "age_hours": 1.11,
         "stale": false
       },
       {
         "abbrev": "2200554A",
         "name": "HEADS MILL & IRG D",
         "water_district": 22,
-        "value": 8.25,
+        "value": 7.34,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
         "abbrev": "2200630A",
         "name": "SELEDONIA VALDEZ IRR MIL",
         "water_district": 22,
-        "value": 6.76,
+        "value": 6.48,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T03:30:00-07:00",
+        "age_hours": 1.11,
         "stale": false
       },
       {
@@ -466,19 +466,19 @@
         "value": 2.8,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
         "abbrev": "2200553A",
         "name": "GUADALUPE MAIN",
         "water_district": 22,
-        "value": 1.32,
+        "value": 1.2,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:15:00-07:00",
-        "age_hours": 1.16,
+        "timestamp": "2026-11-03T04:15:00-07:00",
+        "age_hours": 0.36,
         "stale": false
       },
       {
@@ -488,8 +488,8 @@
         "value": 0.19,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
@@ -500,7 +500,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-10-31T23:00:00-06:00",
-        "age_hours": 53.41,
+        "age_hours": 54.61,
         "stale": true
       },
       {
@@ -510,8 +510,8 @@
         "value": null,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T03:00:00-07:00",
-        "age_hours": 0.41,
+        "timestamp": "2026-11-03T04:00:00-07:00",
+        "age_hours": 0.61,
         "stale": false
       },
       {
@@ -521,8 +521,8 @@
         "value": null,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-03T02:30:00-07:00",
-        "age_hours": 0.91,
+        "timestamp": "2026-11-03T04:30:00-07:00",
+        "age_hours": 0.11,
         "stale": false
       }
     ]
