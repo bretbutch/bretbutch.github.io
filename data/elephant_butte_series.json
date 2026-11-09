@@ -1,8 +1,4 @@
 {
-  "2026-09-24": {
-    "delta_storage_af": 1089.0,
-    "evaporation_af": 227.2
-  },
   "2026-09-25": {
     "delta_storage_af": 1570.0,
     "evaporation_af": 14.4
@@ -177,6 +173,10 @@
   },
   "2026-11-07": {
     "delta_storage_af": 7122.0,
+    "evaporation_af": null
+  },
+  "2026-11-08": {
+    "delta_storage_af": 7797.0,
     "evaporation_af": null
   }
 }
