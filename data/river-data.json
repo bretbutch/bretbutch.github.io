@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-12T21:46:34.099245+00:00",
+  "generated_at": "2026-11-12T22:01:46.492714+00:00",
   "mrgcd": {
     "mrgcd_total": {
-      "value": 87.12,
+      "value": 90.84,
       "units": "cfs",
-      "timestamp": "2026-11-12T21:41:42+00:00",
-      "age_hours": 0.08,
+      "timestamp": "2026-11-12T22:01:27+00:00",
+      "age_hours": 0.01,
       "stale": false,
       "site_id": 195,
       "device_id": 2
@@ -14,7 +14,7 @@
       "value": 55.11,
       "units": "cfs",
       "timestamp": "2026-11-12T21:35:53+00:00",
-      "age_hours": 0.18,
+      "age_hours": 0.43,
       "stale": false,
       "site_id": 198,
       "device_id": 2
@@ -23,16 +23,16 @@
       "value": 20.24,
       "units": "cfs",
       "timestamp": "2026-11-12T21:35:46+00:00",
-      "age_hours": 0.18,
+      "age_hours": 0.43,
       "stale": false,
       "site_id": 77,
       "device_id": 3
     },
     "isleta": {
-      "value": 11.59,
+      "value": 15.31,
       "units": "cfs",
-      "timestamp": "2026-11-12T21:41:42+00:00",
-      "age_hours": 0.08,
+      "timestamp": "2026-11-12T22:01:27+00:00",
+      "age_hours": 0.01,
       "stale": false,
       "site_id": 197,
       "device_id": 2
@@ -41,7 +41,7 @@
       "value": 0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:39:27+00:00",
-      "age_hours": 0.12,
+      "age_hours": 0.37,
       "stale": false,
       "site_id": 131,
       "device_id": 3
@@ -52,7 +52,7 @@
       "value": 2370.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:00:00+00:00",
-      "age_hours": 0.78,
+      "age_hours": 1.03,
       "approval_status": "Provisional",
       "site": "08279500"
     },
@@ -60,7 +60,7 @@
       "value": 516.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:15:00+00:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "approval_status": "Provisional",
       "site": "08287000"
     },
@@ -68,7 +68,7 @@
       "value": 781.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:00:00+00:00",
-      "age_hours": 0.78,
+      "age_hours": 1.03,
       "approval_status": "Provisional",
       "site": "08290000"
     },
@@ -76,7 +76,7 @@
       "value": 2420.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:00:00+00:00",
-      "age_hours": 0.78,
+      "age_hours": 1.03,
       "approval_status": "Provisional",
       "site": "08313000"
     },
@@ -84,7 +84,7 @@
       "value": 2910.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:15:00+00:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "approval_status": "Provisional",
       "site": "08330000"
     },
@@ -92,23 +92,23 @@
       "value": 3120.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:00:00+00:00",
-      "age_hours": 0.78,
+      "age_hours": 1.03,
       "approval_status": "Provisional",
       "site": "08330875"
     },
     "san_acacia_channel": {
       "value": 2710.0,
       "units": "cfs",
-      "timestamp": "2026-11-12T20:45:00+00:00",
-      "age_hours": 1.03,
+      "timestamp": "2026-11-12T21:45:00+00:00",
+      "age_hours": 0.28,
       "approval_status": "Provisional",
       "site": "08354900"
     },
     "san_marcial_floodway": {
       "value": 1890.0,
       "units": "cfs",
-      "timestamp": "2026-11-12T20:45:00+00:00",
-      "age_hours": 1.03,
+      "timestamp": "2026-11-12T21:45:00+00:00",
+      "age_hours": 0.28,
       "approval_status": "Provisional",
       "site": "08358400"
     },
@@ -116,7 +116,7 @@
       "value": 214.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:15:00+00:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "approval_status": "Provisional",
       "site": "08358300"
     },
@@ -124,7 +124,7 @@
       "value": 3390.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:15:00+00:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "approval_status": "Provisional",
       "site": "08317400"
     },
@@ -132,7 +132,7 @@
       "value": 33.2,
       "units": "cfs",
       "timestamp": "2026-11-12T21:15:00+00:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "approval_status": "Provisional",
       "site": "08313500"
     },
@@ -140,23 +140,23 @@
       "value": 23.6,
       "units": "cfs",
       "timestamp": "2026-11-12T21:15:00+00:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "approval_status": "Provisional",
       "site": "08314000"
     },
     "galisteo": {
       "value": 0.0,
       "units": "cfs",
-      "timestamp": "2026-11-12T20:45:00+00:00",
-      "age_hours": 1.03,
+      "timestamp": "2026-11-12T21:45:00+00:00",
+      "age_hours": 0.28,
       "approval_status": "Provisional",
       "site": "08317950"
     },
     "jemez": {
-      "value": 98.6,
+      "value": 94.7,
       "units": "cfs",
-      "timestamp": "2026-11-12T20:45:00+00:00",
-      "age_hours": 1.03,
+      "timestamp": "2026-11-12T21:45:00+00:00",
+      "age_hours": 0.28,
       "approval_status": "Provisional",
       "site": "08328950"
     },
@@ -164,7 +164,7 @@
       "value": 233.0,
       "units": "cfs",
       "timestamp": "2026-11-12T21:00:00+00:00",
-      "age_hours": 0.78,
+      "age_hours": 1.03,
       "approval_status": "Provisional",
       "site": "08353000"
     }
@@ -173,11 +173,11 @@
     "del_norte": {
       "value": 1450.0,
       "units": "cfs",
-      "timestamp": "2026-11-12T13:45:00-07:00",
-      "age_hours": 1.03,
+      "timestamp": "2026-11-12T14:45:00-07:00",
+      "age_hours": 0.28,
       "stale": false,
       "later_readings_blank": false,
-      "latest_reading_timestamp": "2026-11-12T13:45:00-07:00",
+      "latest_reading_timestamp": "2026-11-12T14:45:00-07:00",
       "latest_reading_flag": null,
       "abbrev": "RIODELCO"
     },
@@ -185,7 +185,7 @@
       "value": 518.0,
       "units": "cfs",
       "timestamp": "2026-11-12T14:15:00-07:00",
-      "age_hours": 0.53,
+      "age_hours": 0.78,
       "stale": false,
       "later_readings_blank": false,
       "latest_reading_timestamp": "2026-11-12T14:15:00-07:00",
@@ -196,7 +196,7 @@
       "value": 1740.0,
       "units": "cfs",
       "timestamp": "2026-11-12T14:30:00-07:00",
-      "age_hours": 0.28,
+      "age_hours": 0.53,
       "stale": false,
       "later_readings_blank": false,
       "latest_reading_timestamp": "2026-11-12T14:30:00-07:00",
@@ -214,17 +214,17 @@
         "units": "cfs",
         "parameter": "DISCHRG2",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
         "abbrev": "EXLCANCO",
         "name": "EXCELSIOR CANAL NEAR RIO GRANDE-ALAMOSA COUNTY LINE",
         "water_district": 20,
-        "value": 41.9,
+        "value": 41.7,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-12T14:30:00-07:00",
+        "timestamp": "2026-11-12T14:45:00-07:00",
         "age_hours": 0.28,
         "stale": false
       },
@@ -236,7 +236,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -247,7 +247,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -258,7 +258,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -269,7 +269,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -280,7 +280,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -291,7 +291,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -302,7 +302,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -312,8 +312,8 @@
         "value": 2.36,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-12T13:45:00-07:00",
-        "age_hours": 1.03,
+        "timestamp": "2026-11-12T14:45:00-07:00",
+        "age_hours": 0.28,
         "stale": false
       },
       {
@@ -324,7 +324,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -335,7 +335,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -346,7 +346,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:15:00-07:00",
-        "age_hours": 0.53,
+        "age_hours": 0.78,
         "stale": false
       },
       {
@@ -357,7 +357,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -368,7 +368,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -379,7 +379,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -390,7 +390,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T13:00:00-07:00",
-        "age_hours": 1.78,
+        "age_hours": 2.03,
         "stale": false
       },
       {
@@ -401,7 +401,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -412,7 +412,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -423,7 +423,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -434,7 +434,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -445,7 +445,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -456,7 +456,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -467,7 +467,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:00:00-07:00",
-        "age_hours": 0.78,
+        "age_hours": 1.03,
         "stale": false
       },
       {
@@ -478,7 +478,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:15:00-07:00",
-        "age_hours": 0.53,
+        "age_hours": 0.78,
         "stale": false
       },
       {
@@ -489,7 +489,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -500,7 +500,7 @@
         "units": "cfs",
         "parameter": "DISCHRG",
         "timestamp": "2026-11-12T14:30:00-07:00",
-        "age_hours": 0.28,
+        "age_hours": 0.53,
         "stale": false
       },
       {
@@ -511,7 +511,7 @@
         "units": "cfs",
         "parameter": "DISCHRG2",
         "timestamp": "2026-11-12T14:15:00-07:00",
-        "age_hours": 0.53,
+        "age_hours": 0.78,
         "stale": false
       },
       {
@@ -521,8 +521,8 @@
         "value": 0.0,
         "units": "cfs",
         "parameter": "DISCHRG",
-        "timestamp": "2026-11-12T13:45:00-07:00",
-        "age_hours": 1.03,
+        "timestamp": "2026-11-12T14:45:00-07:00",
+        "age_hours": 0.28,
         "stale": false
       }
     ]
