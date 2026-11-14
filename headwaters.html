@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.11.9">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,13 +12,10 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -38,15 +35,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0d1cfb58ad58da0bde150f75ee888c81.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-af7285d5811e657a971412da1437e4ef.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -82,18 +78,19 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Paperwater</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -125,7 +122,6 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
-            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -135,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content" tabindex="-1">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -157,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Most of the water in the upper Rio Grande starts as mountain snow. This page compares the peak snowpack at high-elevation SNOTEL sites with the water that passed the first river gage below each headwater basin, for water years 1987 through 2026 (each runs October through September). Data run through September 30, 2026.</p>
+<p>Most of the water in the upper Rio Grande starts as mountain snow. This page compares the peak snowpack at high-elevation SNOTEL sites, and when it melts, with the water that passed the first river gage below each headwater basin, for water years 1987 through 2026 (each runs October through September). Data run through September 30, 2026.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -174,17 +170,17 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>Rio Chama</td>
-<td>Cumbres Trestle and Hopewell</td>
+<td>Cumbres Trestle (10,030 ft) and Hopewell (10,080 ft)</td>
 <td>Rio Chama near La Puente, NM</td>
 </tr>
 <tr class="even">
 <td>Conejos River</td>
-<td>Cumbres Trestle and Wolf Creek Summit</td>
+<td>Cumbres Trestle (10,030 ft) and Wolf Creek Summit (10,930 ft)</td>
 <td>Conejos River near Mogote, CO</td>
 </tr>
 <tr class="odd">
 <td>Upper Rio Grande</td>
-<td>Wolf Creek Summit and Beartown</td>
+<td>Wolf Creek Summit (10,930 ft) and Beartown (11,580 ft)</td>
 <td>Rio Grande near Del Norte, CO</td>
 </tr>
 </tbody>
@@ -205,21 +201,29 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Each dot is one water year. In all three basins, recent years mostly fall among earlier years with similar snowpacks. More of them sit at the low-snow end.</p>
 </section>
+<section id="the-snow-melts-earlier" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-snow-melts-earlier">The snow melts earlier</h2>
+<div class="column-page">
+<p><a href="images/headwaters/4_snow_melt_timing.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/headwaters/4_snow_melt_timing.png" class="img-fluid" alt="Four panels, one per snow site, showing the typical snow water equivalent on each date from November through July for 1987–2006 and 2007–2026. At every site the recent curve peaks lower and drops off earlier. The snowpack is half gone 8 days earlier at Beartown, 14 at Wolf Creek Summit, 6 at Cumbres Trestle and 6 at Hopewell."></a></p>
+</div>
+<p>At all four snow sites, the snowpack now peaks lower and is half gone 6 to 14 days earlier in spring than in 1987–2006. Much of that is simply less snow: each inch less at the peak brings the half-gone date about one to one and a half days earlier. Comparing years with similar snowpacks, only Wolf Creek Summit melts clearly earlier, by about 9 days. It’s also the site that used to melt latest, half gone in early June.</p>
+<p>In 2026 the snowpack peaked in early March at all four sites, among the earliest peaks since 1987. At Beartown, Cumbres Trestle and Hopewell it was half gone by late March, two to nearly three weeks earlier than in any other year since 1987.</p>
+</section>
 <section id="seventy-years-at-la-puente" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="seventy-years-at-la-puente">Seventy years at La Puente</h2>
 <div class="column-page">
-<p><a href="images/headwaters/3_la_puente_wy_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/headwaters/3_la_puente_wy_flow.png" class="img-fluid" alt="Bar chart of Rio Chama water-year flow at La Puente, 1956–2026, with a LOESS trend line, a 10-year moving average and the 1991–2020 median of 228 thousand acre-feet. Water year 2026 is highlighted at 80 thousand acre-feet."></a></p>
+<p><a href="images/headwaters/3_la_puente_wy_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/headwaters/3_la_puente_wy_flow.png" class="img-fluid" alt="Bar chart of Rio Chama water-year flow at La Puente, 1956–2026, with a LOESS trend line, a 10-year moving average and the 1991–2020 median of 228 thousand acre-feet. Water year 2026 is highlighted at 80 thousand acre-feet."></a></p>
 </div>
 <p>The La Puente gage has measured the Rio Chama since 1955. It sits upstream of El Vado Reservoir and of the point where San Juan–Chama Project water enters the river, so its flows contain no imported water. Water year 2026 (provisional) brought 80 thousand acre-feet, about 35% of the 1991–2020 median of 228.</p>
 </section>
 <section id="what-this-shows-and-what-it-doesnt" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-shows-and-what-it-doesnt">What this shows, and what it doesn’t</h2>
-<p>All three headwater rivers carried less water after 2006, about as much less as their smaller snowpacks predict, and the Rio Chama lost the most of both. None of the three is delivering clearly less than its snowpack predicts.</p>
+<p>All three headwater rivers carried less water after 2006, about as much less as their smaller snowpacks predict, and the Rio Chama lost the most of both. None of the three is delivering clearly less than its snowpack predicts. Snow at all four sites also melts earlier. At three of them that matches their smaller snowpacks; only Wolf Creek Summit melts clearly earlier for the same amount of snow.</p>
 <p>Things to keep in mind:</p>
 <ul>
 <li><strong>The Chama’s snow index matters.</strong> With Cumbres Trestle alone, the Chama looks like it now makes less water per inch of snow: 13% less than Cumbres predicts, with a statistically significant downward trend. With both halves of the basin represented, it doesn’t. Any blend that gives the Hopewell side at least 30% of the weight shows no significant shortfall.</li>
 <li><strong>On the Conejos and the upper Rio Grande, flow fell less than snow</strong> (6% vs.&nbsp;13%, and 1% vs.&nbsp;15%), even though both rivers have historically tracked their snow about one for one. That’s within normal variation. It could mean these basins kept more of their snow than the high sites near the Continental Divide show, or that rain, groundwater and reservoir releases made up part of the difference. These data can’t tell which.</li>
-<li><strong>Snow sites are points near 10,000 feet.</strong> They can’t see snow at middle elevations, and in dry summers the middle of the Chama basin adds little or nothing to the river at La Puente.</li>
+<li><strong>The Chama’s snow sites sit lower, and so does its basin.</strong> Cumbres Trestle and Hopewell sit near 10,000 feet, Wolf Creek Summit near 10,900 and Beartown near 11,600. Less than 4% of the Chama basin above La Puente lies above 11,000 feet, compared with 35–41% of the Conejos and upper Rio Grande basins, and the Chama has no higher SNOTEL site. Within their own basins the two pairs sit at similar heights: the Chama’s sites stand higher than about two-thirds of their basin, the upper Rio Grande’s higher than 56% and 78% of theirs. Nearly two-thirds of the Chama basin lies below 10,000 feet, where no snow site measures, and in dry summers the middle of the basin adds little or nothing to the river at La Puente.</li>
 <li><strong>The flow numbers don’t depend on any of these choices.</strong> Wherever the record is split, from 1997 to 2016, the Chama’s median flow fell 27–46%, while the other two rivers’ fell at most 23%.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -235,13 +239,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Snow.</strong> NRCS SNOTEL daily snow water equivalent at Cumbres Trestle (431:CO:SNTL), Hopewell (532:NM:SNTL), Wolf Creek Summit (874:CO:SNTL) and Beartown (327:CO:SNTL). Each basin’s index averages two sites’ daily values (both must report), then takes the year’s peak. A year needs at least 250 days of snow data before July 1.</p>
-<p><strong>The Chama’s snow index.</strong> Hopewell sits just outside the Chama drainage and stands in for the Rio Brazos side of the basin. Seasonal gages on the upper Chama (above Chama) and the Rio Brazos (at Fishtail Road), running since 2014, show each supplying roughly a third to a half of La Puente’s May–September flow. In years when Hopewell is snowier relative to Cumbres, the Brazos carries a larger share (rank correlation 0.77 over 10 summers). Over 1987–2026, the Cumbres–Hopewell average explains 80% of the year-to-year variation in La Puente’s flow; Cumbres alone explains 73%. Giving Cumbres anywhere from 0% to 70% of the weight shows no significant shortfall; 80% or more does.</p>
+<p><strong>The Chama’s snow index.</strong> Hopewell sits about 2 km outside the basin, just over the ridge from the Rio Brazos drainage, and stands in for the Rio Brazos side; Cumbres Trestle sits on the divide at the head of the upper Chama. Seasonal gages on the upper Chama (above Chama) and the Rio Brazos (at Fishtail Road), running since 2014, show each supplying roughly a third to a half of La Puente’s May–September flow. In years when Hopewell is snowier relative to Cumbres, the Brazos carries a larger share (rank correlation 0.77 over 10 summers). Over 1987–2026, the Cumbres–Hopewell average explains 80% of the year-to-year variation in La Puente’s flow; Cumbres alone explains 73%. Giving Cumbres anywhere from 0% to 70% of the weight shows no significant shortfall; 80% or more does.</p>
 <p><strong>Flow.</strong> USGS daily mean discharge at Rio Chama near La Puente (08284100), Conejos River near Mogote (08246500) and Rio Grande near Del Norte (08220000). USGS daily values for the two Colorado gages end in December 2024; from January 2025 this page uses the Colorado Division of Water Resources’ reviewed record (CONMOGCO, RIODELCO). Water-year flow is the sum of daily mean flow times 1.983471 acre-feet per cfs-day, for years with at least 360 days of record. Flows are as measured at the gage, not adjusted for upstream reservoirs or diversions.</p>
 <p><strong>Expected flow.</strong> Each river’s water-year flow is fit against its snow index for 1987–2006 (a straight-line fit) and applied to each 2007–2026 snowpack. “Within normal year-to-year variation” means inside the range where the 20-year average would fall 90% of the time if the 1987–2006 relationship still held.</p>
+<p><strong>Melt timing.</strong> NRCS SNOTEL daily snow water equivalent at each site, smoothed with a 3-day median to remove one-day sensor spikes, for water years with at least 90% of days from October 1 to August 31. Half gone: the first day after each year’s peak when snow water equivalent falls to half of that peak. Chart dates are medians of the yearly dates. Trends 1987–2026 (Sen slope, Kendall test): half gone earlier by 6.5 days per decade at Wolf Creek Summit, 4.6 at Beartown and 3.3 at Hopewell; Cumbres Trestle’s 2.6 isn’t significant. Holding peak snowpack fixed, Wolf Creek Summit is about 9 days earlier in 2007–2026 (90% range 4–14 days); the other three sites are about 2–3 days earlier, within year-to-year variation. Half-gone dates vary by about two weeks from year to year (standard deviation 12–17 days).</p>
+<p><strong>Elevations.</strong> Site elevations from NRCS station metadata. Basin elevations from USGS NLDI basin outlines and AWS Terrain Tiles (about 120 m); the outlined areas match USGS drainage areas within 2%. The 10,000-foot pair (Cumbres Trestle, Hopewell) and the 11,000-foot pair (Wolf Creek Summit, Beartown) rise and fall together (rank correlation 0.83), and the lower pair hasn’t lost ground against the higher one (no significant trend, 1987–2026). By site, peak snowpack fell most at Hopewell (22% by median, 18% by average); the other three don’t line up by elevation. The two lower sites are also the two southernmost, so elevation and latitude can’t be separated.</p>
 <p><strong>Periods.</strong> Water years 1987–2006 and 2007–2026: equal 20-year halves of the record all three basins share. Wolf Creek Summit’s first full season is 1987.</p>
 <p><strong>La Puente chart.</strong> LOESS: locally linear, frac = 0.2, robust. Moving average: 10-year exponentially weighted, trailing only. Median: 1991–2020.</p>
-<p><strong>Limits.</strong> Water years 2025 and 2026 are provisional. Flows at Mogote and Del Norte are affected by upstream reservoirs (Platoro; Rio Grande Reservoir) and small transbasin imports. Two snow sites stand in for each basin, and Hopewell lies outside the drainage it represents.</p>
-<p><strong>Data.</strong> <a href="data/headwaters/snow_to_flow_water_years.csv">Every water year (CSV)</a> · <a href="data/headwaters/snow_to_flow_summary.csv">Medians and changes (CSV)</a> · <a href="data/headwaters/la_puente_wy_flow_1956_2026.csv">La Puente annual flow, 1956–2026 (CSV)</a></p>
+<p><strong>Limits.</strong> Water years 2025 and 2026 are provisional. Flows at Mogote and Del Norte are affected by upstream reservoirs (Platoro; Rio Grande Reservoir) and small transbasin imports. Two snow sites stand in for each basin, and only Beartown sits clearly inside the basin it stands for. Cumbres Trestle sits on the upper Chama’s divide, and Wolf Creek Summit on the Continental Divide (on the San Juan side, by NRCS’s watershed code). Hopewell sits about 2 km outside the Chama basin, and neither Conejos site is inside the Conejos basin above Mogote (Cumbres Trestle is about 6 km outside, Wolf Creek Summit about 18 km).</p>
+<p><strong>Data.</strong> <a href="data/headwaters/snow_to_flow_water_years.csv">Every water year (CSV)</a> · <a href="data/headwaters/snow_to_flow_summary.csv">Medians and changes (CSV)</a> · <a href="data/headwaters/la_puente_wy_flow_1956_2026.csv">La Puente annual flow, 1956–2026 (CSV)</a> · <a href="data/headwaters/snow_melt_timing_water_years.csv">Melt timing by site and water year (CSV)</a></p>
 </div>
 </div>
 </div>
@@ -323,13 +329,12 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/paperwater\.net");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-      window.quartoDecorateExternalLinks = function (root) {
-     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -338,69 +343,8 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-          if (!link.classList.contains('no-external-icon')) {
-          }
         }
       }
-      };
-      window.quartoDecorateExternalLinks(window.document);
-    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
-    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
-    const hideOnEscAndFocusOut = {
-      name: 'hideOnEscAndFocusOut',
-      defaultValue: true,
-      fn(instance) {
-        const dismiss = () => {
-          // A show scheduled by the trigger delay would otherwise reopen it
-          instance.clearDelayTimeouts();
-          instance.hide();
-        };
-        const onKeyDown = (event) => {
-          if (event.key !== 'Escape') {
-            return;
-          }
-          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
-          // except an open reveal.js slide menu, which Esc should close too.
-          // The menu handles keys only when its keyboard option is on.
-          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
-            window.Reveal.getConfig().menu?.keyboard !== false;
-          if (!menuHandlesEsc) {
-            event.stopPropagation();
-          }
-          if (instance.popper.contains(window.document.activeElement)) {
-            // Disabled while refocusing so the focus trigger does not reopen it
-            instance.disable();
-            instance.reference.focus();
-            instance.enable();
-          }
-          dismiss();
-        };
-        const onFocusOut = (event) => {
-          const target = event.relatedTarget;
-          if (target && !instance.reference.contains(target) &&
-              !instance.popper.contains(target)) {
-            dismiss();
-          }
-        };
-        // On the trigger too: a click trigger (code-annotations: select) has no
-        // blur handling. Attached for the instance's lifetime so leaving the
-        // trigger also cancels a show still pending on the trigger delay.
-        instance.reference.addEventListener('focusout', onFocusOut);
-        return {
-          onShow() {
-            window.document.addEventListener('keydown', onKeyDown, true);
-            instance.popper.addEventListener('focusout', onFocusOut);
-          },
-          onHide() {
-            window.document.removeEventListener('keydown', onKeyDown, true);
-            instance.popper.removeEventListener('focusout', onFocusOut);
-          },
-          onDestroy() {
-            instance.reference.removeEventListener('focusout', onFocusOut);
-          },
-        };
-      },
-    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -414,7 +358,6 @@ ul.task-list li input[type="checkbox"] {
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
-        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -577,54 +520,44 @@ ul.task-list li input[type="checkbox"] {
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          // Each band is positioned against its own containing block, which is
-          // not the offsetParent of the lines, so place it from client rects.
-          const placeBand = (band, firstEl, lastEl, codeBlock) => {
-            const container = band.offsetParent;
-            if (container === null) {
-              return;
-            }
-            const containerRect = container.getBoundingClientRect();
-            // Reveal.js scales slides with a transform, so convert client
-            // pixels back to the CSS pixels of the container.
-            const scale = containerRect.height / container.offsetHeight || 1;
-            const firstRect = firstEl.getBoundingClientRect();
-            const lastRect = lastEl.getBoundingClientRect();
-            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
-            const height = (lastRect.bottom - firstRect.top) / scale;
-            band.style.top = top - 2 + "px";
-            band.style.height = height + 4 + "px";
-            if (codeBlock) {
-              // Without the copy button wrapper, the containing block is wider
-              // than the code block, so span the code block explicitly.
-              const blockRect = codeBlock.getBoundingClientRect();
-              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
-              band.style.width = blockRect.width / scale + "px";
-            }
-          };
+          let top = null;
+          let height = null;
+          let parent = null;
           if (lineIds.length > 0) {
-            const el = window.document.getElementById(lineIds[0]);
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const parent = el.parentElement.parentElement;
-            // cook up a div (if necessary) and position it
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
             }
-            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
             }
-            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -722,9 +655,6 @@ ul.task-list li input[type="checkbox"] {
       }
     }
   });
-  </script>
-  <script type="application/javascript">
-  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
