@@ -1,5 +1,6 @@
 SNOWPACK VS. RIVER FLOW — DRAFT FIGURES FOR PAPERWATER.NET
-Draft for review. Data retrieved October 5, 2026. Nothing here is on the site yet.
+Charts 1–3 are on paperwater.net's Headwaters page; chart 9 is added there as chart 4 (November 2026).
+Data retrieved October 5, 2026; chart 9 and basin elevations November 14, 2026.
 
 FILES
   1_snow_vs_flow_change.png         Snow change vs. flow change by basin, first 20 vs. last 20 years
@@ -16,6 +17,7 @@ FILES
   10_snotel_temperature_raw_vs_corrected.png  Annual temperature at the four sites, raw vs. sensor jump removed, 1991–2025
   snotel_melt_timing_wy.csv              Peak SWE, peak date, half-gone date and melt-out date, each site and water year
   snotel_temperature_annual.csv          Annual temperature: raw SNOTEL, corrected, NOAA division (chart 10)
+  basin_elevations.csv                   Basin area, mean elevation, % above 9–12k ft, share of basin below each snow site
   cascade_expected_vs_delivered.csv The numbers behind chart 4, with the 90% ranges
   elephant_butte_evaporation_wy.csv Evaporation, storage, lake area, rate and temperature by water year (charts 6–8)
 
@@ -205,11 +207,35 @@ CHARTS 9–10: THE FOUR SNOW SITES (chain/snow_sites_charts.py)
 
   Trends WY1987–2026 (Sen slope, Kendall p < 0.05): half gone earlier at Wolf Creek (−6.5 d/decade),
   Beartown (−4.6) and Hopewell (−3.3), not Cumbres (−2.6, p = 0.17); melt-out earlier at Wolf Creek
-  and Beartown. Each extra inch of peak SWE delays the half-gone date about 1.2 days, so part of the
-  shift is less snow. Holding peak SWE fixed, only Wolf Creek is still clearly earlier (half gone
-  −5.1 d/decade, melt-out −5.6, peak −7.9; all p < 0.001). Dates vary ±11–16 days year to year.
+  and Beartown. Each extra inch of peak SWE delays the half-gone date 0.8–1.6 days (by site), so part
+  of the shift is less snow. Holding peak SWE fixed, only Wolf Creek is still clearly earlier (half gone
+  −5.1 d/decade, melt-out −5.6, peak −7.9; all p < 0.001), or 8.9 days earlier in 2007–2026 than in
+  1987–2006 (90% range 4.3–13.6). The other three: 1.6–3.0 days earlier, p = 0.37–0.54. Half-gone
+  dates have a year-to-year standard deviation of 12–17 days.
+  WY2026 (provisional): peaks Mar 1–7, the earliest of 40 years at Beartown and Cumbres, 2nd at Wolf
+  Creek, 3rd at Hopewell. Half gone Mar 23–26 at Beartown, Cumbres and Hopewell, the earliest of 40
+  years by 14–19 days (next earliest: 2002 at all three); Wolf Creek May 13, its 5th earliest.
   Why half gone: it is relative to each year's peak (comparable across sites), and unlike melt-out
   it isn't set by the last inch of snow, where sensor noise and small late storms move the date.
+
+  Elevations and basin outlines (chain/basin_elevations.py). Site elevations from NRCS metadata:
+  Cumbres Trestle 10,030 ft, Hopewell 10,080, Wolf Creek Summit 10,930, Beartown 11,580. Basins from
+  USGS NLDI outlines; terrain from AWS Terrain Tiles (zoom 10, about 120 m). Areas land within 2% of
+  USGS drainage areas.
+    Basin                     Area       Mean elev   >10k ft   >11k ft   Basin below each index site
+    Rio Chama nr La Puente    488 sq mi   9,265 ft     35%       3.5%    Cumbres 67%, Hopewell 69%
+    Conejos nr Mogote         285        10,487        68%      35%      Cumbres 33%, Wolf Creek 63%
+    Rio Grande nr Del Norte   1,310      10,625        71%      41%      Wolf Creek 56%, Beartown 78%
+  The Chama's other SNOTEL sites are lower (Bateman 9,230 ft, Chamita 8,360 ft).
+  Sites vs. outlines (outlines are simplified; under 0.5 km counts as on the line): Cumbres Trestle
+  0.3 km inside the La Puente and above-Chama basins (on the divide); Hopewell 2.0 km outside the
+  La Puente basin and the Rio Brazos at Fishtail Road basin; Wolf Creek Summit 0.1 km outside Del
+  Norte's (on the divide; NRCS HUC 14080101 puts it on the San Juan side); Beartown 1.2 km inside
+  Del Norte's. Neither Conejos site is inside the Mogote basin (Cumbres 6.4 km out, Wolf Creek 17.6).
+  10,000-ft pair vs. 11,000-ft pair, peak SWE WY1987–2026: rank correlation 0.83; lower pair as a
+  share of the higher, median 0.81 -> 0.77, Sen −0.011/decade, Kendall p = 0.43. Peak change by site,
+  median (mean): Cumbres −14% (−5%), Hopewell −22% (−18%), Wolf Creek −15% (−8%), Beartown −9%
+  (−16%). The two lower sites are also the southernmost (36.7–37.0°N vs. 37.5–37.7°N).
 
   Temperature (chart 10). NRCS SNOTEL daily average temperature, monthly means (25+ days), against
   NOAA nClimDiv monthly temperature for the climate division (CO 5 Rio Grande basin; NM 2 Northern
@@ -273,5 +299,10 @@ TO REGENERATE (from the snotel folder)
   .venv/bin/python chain/cascade_charts.py
   .venv/bin/python chain/eb_evaporation_charts.py
   .venv/bin/python chain/snow_sites_charts.py
+  .venv/bin/python chain/basin_elevations.py
   .venv/bin/python chain/temperature_test.py
   .venv/bin/python chain/mrgcd_annual.py
+  Page copies (Headwaters page): drafts/1_, 2_, 3_ PNGs -> ../images/headwaters/;
+  drafts/9_snowpack_through_the_season.png -> ../images/headwaters/4_snow_melt_timing.png;
+  drafts/snow_to_flow_*.csv and la_puente_wy_flow_1956_2026.csv -> ../data/headwaters/;
+  drafts/snotel_melt_timing_wy.csv -> ../data/headwaters/snow_melt_timing_water_years.csv

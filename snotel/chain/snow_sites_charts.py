@@ -24,6 +24,8 @@ SITES = [  # north to south: name, triplet, elevation (ft), NOAA climate divisio
     ("Hopewell", "532:NM:SNTL", 10080, "NM2"),
 ]
 DIV_NAME = {"CO5": "Colorado Rio Grande basin", "NM2": "New Mexico Northern Mountains"}
+USED_FOR = {"Beartown": "Upper Rio Grande index", "Wolf Creek Summit": "Conejos and upper Rio Grande indices",
+            "Cumbres Trestle": "Rio Chama and Conejos indices", "Hopewell": "Rio Chama index"}
 
 BAR, NAVY, ORANGE = "#b8c4cb", "#1f4a62", "#bc7b2f"
 C_EARLY, C_LATE = "#1d6194", ORANGE
@@ -71,7 +73,12 @@ for name, trip, elev, _ in SITES:
 T = pd.DataFrame(timing)
 for c in ["peak_day", "half_gone_day", "melt_out_day"]:
     T[c.replace("_day", "_date")] = [wy_day_to_date(v) if pd.notna(v) else "" for v in T[c]]
-T.to_csv(OUT / "snotel_melt_timing_wy.csv", index=False, encoding="utf-8-sig")
+site_info = {name: (trip, elev) for name, trip, elev, _ in SITES}
+(T.assign(triplet=T.station.map(lambda s: site_info[s][0]), elevation_ft=T.station.map(lambda s: site_info[s][1]))
+  .rename(columns={c: c.replace("_day", "_days_after_oct1") for c in ["peak_day", "half_gone_day", "melt_out_day"]})
+  [["station", "triplet", "elevation_ft", "water_year", "peak_swe_in", "peak_date", "half_gone_date", "melt_out_date",
+    "peak_days_after_oct1", "half_gone_days_after_oct1", "melt_out_days_after_oct1"]]
+  .to_csv(OUT / "snotel_melt_timing_wy.csv", index=False, encoding="utf-8-sig"))
 
 summary = []
 for name, *_ in SITES:
@@ -103,6 +110,7 @@ for ax, (name, trip, elev, _), s in zip(axes.flat, SITES, summary):
                          f"({abs(shift):.0f} days {'earlier' if shift < 0 else 'later'})",
             transform=ax.transAxes, va="top", fontsize=9, color=INK, linespacing=1.5)
     ax.set_title(f"{name} ({elev:,} ft)", fontsize=10.5, loc="left", fontweight="bold")
+    ax.set_title(USED_FOR[name], fontsize=9, loc="right", color=INK2)
     top = max(c[[y for y in c.columns if EARLY[0] <= y <= LATE[1]]].reindex(DAYS).median(axis=1).max(), 1)
     ax.set_ylim(0, max(ax.get_ylim()[1], top) * 1.28)
     ax.set_ylabel("Snow water equivalent (in)", fontsize=9)
@@ -120,7 +128,8 @@ fig.text(0.012, 0.915, f"Typical snow water equivalent on each date. In recent y
 footnote(fig, "Curves: the median snow water equivalent on each date across the years in each period. Half gone: the first day after each year's peak "
               "when snow water equivalent falls to half of that peak;\nthe dates shown are medians of those yearly dates. Part of the earlier melt comes "
               "from smaller snowpacks; comparing years with similar snowpacks, only Wolf Creek Summit melts clearly earlier.\n"
-              "NRCS SNOTEL daily snow water equivalent (3-day median to remove one-day sensor spikes). WY2025–26 provisional.")
+              "NRCS SNOTEL daily snow water equivalent (3-day median to remove one-day sensor spikes), single sites; the basin indices average two sites. "
+              "WY2025–26 provisional.")
 fig.savefig(OUT / "9_snowpack_through_the_season.png")
 plt.close(fig)
 
